@@ -1,0 +1,68 @@
+.addDataBody {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  .addDataBox {
+    margin: 24px 0;
+    .addData {
+      p {
+        margin-top: 16px;
+        font-size: 11px;
+        font-weight: 400x;
+        line-height: 13px;
+      }
+
+      input {
+        margin-top: 6px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid #686b701a;
+        width: 100%;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 24px;
+      }
+      .ageInput {
+        border-radius: 12px;
+        border: 1px solid #686b701a;
+        width: 50%;
+      }
+      .chooseSex {
+        display: flex;
+        gap: 12px;
+        margin-top: 6px;
+
+        .sex {
+          border-radius: 12px;
+          padding: 12px 8px;
+          border: 1px solid #686b701a;
+          color: #686b701a;
+          cursor: pointer;
+        }
+
+                .sexActive {
+                  border-radius: 12px;
+                  padding: 12px 8px;
+                  border: 1px solid #12adc1;
+                    color: #12adc1;
+                    cursor: pointer;
+                }
+      }
+    }
+  }
+
+  .save {
+    margin-top: auto;
+    .saveBtn {
+      background: #12adc1;
+      color: #fff;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 12px;
+      margin: 0 16px;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+  }
+}

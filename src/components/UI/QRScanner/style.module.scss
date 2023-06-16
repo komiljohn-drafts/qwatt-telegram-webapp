@@ -1,0 +1,17 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.reader {
+  height: 100vh;
+  div {
+    padding: 0 !important;
+    height: 100vh;
+    video {
+      position: static !important;
+      height: 100%;
+      aspect-ratio: 9/16 !important;
+      object-fit: scale-down !important;
+    }
+  }
+}

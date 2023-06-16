@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About component should render Footer component 1`] = `
+<DocumentFragment>
+  <header
+    class="header"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+    >
+      <div
+        class="box"
+      >
+        <a
+          class="logo"
+          href="/"
+        >
+          <h2>
+            Logo
+          </h2>
+        </a>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="/"
+              >
+                home
+              </a>
+            </li>
+            <li>
+              <a
+                href="/blog"
+              >
+                blog
+              </a>
+            </li>
+            <li>
+              <a
+                href="/about"
+              >
+                about
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          class="langs"
+        >
+          <ul>
+            <li>
+              <a
+                href="/"
+              >
+                ru
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                uz
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                en
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+</DocumentFragment>
+`;

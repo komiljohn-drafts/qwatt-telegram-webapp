@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "unit";
+@import "../../public/fonts/font.css";
+
+:root {
+  --primary-color: #51267d;
+  --secondary-color: #fdc100;
+  --text-color: #696969;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.crosshairs {
+  &::before,
+  &::after {
+    background: #fff !important;
+  }
+}
+.ymaps-2-1-79-zoom {
+  height: auto !important;
+  left: auto;
+  width: auto !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  row-gap: 12px;
+  .ymaps-2-1-79-float-button {
+    border-radius: 50%;
+  }
+  .ymaps-2-1-79-zoom__button {
+    position: static !important;
+  }
+}
+.ymaps-2-1-79-controls__control {
+  .ymaps-2-1-79-float-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ymaps-2-1-79-float-button-icon {
+      position: static !important;
+    }
+    .ymaps-2-1-79-float-button-icon_icon_geolocation {
+      background-image: url(/images/target.png);
+    }
+  }
+}

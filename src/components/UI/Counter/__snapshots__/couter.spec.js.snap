@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter component should render Counter component with empty values 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Increment value"
+        class="button"
+      >
+        +
+      </button>
+      <span
+        class="value"
+      >
+        0
+      </span>
+      <button
+        aria-label="Decrement value"
+        class="button"
+      >
+        -
+      </button>
+    </div>
+    <div
+      class="row"
+    >
+      <input
+        aria-label="Set increment amount"
+        class="textbox"
+        value="2"
+      />
+      <button
+        class="button"
+      >
+        Add Amount
+      </button>
+      <button
+        class="asyncButton"
+      >
+        Add Async
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Counter component should render Counter component with values 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Increment value"
+        class="button"
+      >
+        +
+      </button>
+      <span
+        class="value"
+      >
+        4
+      </span>
+      <button
+        aria-label="Decrement value"
+        class="button"
+      >
+        -
+      </button>
+    </div>
+    <div
+      class="row"
+    >
+      <input
+        aria-label="Set increment amount"
+        class="textbox"
+        value="2"
+      />
+      <button
+        class="button"
+      >
+        Add Amount
+      </button>
+      <button
+        class="asyncButton"
+      >
+        Add Async
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,20 @@
+.langBox {
+  padding: 24px 16px 0px;
+  display: flex;
+  gap: 8px;
+}
+.langText {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #686b7080;
+}
+.docWrap {
+  padding: 16px;
+  .document {
+    display: flex;
+    justify-content: space-between;
+    padding: 19px 0;
+    border-bottom: 1px solid #f3f3f3;
+  }
+}

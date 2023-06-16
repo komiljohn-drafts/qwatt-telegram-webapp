@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  // padding: 16px;
+  border-bottom: 1px solid #ededed;
+  width: 100%;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.BackIcon {
+  border: none;
+  background: none;
+  text-align: center;
+  cursor: pointer;
+  margin-right: -40px;
+  padding: 16px;
+}
