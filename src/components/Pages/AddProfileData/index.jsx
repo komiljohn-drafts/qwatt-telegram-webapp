@@ -16,6 +16,8 @@ const AddProfileData = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData?.data);
 
+  console.log("userData", userData);
+
   const {
     register,
     control,
@@ -37,14 +39,13 @@ const AddProfileData = () => {
       },
     })
       .then(() => {
-        navigate("/profile");
-
         request({
           method: "GET",
           url: `user/${userData?.guid}`,
         })
           .then((res) => {
             dispatch(userDataActions.setUserData(res?.data?.data?.response));
+            navigate("/profile");
           })
           .catch((err) => console.log("user data err", err));
       })

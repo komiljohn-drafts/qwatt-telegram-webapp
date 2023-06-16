@@ -13,5 +13,5 @@ export const setStation = async (data) => {
 };
 
 export const getOrders = async (data) => {
-  return await request({ method: "post", url: "/orders", data });
+  return await request({ method: "post", url: "/get-list/orders", data });
 };

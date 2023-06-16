@@ -22,7 +22,6 @@ const useTelegram = () => {
       setTgID("6054841751");
       // setTgID("6225306070");
       // setTgID("6267637476");
-      console.log("window.Telegram", window.Telegram);
     }
   }, []);
 
@@ -30,8 +29,8 @@ const useTelegram = () => {
     if (tgID) {
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
-          console.log("res", res);
-          setUserData(res);
+          console.log("user get", res);
+          setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
           console.log("err", err);

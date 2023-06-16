@@ -7,6 +7,7 @@ import { setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import uzcardicon from "@/assets/images/Frame.svg";
 
 const AddingCard = () => {
   const dispatch = useDispatch();
@@ -105,7 +106,7 @@ const AddingCard = () => {
         <div className={styles.cardNumber}>
           <p>Номер карты</p>
           <div className={styles.cardBody}>
-            <img src="images/Frame.svg" alt="icon"></img>
+            <img src={uzcardicon} alt="icon"></img>
             <InputMask
               mask="9999 9999 9999 9999"
               maskChar={null}

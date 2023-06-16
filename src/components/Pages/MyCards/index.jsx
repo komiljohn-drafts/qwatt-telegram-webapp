@@ -1,9 +1,10 @@
+import { deleteCard, getCards } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
-import { getCards } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import uzcardicon from "@/assets/images/Frame.svg";
 
 const MyCardsPage = () => {
   const navigate = useNavigate();
@@ -28,11 +29,7 @@ const MyCardsPage = () => {
   };
 
   const deleteMyCard = (guid) => {
-    getCards({
-      data: {
-        guid,
-      },
-    })
+    deleteCard(guid, { data: {} })
       .then((res) => {
         console.log("delete-cards res", res);
         getMyCards();
@@ -58,7 +55,7 @@ const MyCardsPage = () => {
               <div className={styles.editCard}>
                 <img
                   className={styles.images}
-                  src="images/Frame.svg"
+                  src={uzcardicon}
                   alt="icon"
                 ></img>
                 <div>
@@ -68,7 +65,7 @@ const MyCardsPage = () => {
               <button
                 className={styles.editBtn}
                 onClick={() => {
-                  deleteMyCard(card?.guid);
+                  deleteMyCard(card?.guid, { data: {} });
                 }}
               >
                 Удалить

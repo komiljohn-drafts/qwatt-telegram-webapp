@@ -11,6 +11,7 @@ import { orderDetailsActions } from "@/store/Order/orderDetails";
 import { setOrder } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
+import uzcardicon from "@/assets/images/Frame.svg";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -150,11 +151,7 @@ const PaymentInfo = () => {
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
           <div className={styles.editCard}>
-            <img
-              className={styles.images}
-              src="images/Frame.svg"
-              alt="icon"
-            ></img>
+            <img className={styles.images} src={uzcardicon} alt="icon"></img>
             <div>
               **** ****{" "}
               {selectedCardId

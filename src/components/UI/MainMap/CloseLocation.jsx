@@ -49,10 +49,10 @@ const CloseLocation = ({
   return (
     <div className={styles.CloseLocationWrap}>
       <div className={styles.closeLocations}>
-        {nearestMerchants?.map((item) => (
+        {nearestMerchants?.map((item, i) => (
           <div
             className={styles.closestBox}
-            key={item?.guid}
+            key={i}
             onClick={() => {
               mapRef.current?.setCenter([item.latitude, item.longitude], 15, {
                 duration: 700,

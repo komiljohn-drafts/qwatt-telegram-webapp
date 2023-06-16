@@ -1,11 +1,11 @@
 import { Box, Modal } from "@mui/material";
-import { useEffect, useState } from "react";
 
 import { LightIcon } from "@/screen-capture/icons";
 import { deleteProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -21,7 +21,6 @@ const style = {
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,10 +45,6 @@ const ProfilePage = () => {
         console.log("profile delete err", err);
       });
   };
-
-  useEffect(() => {
-    handleUserDelete();
-  }, []);
 
   return (
     <div className={styles.profileBox}>

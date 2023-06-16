@@ -2,13 +2,17 @@ import AddCard from "@/pages/add-card";
 import AddData from "@/pages/add-data";
 import App from "@/App";
 import CardOtp from "@/pages/otp";
+import Documentation from "@/pages/doc/Documentation";
+import Faq from "@/pages/doc/faq";
 import Filter from "@/pages/filter";
 import History from "@/pages/history";
 import MyCards from "@/pages/my-cards";
 import Order from "@/pages/order";
 import Payment from "@/pages/payment";
+import PrivacyPolicy from "@/pages/doc/privacypolicy";
 import Profile from "@/pages/profile";
 import Tarif from "@/pages/pricing_description";
+import Termconditions from "@/pages/doc/term&conditions";
 
 const routes = [
   {
@@ -22,9 +26,24 @@ const routes = [
         element: <AddCard />,
       },
       {
-        path: "/add-data",
-        id: "add-data",
-        element: <AddData />,
+        path: "/doc",
+        id: "doc",
+        element: <Documentation />,
+      },
+      {
+        path: "/faq",
+        id: "faq",
+        element: <Faq />,
+      },
+      {
+        path: "/privacypolicy",
+        id: "privacypolicy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/term&conditions",
+        id: "term&conditions",
+        element: <Termconditions />,
       },
       {
         path: "/filter",
@@ -65,6 +84,13 @@ const routes = [
         path: "profile",
         id: "profile",
         element: <Profile />,
+        children: [
+          {
+            path: "add-data",
+            id: "add-data",
+            element: <AddData />,
+          },
+        ],
       },
     ],
   },

@@ -5,5 +5,9 @@ export const getPrice = async (data) => {
 };
 
 export const getPriceFaq = async (data) => {
-  return await request({ method: "post", url: "/pricing_description", data });
+  return await request({
+    method: "post",
+    url: "/get-list/pricing_description",
+    data,
+  });
 };

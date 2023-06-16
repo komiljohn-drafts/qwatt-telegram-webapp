@@ -25,6 +25,7 @@ import CloseLocation from "./CloseLocation";
 import MapPopup from "./MapPopup";
 import OrderInfo from "./OrderInfo";
 import { getMerchantList } from "@/services/getMerchant";
+import img from "@/assets/images/qwatt_pin.png";
 import { locationActions } from "@/store/userLocation/location";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
 import request from "@/utils/axios";
@@ -64,26 +65,6 @@ const MainMap = () => {
     visible: { x: 0, opacity: 1 },
   };
 
-  // const { data, isFetching } = useObjectList({
-  //   tableSlug: "/merchant_list",
-  //   projectId: "4dbfb907-8b4b-460b-906b-cc81c58e656c",
-
-  //   data:
-  //     filters && filters?.length > 0
-  //       ? {
-  //           status: true,
-  //           venue_type_id_2: filters,
-  //         }
-  //       : {
-  //           status: true,
-  //         },
-  //   getListParams: {
-  //     onSuccess: () => {},
-  //     onError: () => {},
-  //     select: (data) => data.data.data.response,
-  //   },
-  // });
-
   useEffect(() => {
     getMerchantList({
       data:
@@ -104,7 +85,6 @@ const MainMap = () => {
       });
   }, [filters]);
 
-  /////
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,
@@ -187,7 +167,6 @@ const MainMap = () => {
       sortMerchants(data);
     }
   }, [data, sortMerchants, locationIds]);
-  /////
 
   useEffect(() => {
     if (!userData?.guid) return;
@@ -213,26 +192,6 @@ const MainMap = () => {
       });
     });
   }, []);
-
-  // if (isFetching) {
-  //   return (
-  //     <ThreeDots
-  //       height="80"
-  //       width="80"
-  //       radius="9"
-  //       color="#12adc1"
-  //       ariaLabel="three-dots-loading"
-  //       wrapperStyle={{
-  //         position: "absolute",
-  //         top: "50%",
-  //         left: "50%",
-  //         transform: "translate(-50%, -50%)",
-  //       }}
-  //       wrapperClassName=""
-  //       visible={true}
-  //     />
-  //   );
-  // }
 
   return (
     <div style={{ position: "relative" }}>
@@ -376,9 +335,9 @@ const MainMap = () => {
               geoObjectHideIconOnBalloonOpen: true,
             }}
           >
-            {data?.map((branch) => (
+            {data?.map((branch, i) => (
               <Placemark
-                key={branch.key}
+                key={i}
                 geometry={[branch.latitude, branch.longitude]}
                 onClick={() => {
                   setSelectedBranch(branch);
@@ -395,7 +354,7 @@ const MainMap = () => {
                 options={{
                   iconLayout: "default#image",
                   // Custom image for the placemark icon.
-                  iconImageHref: "images/qwatt_pin.png",
+                  iconImageHref: img,
                   // The size of the placemark.
                   iconImageSize: [50, 50],
                   iconImageOffset: [-30, -30],

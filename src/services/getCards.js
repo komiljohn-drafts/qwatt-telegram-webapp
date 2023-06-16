@@ -17,10 +17,10 @@ export const setCard = async (data) => {
   });
 };
 
-export const deleteCard = async (data) => {
+export const deleteCard = async (guid, data) => {
   return await request({
     method: "delete",
-    url: "/credit_card_list",
+    url: `/credit_card_list/${guid}`,
     data,
   });
 };
