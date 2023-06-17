@@ -12,7 +12,7 @@ replicaCount: 1
 
 image:
   registry: gitlab.udevs.io:5050/
-  repository: qwatt/qwatt_frontend
+  repository: qwatt/qwatt_telegram_frontend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
