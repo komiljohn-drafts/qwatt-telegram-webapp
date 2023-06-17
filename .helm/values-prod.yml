@@ -85,13 +85,13 @@ ingress:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       type: web
       hosts:
-        - host: "qbot.qwatt.uz"
+        - host: "test.qbot.qwatt.uz"
           path: /
           servicePort: 80
       tls:
-        - secretName: bot-secret-tls
+        - secretName: front-secret-tls
           hosts:
-            - "qbot.qwatt.uz"
+            - "test.qbot.qwatt.uz"
 
 resources:
   {}
