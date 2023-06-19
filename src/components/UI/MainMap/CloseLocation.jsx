@@ -16,6 +16,7 @@ const CloseLocation = ({
 }) => {
   const userData = useSelector((state) => state.userData?.data);
   const navigate = useNavigate();
+
   const { t } = useTranslation();
 
   function kilometerParseMeter(lat, long) {
@@ -38,7 +39,7 @@ const CloseLocation = ({
       })
       .then((res) => {
         if (res?.data?.data?.count == 0) {
-          navigate("/add-card", { from: "order" });
+          navigate("/add-card?from=order");
         } else {
           navigate("/order");
         }

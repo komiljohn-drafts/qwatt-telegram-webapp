@@ -1,11 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
-
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import InputMask from "react-input-mask";
 import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
 import { setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import uzcardicon from "@/assets/images/Frame.svg";
@@ -13,7 +12,7 @@ import uzcardicon from "@/assets/images/Frame.svg";
 const AddingCard = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  let params = useParams();
+  const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -21,6 +20,8 @@ const AddingCard = () => {
   const [isExpiryDateError, setIsExpiryDateError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+
+  console.log("search", params.get("from"));
 
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
@@ -78,9 +79,9 @@ const AddingCard = () => {
               expire_date: expiryDate.replace("/", ""),
             })
           );
-          if (params?.from == "order") {
+          if (params.get("from") == "order") {
             navigate("/otp", { from: "order" });
-          } else if (params?.from == "payment") {
+          } else if (params.get("from") == "payment") {
             navigate("/otp", { from: "payment" });
           } else {
             navigate("/otp");
