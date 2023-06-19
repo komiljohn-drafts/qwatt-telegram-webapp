@@ -26,6 +26,7 @@ const useTelegram = () => {
   }, []);
 
   useEffect(() => {
+    console.log("tgID", tgID);
     if (tgID) {
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
