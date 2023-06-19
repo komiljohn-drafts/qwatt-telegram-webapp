@@ -13,17 +13,19 @@ const useTelegram = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       dispatch(
-        userTelegramDataActions.setUserTelegramData({
-          data: window.Telegram?.WebApp?.initDataUnsafe?.user,
-        })
+        userTelegramDataActions.setUserTelegramData(
+          window.Telegram?.WebApp?.initDataUnsafe?.user
+        )
       );
 
-      setTgID(userTelegramData?.id);
+      setTgID(userTelegramData?.data?.id);
       // setTgID("6054841751");
       // setTgID("6225306070");
       // setTgID("6267637476");
     }
   }, []);
+
+  console.log("userTelegramData", userTelegramData);
 
   useEffect(() => {
     console.log("tgID", tgID);
