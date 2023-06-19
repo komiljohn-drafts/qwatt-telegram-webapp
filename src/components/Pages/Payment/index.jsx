@@ -17,6 +17,7 @@ import uzcardicon from "@/assets/images/Frame.svg";
 const PaymentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
   const [myCards, setMyCards] = useState([]);
@@ -30,6 +31,8 @@ const PaymentInfo = () => {
   const [isSuccessAlertOpen, setSuccessAlertOpen] = useState(false);
   const [successAlertProps, setSuccessAlertProps] = useState({});
   const [data, setData] = useState([]);
+
+  console.log("params in payment", params.get("from"));
 
   const selectorRes = useMemo(() => {
     if (

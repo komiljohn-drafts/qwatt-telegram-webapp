@@ -34,6 +34,12 @@ const OrderCreate = () => {
           text: "Автомат находится в неисправном состоянии и не может выдавать аренду (offline)",
           action: () => setErrorAlertOpen(false),
         });
+      } else if (res?.data?.data?.count == 0) {
+        setErrorAlertOpen(true);
+        setErrorAlertProps({
+          text: "Автомат не найден",
+          action: () => setErrorAlertOpen(false),
+        });
       } else if (
         res?.data?.data?.response[0]?.status == false &&
         res?.data?.data?.response[0]?.merchant_list_id == ""
@@ -58,9 +64,7 @@ const OrderCreate = () => {
 
   return (
     <div className={styles.addingCardWrap}>
-      <p className="text-center text-[#686B70] font-medium mb-8">
-        Введи 6-значный код который написан на станции.
-      </p>
+      <p className="text-center text-[#686B70] font-medium mb-8"></p>
       <div className={styles.otpWrap}>
         <ReactCodeInput
           style={{
@@ -75,7 +79,7 @@ const OrderCreate = () => {
         )}
         {isOrderNumError == true && (
           <p className={styles.errorMessage}>
-            Введите действительный код станции
+            {t("enterDigitCodeThatIsWrittenOnStation")}
           </p>
         )}
       </div>

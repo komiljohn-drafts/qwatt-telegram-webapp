@@ -1,16 +1,16 @@
 import { setCard, setCardOtp, setConfirmCardToken } from "@/services/getCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
 import { cardVerifyActions } from "@/store/slices/cardVerify";
 import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const OTPcode = () => {
-  const params = useParams();
+  const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -25,6 +25,8 @@ const OTPcode = () => {
   const [clickErrorNote, setClickErrorNote] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+
+  console.log("params in otp", params.get("from"));
 
   const handleSendOtp = () => {
     if (otp.length < 5) {
@@ -59,9 +61,9 @@ const OTPcode = () => {
           },
         })
           .then(() => {
-            if (params?.from == "order") {
+            if (params.get("from") == "order") {
               navigate("/order");
-            } else if (params?.from == "payment") {
+            } else if (params.get("from") == "payment") {
               navigate("/payment");
             } else {
               navigate("/my-cards");

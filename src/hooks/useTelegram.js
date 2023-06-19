@@ -17,21 +17,20 @@ const useTelegram = () => {
           window.Telegram?.WebApp?.initDataUnsafe?.user
         )
       );
-
-      // setTgID("6054841751");
-      // setTgID("6225306070");
-      // setTgID("6267637476");
     }
   }, []);
 
   useEffect(() => {
     setTgID(userTelegramData?.id);
+    // setTgID("6054841751");
+    // setTgID("6225306070");
+    // setTgID("6267637476");
   }, [userTelegramData]);
 
-  console.log("userTelegramData", userTelegramData);
+  // console.log("userTelegramData", userTelegramData);
 
   useEffect(() => {
-    console.log("tgID", tgID);
+    // console.log("tgID", tgID);
     if (tgID) {
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {

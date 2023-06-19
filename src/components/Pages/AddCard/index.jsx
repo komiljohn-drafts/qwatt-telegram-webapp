@@ -21,7 +21,7 @@ const AddingCard = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
-  console.log("search", params.get("from"));
+  console.log("params in addcard", params.get("from"));
 
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
@@ -80,9 +80,9 @@ const AddingCard = () => {
             })
           );
           if (params.get("from") == "order") {
-            navigate("/otp", { from: "order" });
+            navigate("/otp?from=order", { from: "order" });
           } else if (params.get("from") == "payment") {
-            navigate("/otp", { from: "payment" });
+            navigate("/otp?from=payment", { from: "payment" });
           } else {
             navigate("/otp");
           }
