@@ -11,11 +11,13 @@ import { orderDetailsActions } from "@/store/Order/orderDetails";
 import { setOrder } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import uzcardicon from "@/assets/images/Frame.svg";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
   const [myCards, setMyCards] = useState([]);
   const userData = useSelector((state) => state.userData?.data);
@@ -165,7 +167,7 @@ const PaymentInfo = () => {
             className={styles.editBtn}
             onClick={() => setCardSelectOpen(true)}
           >
-            Изменить
+            {t("change")}
           </button>
           <SwipeableDrawer
             anchor="bottom"
@@ -186,7 +188,7 @@ const PaymentInfo = () => {
                 style={{ background: "rgba(133, 127, 127, 0.15)" }}
               />
               <h2 className="text-center text-lg font-semibold mb-2">
-                Выбрать способ оплаты
+                {t("choosePaymentMethod")}
               </h2>
               {myCards?.map((card) => (
                 <div
@@ -232,7 +234,7 @@ const PaymentInfo = () => {
                 }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"
               >
-                Продолжить
+                {t("continueButton")}
               </button>
             </div>
           </SwipeableDrawer>

@@ -7,10 +7,12 @@ import { setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import uzcardicon from "@/assets/images/Frame.svg";
 
 const AddingCard = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   let params = useParams();
   const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");
@@ -98,13 +100,10 @@ const AddingCard = () => {
 
   return (
     <div className={styles.addingCardWrap}>
-      <div className={styles.cardHeaderText}>
-        Данные вашей карты надёжно защищены. При дальнейших платежах повторно
-        вводить данные не потребуется
-      </div>
+      <div className={styles.cardHeaderText}>{t("secured_card")}</div>
       <div className={styles.addCardBox}>
         <div className={styles.cardNumber}>
-          <p>Номер карты</p>
+          <p>{t("cardNumber")}</p>
           <div className={styles.cardBody}>
             <img src={uzcardicon} alt="icon"></img>
             <InputMask
@@ -116,14 +115,14 @@ const AddingCard = () => {
             />
           </div>
           {isCardNumError && (
-            <div className="text-sm text-red-600">
-              Номер карты должен состоять из 16 цифр
-            </div>
+            <div className="text-sm text-red-600">{t("card_validation")}</div>
           )}
         </div>
         <div className={styles.cardData}>
           <div className={styles.cardInfo}>
-            <p>Месяц / год</p>
+            <p>
+              {t("month")} / {t("year")}
+            </p>
             <div className={styles.cardDate}>
               <InputMask
                 className={styles.InputMask}
@@ -136,7 +135,7 @@ const AddingCard = () => {
             </div>
             {isExpiryDateError && (
               <div className="text-sm text-red-600">
-                Введите действительный срок действия
+                {t("expiry_date_validation")}
               </div>
             )}
           </div>
@@ -151,7 +150,7 @@ const AddingCard = () => {
       />
 
       <button className={styles.addBtn} onClick={handleCheckCardValid}>
-        Привязать
+        {t("bind")}
       </button>
     </div>
   );

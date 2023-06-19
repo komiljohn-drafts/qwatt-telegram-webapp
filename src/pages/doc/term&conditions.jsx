@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import MobileHeader from "@/components/UI/MobileHeader";
 import { getPriceFaq } from "@/services/getPrice";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Termconditions = () => {
   const [data, setData] = useState(null);
+  const { t } = useTranslation();
 
   const getTermconditions = () => {
     getPriceFaq({
@@ -24,7 +26,7 @@ const Termconditions = () => {
 
   return (
     <div>
-      <MobileHeader title="Пользовательские соглашения" />
+      <MobileHeader title={t("userAgreements")} />
 
       <div
         className={styles.docHtml}

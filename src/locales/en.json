@@ -1,3 +1,13 @@
 {
-    "profile":"Profile"
+    "profile":"Profile",
+    "order_history":"Order history",
+    "my_cards":"My cards",
+    "tariffs":"Tariffs",
+    "documentation":"Documentation",
+    "download_app":"Download app",
+    "get_powerbank":"Get powerbank",
+    "on_use":"On use",
+    "how_to_return_powerbank":"How to return powerbank ?",
+    "rental_price":"Rental price",
+    "lacks":"Lacks"
 }

@@ -7,9 +7,11 @@ import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
 import { cardVerifyActions } from "@/store/slices/cardVerify";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const OTPcode = () => {
   const params = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [isOtpError, setIsOtpError] = useState(false);
@@ -109,7 +111,7 @@ const OTPcode = () => {
   return (
     <div className={styles.addingCardWrap}>
       <div className={styles.cardHeaderText}>
-        Мы отправили код подтверждения на номер телефона {""}
+        {t("weHaveSentConfirmationCodeToYourPhoneNumber")} {""}
         {userData?.phone}
       </div>
       <div className={isOtpError ? styles.topErrWrap : styles.otpWrap}>
@@ -160,7 +162,7 @@ const OTPcode = () => {
               }}
               className="font-semibold cursor-pointer text-center mb-4 text-[#12ADC1]"
             >
-              Отправить еще раз
+              {t("sendAgain")}
             </p>
           )}
         </div>
@@ -173,7 +175,7 @@ const OTPcode = () => {
         />
 
         <button className={styles.Btn} onClick={handleSendOtp}>
-          Привязать
+          {t("bind")}
         </button>
       </div>
     </div>

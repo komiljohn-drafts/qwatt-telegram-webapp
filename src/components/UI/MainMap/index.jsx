@@ -249,7 +249,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <HistoryIcon />
                   </div>
-                  <div>История заказа</div>
+                  <div>{t("historyOfOrders")}</div>
                 </div>
                 <div
                   className={styles.menuItem}
@@ -258,7 +258,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <MyCardIcon />
                   </div>
-                  <div>Мои карты</div>
+                  <div>{t("myCards")}</div>
                 </div>
                 <div
                   className={styles.menuItem}
@@ -267,7 +267,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <MyTarifIcon />
                   </div>
-                  <div>Тарифы</div>
+                  <div>{t("rates")}</div>
                 </div>
                 <div
                   className={styles.menuItem}
@@ -277,11 +277,11 @@ const MainMap = () => {
                     <DocumentsIcon />
                   </div>
 
-                  <div>Документация</div>
+                  <div>{t("documentation")}</div>
                 </div>
 
                 <div className={styles.downloadApp}>
-                  <p>Скачать приложение</p>
+                  <p>{t("download_app")}</p>
                   <div className={styles.apps}>
                     <div>
                       <AppStoreIcon />

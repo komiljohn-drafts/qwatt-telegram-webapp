@@ -5,6 +5,7 @@ import request from "@/utils/axios";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const CloseLocation = ({
   nearestMerchants,
@@ -15,6 +16,7 @@ const CloseLocation = ({
 }) => {
   const userData = useSelector((state) => state.userData?.data);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function kilometerParseMeter(lat, long) {
     const distanceInMeters = Math.floor(
@@ -72,7 +74,7 @@ const CloseLocation = ({
         ))}
       </div>
       <button onClick={handleClick} className={styles.getButton}>
-        <LightingIcon /> Взять заряд
+        <LightingIcon /> {t("getPowerBank")}
       </button>
     </div>
   );

@@ -1,10 +1,13 @@
 import { format, parseISO } from "date-fns";
 
+import PropTypes from "prop-types";
 import styles from "./style.module.scss";
 import useOrderTimer from "@/hooks/useOrderTimer";
+import { useTranslation } from "react-i18next";
 
 const ActiveCard = ({ order }) => {
   const { orderStatusTime } = useOrderTimer();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.usedHistory}>
@@ -30,7 +33,7 @@ const ActiveCard = ({ order }) => {
 
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>Начало аренды</p>
+          <p>{t("rentalAmount")}</p>
           <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
           <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
             order?.merchant_list_id_data?.business_hour_start || "00:00"
@@ -39,14 +42,16 @@ const ActiveCard = ({ order }) => {
       )}
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>Сумма аренды</p>
-          <div>{`${order?.amounbefore || 0} сум`}</div>
+          <p>{t("rentalAmount")}</p>
+          <div>
+            {`${order?.amounbefore || 0}`} {t("Используется")}
+          </div>
         </div>
       )}
 
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>Повербанк ID</p>
+          <p>{t("powerBankId")}</p>
           <div>{order?.battery_list_id_data?.powerbank_id}</div>
         </div>
       )}
@@ -55,3 +60,11 @@ const ActiveCard = ({ order }) => {
 };
 
 export default ActiveCard;
+
+ActiveCard.propTypes = {
+  order: PropTypes.object,
+};
+
+ActiveCard.defaultProps = {
+  order: {},
+};

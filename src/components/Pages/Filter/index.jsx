@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { fitlerActions } from "../../../store/slices/filter.slice";
 import { getVenueList } from "@/services/getMerchant";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const FilterPage = () => {
   const dispatch = useDispatch();
   const { filterIds } = useSelector((state) => state.filters);
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
 
   const getFilterVenueList = () => {
@@ -32,7 +34,7 @@ const FilterPage = () => {
     <div>
       <div>
         <button className={styles.resetFilter} onClick={handleResetFilter}>
-          Сбросить фильтр
+          {t("resetFilter")}
         </button>
       </div>
       <div className={styles.radioBtnWrap}>

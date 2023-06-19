@@ -8,10 +8,12 @@ import { setProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { userDataActions } from "@/store/slices/userData";
 
 const AddProfileData = () => {
   const [gender, setGender] = useState(0);
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData?.data);
@@ -74,7 +76,7 @@ const AddProfileData = () => {
       >
         <div className={styles.addDataBox}>
           <div className={styles.addData}>
-            <p>Имя</p>
+            <p>{t("name")}</p>
             <input
               control={control}
               {...register("name", { required: true, minLength: 3 })}
@@ -85,7 +87,7 @@ const AddProfileData = () => {
             )}
           </div>
           <div className={styles.addData}>
-            <p>Телефон номер*</p>
+            <p>{t("phoneNumber")}*</p>
             <InputMask
               mask={"+999 99 999 99 99"}
               disabled={true}
@@ -94,7 +96,7 @@ const AddProfileData = () => {
             ></InputMask>
           </div>
           <div className={styles.addData}>
-            <p>Возраст</p>
+            <p>{t("age")}</p>
             <input
               control={control}
               {...register("age", { required: true, min: 5, max: 99 })}
@@ -107,7 +109,7 @@ const AddProfileData = () => {
             )}
           </div>
           <div className={styles.addData}>
-            <p>Пол</p>
+            <p>{t("gender")}</p>
             <div className={styles.chooseSex}>
               <div
                 onClick={() => {
@@ -115,13 +117,13 @@ const AddProfileData = () => {
                 }}
                 className={gender == 1 ? styles.sexActive : styles.sex}
               >
-                Мужской
+                {t("male")}
               </div>
               <div
                 onClick={() => setGender(2)}
                 className={gender == 2 ? styles.sexActive : styles.sex}
               >
-                Женский
+                {t("female")}
               </div>
             </div>
           </div>
@@ -130,7 +132,7 @@ const AddProfileData = () => {
           className="w-full bg-[#12ADC1] text-white rounded-[12px] h-[48px]"
           type="submit"
         >
-          Сохранить
+          {t("save")}
         </button>
       </form>
     </div>

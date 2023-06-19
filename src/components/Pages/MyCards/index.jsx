@@ -2,6 +2,7 @@ import { deleteCard, getCards } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
 import styles from "./style.module.scss";
+import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import uzcardicon from "@/assets/images/Frame.svg";
@@ -68,7 +69,7 @@ const MyCardsPage = () => {
                   deleteMyCard(card?.guid, { data: {} });
                 }}
               >
-                Удалить
+                {t("delete")}
               </button>
             </div>
           ))}

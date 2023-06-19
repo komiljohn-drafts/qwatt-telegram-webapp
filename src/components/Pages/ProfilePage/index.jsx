@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -21,6 +22,7 @@ const style = {
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,11 +51,11 @@ const ProfilePage = () => {
   return (
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
-        <p className={styles.profileHeader}>Личные данные</p>
+        <p className={styles.profileHeader}>{t("personalData")}</p>
         <p className={styles.profileText}>{userData?.phone || ""}</p>
         <div className={styles.balls}>
           <LightIcon />
-          <p>0 баллов</p>
+          <p>0 {t("score")}</p>
         </div>
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           Редактировать
@@ -67,10 +69,10 @@ const ProfilePage = () => {
             window.Telegram?.WebApp?.close();
           }}
         >
-          Выйти из аккаунта
+          {t("signOut")}
         </div>
         <div onClick={handleOpen} className={styles.deleteAccount}>
-          Удалить аккаунт
+          {t("deleteAccount")}
         </div>
       </div>
       <Modal
@@ -80,9 +82,9 @@ const ProfilePage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <p className={styles.modalHeader}>Удалить аккаунт?</p>
+          <p className={styles.modalHeader}> {t("deleteAccount")} ?</p>
           <p className={styles.modalSubtext}>
-            Все ваши данные аренд и начисленные балы будут удалены безвозвратно.
+            {t("allYourRentalDataAndAccruedPointsWillBePermanentlyDeleted")}
           </p>
           <div className={styles.modalBtns}>
             <button
@@ -91,7 +93,7 @@ const ProfilePage = () => {
                 setOpen(false);
               }}
             >
-              Отменить
+              {t("cancel")}
             </button>
             <button
               className={styles.deleteBtn}
@@ -100,7 +102,7 @@ const ProfilePage = () => {
                 setOpen(false);
               }}
             >
-              Удалить
+              {t("delete")}
             </button>
           </div>
         </Box>

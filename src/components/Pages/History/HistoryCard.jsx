@@ -1,12 +1,15 @@
 import { DollorIcon, DownIcon, TimeIcon, UpIcon } from "@/screen-capture/icons";
-import React, { useState } from "react";
 import { format, parseISO } from "date-fns";
 
+import PropTypes from "prop-types";
 import moment from "moment";
 import styles from "./style.module.scss";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const HistoryCard = ({ order, orderStatusTime }) => {
+const HistoryCard = ({ order }) => {
   const [open, setOpen] = useState();
+  const { t } = useTranslation();
   const readMoreHandler = () => {
     setOpen(!open);
   };
@@ -27,21 +30,23 @@ const HistoryCard = ({ order, orderStatusTime }) => {
         <div>
           <DollorIcon />
         </div>
-        <div>{`${order?.amounbefore || 0} сум`}</div>
+        <div>
+          {`${order?.amounbefore || 0}`} {t("sum")}
+        </div>
       </div>
 
       {open && (
         <>
           {order?.amounbefore - order?.amount_after > 0 && (
             <div className={styles.usedInfo}>
-              <p>Долг к оплате</p>
+              <p>{t("debtPayable")}</p>
               <div className={styles.debtPayment}>
-                {`${order?.amounbefore - order?.amount_after || 0} сум`}
+                {`${order?.amounbefore - order?.amount_after || 0}`} {t("sum")}
               </div>
             </div>
           )}
           <div className={styles.usedInfo}>
-            <p>Начало аренды</p>
+            <p>{t("rentalStart")}</p>
             <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
               moment.utc(order?.created_time).format("HH:mm") || "00:00"
@@ -49,14 +54,14 @@ const HistoryCard = ({ order, orderStatusTime }) => {
           </div>
 
           <div className={styles.usedInfo}>
-            <p>Завершения аренды</p>
+            <p>{t("endOfLease")}</p>
             <div>Метро Ноза</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
               moment.utc(order?.end_time).format("HH:mm") || "00:00"
             }`}</div>
           </div>
           <div className={styles.usedInfo}>
-            <p>Способ оплаты</p>
+            <p>{t("paymentMethod")}</p>
             <div>
               **** **** ****{" "}
               {order?.credit_card_list_id_data?.credit_card?.slice(-4) ||
@@ -64,7 +69,7 @@ const HistoryCard = ({ order, orderStatusTime }) => {
             </div>
           </div>
           <div className={styles.usedInfo}>
-            <p>Повербанк ID</p>
+            <p>{t("powerBankId")}</p>
             <div>{order?.battery_list_id_data?.powerbank_id}</div>
           </div>
         </>
@@ -81,3 +86,11 @@ const HistoryCard = ({ order, orderStatusTime }) => {
 };
 
 export default HistoryCard;
+
+HistoryCard.propTypes = {
+  order: PropTypes.object,
+};
+
+HistoryCard.defaultProps = {
+  order: {},
+};

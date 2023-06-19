@@ -6,10 +6,12 @@ import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const OrderCreate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [orderNumber, setOrderNumber] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const [isOrderNumError, setIsOrderNumError] = useState(false);
@@ -96,7 +98,7 @@ const OrderCreate = () => {
             }
           }}
         >
-          Привязать
+          {t("bind")}
         </button>
       </div>
     </div>

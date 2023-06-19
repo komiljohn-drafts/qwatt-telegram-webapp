@@ -2,13 +2,16 @@ import { ForwardIcon } from "@/screen-capture/icons";
 import icon from "@/assets/images/rusIcon.png";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const DocPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className={styles.langBox}>
-        <p className={styles.langText}>Русский </p>
+        <p className={styles.langText}>{t("rus")}</p>
         <img src={icon}></img>
       </div>
 
@@ -17,7 +20,7 @@ const DocPage = () => {
           className={styles.document}
           onClick={() => navigate("/term&conditions")}
         >
-          <div>Пользовательские соглашения</div>
+          <div>{t("userAgreements")}</div>
           <ForwardIcon />
         </div>
         <div
