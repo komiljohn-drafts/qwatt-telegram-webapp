@@ -18,12 +18,15 @@ const useTelegram = () => {
         )
       );
 
-      setTgID(userTelegramData?.data?.id);
       // setTgID("6054841751");
       // setTgID("6225306070");
       // setTgID("6267637476");
     }
   }, []);
+
+  useEffect(() => {
+    setTgID(userTelegramData?.data?.id);
+  }, [userTelegramData]);
 
   console.log("userTelegramData", userTelegramData);
 
