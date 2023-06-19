@@ -42,7 +42,7 @@ const MainMap = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { locationIds } = useSelector((state) => state.locations);
-  const filters = useSelector((state) => state.filters.filterIds);
+  const { filterId } = useSelector((state) => state.filter);
   const [data, setData] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -67,23 +67,37 @@ const MainMap = () => {
 
   useEffect(() => {
     getMerchantList({
-      data:
-        filters && filters?.length > 0
-          ? {
-              status: true,
-              venue_type_id_2: filters,
-            }
-          : {
-              status: true,
-            },
+      data: {
+        status: true,
+      },
     })
       .then((res) => {
-        setData(res?.data?.data?.response);
+        let filteredData = [];
+
+        if (filterId == 1) {
+          res?.data?.data?.response?.forEach((merchant) => {
+            if (merchant?.allavailableslots > 0) {
+              filteredData.push(merchant);
+            }
+          });
+        }
+
+        if (filterId == 2) {
+          res?.data?.data?.response?.forEach((merchant) => {
+            if (merchant?.allreturnableslots > 0) {
+              filteredData.push(merchant);
+            }
+          });
+        }
+
+        setData(
+          filteredData?.length == 0 ? res?.data?.data?.response : filteredData
+        );
       })
       .catch((err) => {
         console.log("merchant err", err);
       });
-  }, [filters]);
+  }, [filterId]);
 
   useEffect(() => {
     const options = {

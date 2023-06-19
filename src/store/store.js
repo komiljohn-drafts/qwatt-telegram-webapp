@@ -29,7 +29,7 @@ const persistConfig = {
 };
 
 const filterPersisConfig = {
-  key: "filters",
+  key: "filter",
   storage,
 };
 
@@ -55,11 +55,10 @@ const userTelegramDataPersistConfig = {
 
 const rootReducer = combineReducers({
   counter: persistReducer(persistConfig, counterSlice),
-  filters: persistReducer(filterPersisConfig, filterReducers),
+  filter: persistReducer(filterPersisConfig, filterReducers),
   locations: locationReducers,
   orders: orderReducers,
   userData: persistReducer(userDataPersistConfig, userDataReducers),
-
   cardVerify: persistReducer(cardVerifyPersist, cardVerifyReducers),
   cardDetails: cardDetailsReducer,
   orderDetails: persistReducer(orderDetailsPersist, orderDetailsReducer),
