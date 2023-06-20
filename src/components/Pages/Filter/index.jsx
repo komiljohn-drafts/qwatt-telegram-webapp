@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 const data = [
   {
     guid: "1",
-    name: "getPowerBank",
+    name: "take_powerbank",
   },
   {
     guid: "2",
-    name: "returnPowerBank",
+    name: "return_powerbank",
   },
 ];
 
@@ -25,14 +25,14 @@ const FilterPage = () => {
   };
 
   const handleResetFilter = () => {
-    dispatch(fitlerActions.resetFilter()); // Dispatch the action to reset the filter in Redux
+    dispatch(fitlerActions.resetFilter());
   };
 
   return (
     <div>
       <div>
         <button className={styles.resetFilter} onClick={handleResetFilter}>
-          {t("resetFilter")}
+          {t("reset_filter")}
         </button>
       </div>
       <div className={`${styles.radioBtnWrap}`}>

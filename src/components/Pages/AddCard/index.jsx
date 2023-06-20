@@ -103,22 +103,24 @@ const AddingCard = () => {
 
   return (
     <div className={styles.addingCardWrap}>
-      <div className={styles.cardHeaderText}>{t("secured_card")}</div>
+      <div className={styles.cardHeaderText}>{t("card_is_secured")}</div>
       <div className={styles.addCardBox}>
         <div className={styles.cardNumber}>
-          <p>{t("cardNumber")}</p>
+          <p>{t("card_number")}</p>
           <div className={styles.cardBody}>
             <img src={cardTypeIcon || cardicon} alt="card"></img>
             <InputMask
               mask="9999 9999 9999 9999"
               maskChar={null}
-              placeholder="Номер карты"
+              placeholder={t("card_number")}
               value={cardNumber}
               onChange={handleCardNumberChange}
             />
           </div>
           {isCardNumError && (
-            <div className="text-sm text-red-600">{t("card_validation")}</div>
+            <div className="text-sm text-red-600">
+              {t("card_num_validation_error")}
+            </div>
           )}
         </div>
         <div className={styles.cardData}>
@@ -131,14 +133,14 @@ const AddingCard = () => {
                 className={styles.InputMask}
                 mask="99/99"
                 maskChar={null}
-                placeholder="Срок действия"
+                placeholder={t("card_validation")}
                 value={expiryDate}
                 onChange={handleExpiryDateChange}
               ></InputMask>
             </div>
             {isExpiryDateError && (
               <div className="text-sm text-red-600">
-                {t("expiry_date_validation")}
+                {t("expiry_date_validation_error")}
               </div>
             )}
           </div>
@@ -153,7 +155,7 @@ const AddingCard = () => {
       />
 
       <button className={styles.addBtn} onClick={handleCheckCardValid}>
-        {t("bind")}
+        {t("confirm")}
       </button>
     </div>
   );

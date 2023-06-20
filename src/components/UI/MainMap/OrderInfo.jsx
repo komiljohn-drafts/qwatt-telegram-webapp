@@ -49,7 +49,7 @@ export default function OrderInfo() {
             </div>
           )}
           <div className="flex flex-row w-full rounded-b-2xl bg-white p-4 justify-between items-center">
-            <p className="text-[#686B70]">Место аренды:</p>
+            <p className="text-[#686B70]">{t("rental_place")}:</p>
             <p className="text-[#282727]">{params.get("place")}</p>
           </div>
         </div>

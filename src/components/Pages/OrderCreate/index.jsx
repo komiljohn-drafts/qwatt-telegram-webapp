@@ -31,13 +31,13 @@ const OrderCreate = () => {
       ) {
         setErrorAlertOpen(true);
         setErrorAlertProps({
-          text: "Автомат находится в неисправном состоянии и не может выдавать аренду (offline)",
+          text: t("station_is_offline"),
           action: () => setErrorAlertOpen(false),
         });
       } else if (res?.data?.data?.count == 0) {
         setErrorAlertOpen(true);
         setErrorAlertProps({
-          text: "Автомат не найден",
+          text: t("station_is_not_found"),
           action: () => setErrorAlertOpen(false),
         });
       } else if (
@@ -46,12 +46,12 @@ const OrderCreate = () => {
       ) {
         setErrorAlertOpen(true);
         setErrorAlertProps({
-          text: "Автомат находится в неисправном состоянии и не может выдавать аренду (disabled)",
+          text: t("station_is_disabled"),
           action: () => setErrorAlertOpen(false),
         });
       } else if (res?.data?.data?.response[0]?.status == true) {
         dispatch(orderActions.setOrderId(res.data?.data ?? {}));
-        res.data.data.count > 0 && navigate("/payment");
+        res?.data?.data?.count > 0 && navigate("/payment");
       }
     });
   };
@@ -64,7 +64,9 @@ const OrderCreate = () => {
 
   return (
     <div className={styles.addingCardWrap}>
-      <p className="text-center text-[#686B70] font-medium mb-8"></p>
+      <p className="text-center text-[#686B70] font-medium mb-8">
+        {t("enter_station_code")}
+      </p>
       <div className={styles.otpWrap}>
         <ReactCodeInput
           style={{
@@ -73,14 +75,13 @@ const OrderCreate = () => {
           }}
           value={orderNumber}
           onChange={handleOrderCode}
+          onComplete={handleSetStation}
         ></ReactCodeInput>
         {errorMsg?.count == 0 && (
-          <p className={styles.errorMessage}>Неверный код</p>
+          <p className={styles.errorMessage}>{t("incorrect_otp_leng")}</p>
         )}
         {isOrderNumError == true && (
-          <p className={styles.errorMessage}>
-            {t("enterDigitCodeThatIsWrittenOnStation")}
-          </p>
+          <p className={styles.errorMessage}>{t("incorrect_otp_leng")}</p>
         )}
       </div>
 
@@ -102,7 +103,7 @@ const OrderCreate = () => {
             }
           }}
         >
-          {t("bind")}
+          {t("confirm")}
         </button>
       </div>
     </div>

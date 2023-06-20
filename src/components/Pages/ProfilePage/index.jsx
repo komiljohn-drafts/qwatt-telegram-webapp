@@ -1,6 +1,6 @@
 import { Box, Modal } from "@mui/material";
 
-import { LightIcon } from "@/screen-capture/icons";
+// import { LightIcon } from "@/screen-capture/icons";
 import { deleteProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
-  width: "280px",
+  width: "300px",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "12px",
@@ -51,16 +51,16 @@ const ProfilePage = () => {
   return (
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
-        <p className={styles.profileHeader}>{t("personalData")}</p>
+        <p className={styles.profileHeader}>{t("personal_details")}</p>
         <p className={styles.profileText}>{userData?.phone || ""}</p>
-        <div className={styles.balls}>
+        {/* <div className={styles.balls}>
           <LightIcon />
           <p>0 {t("score")}</p>
-        </div>
+        </div> */}
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
-          Редактировать
+          {t("change")}
         </div>
-        <p className={styles.getBall}>Заполните профиль и получите 20 баллов</p>
+        {/* <p className={styles.getBall}>Заполните профиль и получите 20 баллов</p> */}
       </div>
       <div className={styles.profileBtn}>
         <div
@@ -69,10 +69,10 @@ const ProfilePage = () => {
             window.Telegram?.WebApp?.close();
           }}
         >
-          {t("signOut")}
+          {t("logout")}
         </div>
         <div onClick={handleOpen} className={styles.deleteAccount}>
-          {t("deleteAccount")}
+          {t("delete_account")}
         </div>
       </div>
       <Modal
@@ -82,9 +82,9 @@ const ProfilePage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <p className={styles.modalHeader}> {t("deleteAccount")} ?</p>
+          <p className={styles.modalHeader}> {t("delete_account")} ?</p>
           <p className={styles.modalSubtext}>
-            {t("allYourRentalDataAndAccruedPointsWillBePermanentlyDeleted")}
+            {t("delete_account_confirmation")}
           </p>
           <div className={styles.modalBtns}>
             <button

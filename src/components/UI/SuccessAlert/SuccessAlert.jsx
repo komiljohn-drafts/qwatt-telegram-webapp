@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { SuccessIcon } from "@/screen-capture/icons";
 import { SwipeableDrawer } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function SuccessAlert({
   openAlert,
@@ -9,6 +10,8 @@ export default function SuccessAlert({
   text,
   action,
 }) {
+  const { t } = useTranslation();
+
   return (
     <SwipeableDrawer
       anchor="bottom"
@@ -34,7 +37,7 @@ export default function SuccessAlert({
         <SuccessIcon />
 
         <h2 className="text-center text-lg font-semibold">
-          {title || "Успешно арендовано"}
+          {title || t("successfully_rented")}
         </h2>
 
         <p className="text-center text-sm text-[#686B70] mb-4">
@@ -48,7 +51,7 @@ export default function SuccessAlert({
             setOpenAlert(false);
           }}
         >
-          В главное меню
+          {t("to_menu")}
         </button>
       </div>
     </SwipeableDrawer>

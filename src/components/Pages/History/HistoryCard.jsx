@@ -39,33 +39,33 @@ const HistoryCard = ({ order }) => {
         <>
           {order?.amounbefore - order?.amount_after > 0 && (
             <div className={styles.usedInfo}>
-              <p>{t("debtPayable")}</p>
+              <p>{t("debt")}</p>
               <div className={styles.debtPayment}>
                 {`${order?.amounbefore - order?.amount_after || 0}`} {t("sum")}
               </div>
             </div>
           )}
           <div className={styles.usedInfo}>
-            <p>{t("rentalStart")}</p>
+            <p>{t("rental_start")}</p>
             <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-              moment.utc(order?.created_time).format("HH:mm") || "00:00"
+              moment.utc(order?.created_time).format("HH:mm") || ""
             }`}</div>
           </div>
 
           <div className={styles.usedInfo}>
-            <p>{t("endOfLease")}</p>
+            <p>{t("rental_end")}</p>
             <div>Метро Ноза</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-              moment.utc(order?.end_time).format("HH:mm") || "00:00"
+              moment.utc(order?.end_time).format("HH:mm") || ""
             }`}</div>
           </div>
           <div className={styles.usedInfo}>
-            <p>{t("paymentMethod")}</p>
+            <p>{t("payment_method")}</p>
             <div>{order?.credit_card_list_id_data?.credit_card || ""}</div>
           </div>
           <div className={styles.usedInfo}>
-            <p>{t("powerBankId")}</p>
+            <p>{t("powerbank_id")}</p>
             <div>{order?.battery_list_id_data?.powerbank_id}</div>
           </div>
         </>
@@ -73,7 +73,7 @@ const HistoryCard = ({ order }) => {
 
       <div className={styles.moreWrap}>
         <div className={styles.moreBtn} onClick={readMoreHandler}>
-          {!open ? "Подробно" : "Закрыть"}
+          {!open ? t("more") : t("close")}
         </div>
         {!open ? <DownIcon /> : <UpIcon />}
       </div>

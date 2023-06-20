@@ -7,7 +7,7 @@ const History = () => {
 
   return (
     <div>
-      <MobileHeader title={t("historyOfOrders")} />
+      <MobileHeader title={t("order_history")} />
       <HistoryPage />
     </div>
   );

@@ -18,7 +18,9 @@ const ActiveCard = ({ order }) => {
               className="flex items-center justify-center px-2 py-1 rounded-2xl"
               style={{ background: "rgba(18, 173, 193, 0.15)" }}
             >
-              <p className="font-medium text-sm text-[#12ADC1]">Используется</p>
+              <p className="font-medium text-sm text-[#12ADC1]">
+                {t("on_use")}
+              </p>
             </div>
             <p className="font-medium text-[#12ADC1]">{`${
               orderStatusTime.hours < 10 ? "0" : ""
@@ -33,25 +35,25 @@ const ActiveCard = ({ order }) => {
 
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>{t("rentalAmount")}</p>
+          <p>{t("rental_amount")}</p>
           <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
           <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-            order?.merchant_list_id_data?.business_hour_start || "00:00"
+            order?.merchant_list_id_data?.business_hour_start || ""
           }`}</div>
         </div>
       )}
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>{t("rentalAmount")}</p>
+          <p>{t("rental_amount")}</p>
           <div>
-            {`${order?.amounbefore || 0}`} {t("Используется")}
+            {`${order?.amounbefore || 0}`} {t("on_use")}
           </div>
         </div>
       )}
 
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>{t("powerBankId")}</p>
+          <p>{t("powerbank_id")}</p>
           <div>{order?.battery_list_id_data?.powerbank_id}</div>
         </div>
       )}

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { CheckUserBlocked } from "@/helpers/checkUserBlocked";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import SuccessAlert from "@/components/UI/SuccessAlert/SuccessAlert";
 import { SwipeableDrawer } from "@mui/material";
@@ -18,7 +19,6 @@ import { useTranslation } from "react-i18next";
 const PaymentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
   const [myCards, setMyCards] = useState([]);
@@ -33,8 +33,6 @@ const PaymentInfo = () => {
   const [successAlertProps, setSuccessAlertProps] = useState({});
   const [data, setData] = useState([]);
 
-  console.log("params in payment", params.get("from"));
-
   const selectorRes = useMemo(() => {
     if (
       selector &&
@@ -47,6 +45,15 @@ const PaymentInfo = () => {
   }, [selector]);
 
   const handleCreateOrder = () => {
+    if (CheckUserBlocked() == true) {
+      setErrorAlertOpen(true);
+      setErrorAlertProps({
+        text: t("account_is_blocked"),
+        action: () => setErrorAlertOpen(false),
+      });
+      return;
+    }
+
     setOrder({
       data: {
         user_id: userData?.guid,
@@ -121,7 +128,7 @@ const PaymentInfo = () => {
 
   return (
     <div className={styles.PaymentWrap}>
-      <div className={styles.stationHeader}>Информация о станции</div>
+      <div className={styles.stationHeader}>{t("station_info")}</div>
       <div className={styles.stationBox}>
         {" "}
         <div className={styles.stationAddress}>
@@ -130,19 +137,19 @@ const PaymentInfo = () => {
         </div>
         <div className={styles.stationInfo}>
           <div className={styles.stationDetail}>
-            <p>Кабинет ID</p>
+            <p>{t("cabinet_id")}</p>
             <div className={styles.tarifLine}></div>
             <span>{selectorRes?.station_id}</span>
           </div>
           <div className={styles.stationDetail}>
             {" "}
-            <p>Статус</p>
+            <p>{t("status")}</p>
             <div className={styles.tarifLine}></div>
-            <span>{selectorRes?.status ? "Онлайн" : "оффлайн"}</span>
+            <span>{selectorRes?.status ? t("online") : t("offline")}</span>
           </div>
         </div>
       </div>
-      <div className={styles.stationHeader}>Информация об оплате</div>
+      <div className={styles.stationHeader}>{t("payment_info")}</div>
       <div className={styles.paymentPlan}>
         {data?.map((item) => (
           <div className={styles.paymentBox} key={item?.guid}>
@@ -152,7 +159,7 @@ const PaymentInfo = () => {
           </div>
         ))}
       </div>
-      <div className={styles.stationHeader}>Способ оплаты</div>
+      <div className={styles.stationHeader}>{t("payment_method")}</div>
 
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
@@ -190,7 +197,7 @@ const PaymentInfo = () => {
                 style={{ background: "rgba(133, 127, 127, 0.15)" }}
               />
               <h2 className="text-center text-lg font-semibold mb-2">
-                {t("choosePaymentMethod")}
+                {t("choose_payment_method")}
               </h2>
               {myCards?.map((card) => {
                 const { icon } = checkCardType(card?.credit_card);
@@ -229,7 +236,7 @@ const PaymentInfo = () => {
                   navigate("/add-card", { from: "payment" });
                 }}
               >
-                + Добавить карту
+                + {t("add_card")}
               </button>
               <button
                 style={{ background: "rgba(133, 127, 127, 0.15)" }}
@@ -252,8 +259,8 @@ const PaymentInfo = () => {
         action={successAlertProps?.action}
       />
 
-      <div className={styles.question}>
-        Что будет если не вернуть повербанк?
+      <div className={styles.question} onClick={() => navigate("./faq")}>
+        {t("powerbank_lost")}
       </div>
 
       <ErrorAlert
@@ -274,7 +281,7 @@ const PaymentInfo = () => {
           }
         }}
       >
-        Арендовать сейчас
+        {t("rent_now")}
       </button>
     </div>
   );

@@ -5,10 +5,12 @@ import HistoryCard from "./HistoryCard";
 import { getOrders } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const HistoryPage = () => {
   const userData = useSelector((state) => state.userData?.data);
   const [historyData, setHistoryData] = useState([]);
+  const { t } = useTranslation();
 
   const getOrderHistory = () => {
     getOrders({
@@ -41,10 +43,8 @@ const HistoryPage = () => {
       ) : (
         <div className={styles.NoHistory}>
           <div className={styles.NoHistoryBox}>
-            <h1 className={styles.header}>Пока ничего не арендовано</h1>
-            <p className={styles.text}>
-              Арендуйте повербанки и отслеживайте историю аренд здесь.
-            </p>
+            <h1 className={styles.header}>{t("no_orders")}</h1>
+            <p className={styles.text}>{t("make_order")}</p>
           </div>
         </div>
       )}

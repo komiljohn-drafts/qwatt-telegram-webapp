@@ -263,7 +263,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <HistoryIcon />
                   </div>
-                  <div>{t("historyOfOrders")}</div>
+                  <div>{t("order_history")}</div>
                 </div>
                 <div
                   className={styles.menuItem}
@@ -272,7 +272,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <MyCardIcon />
                   </div>
-                  <div>{t("myCards")}</div>
+                  <div>{t("my_cards")}</div>
                 </div>
                 <div
                   className={styles.menuItem}
@@ -281,7 +281,7 @@ const MainMap = () => {
                   <div className={styles.menuIcon}>
                     <MyTarifIcon />
                   </div>
-                  <div>{t("rates")}</div>
+                  <div>{t("tariffs")}</div>
                 </div>
                 <div
                   className={styles.menuItem}

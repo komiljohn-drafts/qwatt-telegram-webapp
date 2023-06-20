@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import MobileHeader from "@/components/UI/MobileHeader";
 import { getPriceFaq } from "@/services/getPrice";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const PrivacyPolicy = () => {
   const [data, setData] = useState(null);
+  const { t } = useTranslation();
 
   const getPrivacyPolicy = () => {
     getPriceFaq({
@@ -24,7 +26,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div>
-      <MobileHeader title="Обработка данных" />
+      <MobileHeader title={t("data_processing")} />
 
       <div
         className={styles.docHtml}

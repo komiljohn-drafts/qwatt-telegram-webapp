@@ -75,7 +75,7 @@ const CloseLocation = ({
         ))}
       </div>
       <button onClick={handleClick} className={styles.getButton}>
-        <LightingIcon /> {t("getPowerBank")}
+        <LightingIcon /> {t("get_powerbank")}
       </button>
     </div>
   );

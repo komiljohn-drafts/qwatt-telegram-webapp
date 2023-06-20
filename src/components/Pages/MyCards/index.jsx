@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
 import styles from "./style.module.scss";
-import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const MyCardsPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const userData = useSelector((state) => state.userData?.data);
   const [data, setData] = useState(null);
 
@@ -50,7 +51,7 @@ const MyCardsPage = () => {
       {data?.length ? (
         <>
           <div className={styles.text}>
-            <p>{t("thisIsWhereYourCardsAndPointsAreStored")}</p>
+            <p>{t("this_is_cards")}</p>
           </div>
           {data?.map((card) => {
             const { icon } = checkCardType(card?.credit_card);
@@ -80,17 +81,17 @@ const MyCardsPage = () => {
         <>
           {" "}
           <div className={styles.headerText}>
-            <p>{t("thisIsWhereYourCardsAndPointsAreStored")}</p>
+            <p>{t("this_is_cards")}</p>
           </div>
           <div className={styles.myCardsBody}>
-            <h1>Нет добавленных карт</h1>
-            <p>Добавляйте свои карты и арендуйте повербанки</p>
+            <h1>{t("no_cards")}</h1>
+            <p>{t("add_card_and_order")}</p>
           </div>
         </>
       )}
 
       <div className={styles.addBtn} onClick={() => navigate("/add-card")}>
-        + Добавить карту
+        + {t("add_card")}
       </div>
     </div>
   );

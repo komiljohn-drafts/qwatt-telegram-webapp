@@ -26,7 +26,7 @@ const Termconditions = () => {
 
   return (
     <div>
-      <MobileHeader title={t("userAgreements")} />
+      <MobileHeader title={t("user_agreements")} />
 
       <div
         className={styles.docHtml}

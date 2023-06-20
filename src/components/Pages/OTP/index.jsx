@@ -26,8 +26,8 @@ const OTPcode = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
-  const handleSendOtp = () => {
-    if (otp.length < 5) {
+  const handleSendOtp = (val) => {
+    if (val.length < 5) {
       setIsOtpError(true);
       return;
     }
@@ -116,7 +116,7 @@ const OTPcode = () => {
   return (
     <div className={styles.addingCardWrap}>
       <div className={styles.cardHeaderText}>
-        {t("weHaveSentConfirmationCodeToYourPhoneNumber")} {""}
+        {t("we_send_code")} {""}
         {userData?.phone}
       </div>
       <div className={isOtpError ? styles.topErrWrap : styles.otpWrap}>
@@ -124,16 +124,23 @@ const OTPcode = () => {
           fields={5}
           value={otp}
           onChange={(val) => {
-            setOtp(val);
             setIsOtpError(false);
+            setOtp(val);
+
+            // if (val.length == 5) {
+            //   handleSendOtp(val);
+            // }
           }}
           style={{ width: "48px", height: "48px" }}
         ></ReactCodeInput>
+
         {isOtpError && (
-          <p className="text-sm text-red-600">Введите действительный отп</p>
+          <p className="text-sm text-red-600 text-center">
+            {t("incorrect_otp_leng")}
+          </p>
         )}
         {clickErrorNote && (
-          <p className="text-sm text-red-600">{clickErrorNote}</p>
+          <p className="text-sm text-red-600 text-center">{clickErrorNote}</p>
         )}
       </div>
 
@@ -167,7 +174,7 @@ const OTPcode = () => {
               }}
               className="font-semibold cursor-pointer text-center mb-4 text-[#12ADC1]"
             >
-              {t("sendAgain")}
+              {t("send_again")}
             </p>
           )}
         </div>
@@ -179,8 +186,13 @@ const OTPcode = () => {
           action={errorAlertProps.action}
         />
 
-        <button className={styles.Btn} onClick={handleSendOtp}>
-          {t("bind")}
+        <button
+          className={styles.Btn}
+          onClick={() => {
+            handleSendOtp(otp);
+          }}
+        >
+          {t("confirm")}
         </button>
       </div>
     </div>

@@ -1,10 +1,13 @@
 import MobileHeader from "@/components/UI/MobileHeader";
 import OrderCreate from "@/components/Pages/OrderCreate";
+import { useTranslation } from "react-i18next";
 
 const Order = () => {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <MobileHeader title={"Введите код под QR кодом"} />
+      <MobileHeader title={t("enter_qr_code")} />
       <OrderCreate />
     </div>
   );

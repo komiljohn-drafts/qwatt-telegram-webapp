@@ -18,13 +18,7 @@ const AddProfileData = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData?.data);
 
-  const {
-    register,
-    control,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, control, reset, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     if (!userData?.guid) return;
@@ -76,17 +70,10 @@ const AddProfileData = () => {
         <div className={styles.addDataBox}>
           <div className={styles.addData}>
             <p>{t("name")}</p>
-            <input
-              control={control}
-              {...register("name", { required: true, minLength: 3 })}
-              placeholder="Kamoliddin"
-            ></input>
-            {errors.name && (
-              <p className="text-red-600 !mt-2">First name is required</p>
-            )}
+            <input control={control} {...register("name")}></input>
           </div>
           <div className={styles.addData}>
-            <p>{t("phoneNumber")}*</p>
+            <p>{t("phone_number")}*</p>
             <InputMask
               mask={"+999 99 999 99 99"}
               disabled={true}
@@ -98,14 +85,10 @@ const AddProfileData = () => {
             <p>{t("age")}</p>
             <input
               control={control}
-              {...register("age", { required: true, min: 5, max: 99 })}
-              placeholder="19"
+              {...register("age")}
               type="number"
               className={styles.ageInput}
             ></input>
-            {errors.age && (
-              <p className="text-red-600 !mt-2">Age must be between 5 and 99</p>
-            )}
           </div>
           <div className={styles.addData}>
             <p>{t("gender")}</p>
