@@ -1,11 +1,12 @@
 import { deleteCard, getCards } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
+import cardicon from "@/assets/images/card.jpg";
+import { checkCardType } from "@/helpers/checkCardType";
 import styles from "./style.module.scss";
 import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import uzcardicon from "@/assets/images/Frame.svg";
 
 const MyCardsPage = () => {
   const navigate = useNavigate();
@@ -49,36 +50,37 @@ const MyCardsPage = () => {
       {data?.length ? (
         <>
           <div className={styles.text}>
-            <p>Тут хранятся ваши карты</p>
+            <p>{t("thisIsWhereYourCardsAndPointsAreStored")}</p>
           </div>
-          {data.map((card) => (
-            <div className={styles.paymentMethod} key={card.guid}>
-              <div className={styles.editCard}>
-                <img
-                  className={styles.images}
-                  src={uzcardicon}
-                  alt="icon"
-                ></img>
-                <div>
-                  {`**** **** ${card.credit_card?.toString().slice(-8)}`}
+          {data?.map((card) => {
+            const { icon } = checkCardType(card?.credit_card);
+            return (
+              <div className={styles.paymentMethod} key={card.guid}>
+                <div className={styles.editCard}>
+                  <img
+                    className={styles.images}
+                    src={icon || cardicon}
+                    alt="icon"
+                  ></img>
+                  <div>{card?.credit_card}</div>
                 </div>
+                <button
+                  className={styles.editBtn}
+                  onClick={() => {
+                    deleteMyCard(card?.guid, { data: {} });
+                  }}
+                >
+                  {t("delete")}
+                </button>
               </div>
-              <button
-                className={styles.editBtn}
-                onClick={() => {
-                  deleteMyCard(card?.guid, { data: {} });
-                }}
-              >
-                {t("delete")}
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </>
       ) : (
         <>
           {" "}
           <div className={styles.headerText}>
-            <p>Тут хранятся ваши карты</p>
+            <p>{t("thisIsWhereYourCardsAndPointsAreStored")}</p>
           </div>
           <div className={styles.myCardsBody}>
             <h1>Нет добавленных карт</h1>

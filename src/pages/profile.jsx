@@ -9,7 +9,7 @@ const Profile = () => {
   if (match) {
     return (
       <div>
-        <MobileHeader title="Профиль" />
+        <MobileHeader title="Профиль" path="/" />
         <ProfilePage />
       </div>
     );

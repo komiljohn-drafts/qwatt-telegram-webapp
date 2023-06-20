@@ -5,6 +5,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import SuccessAlert from "@/components/UI/SuccessAlert/SuccessAlert";
 import { SwipeableDrawer } from "@mui/material";
+import cardicon from "@/assets/images/card.jpg";
+import { checkCardType } from "@/helpers/checkCardType";
 import { getCards } from "@/services/getCards";
 import { getPrice } from "@/services/getPrice";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
@@ -12,7 +14,6 @@ import { setOrder } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import uzcardicon from "@/assets/images/Frame.svg";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -156,14 +157,12 @@ const PaymentInfo = () => {
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
           <div className={styles.editCard}>
-            <img className={styles.images} src={uzcardicon} alt="icon"></img>
+            <img className={styles.images} src={cardicon} alt="icon"></img>
             <div>
-              **** ****{" "}
               {selectedCardId
-                ? myCards
-                    .filter((card) => card?.guid == selectedCardId)?.[0]
-                    ?.credit_card?.slice(-8)
-                : myCards?.at(-1)?.credit_card?.slice(8)}
+                ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]
+                    ?.credit_card
+                : myCards?.at(-1)?.credit_card}
             </div>
           </div>
           <button
@@ -193,33 +192,36 @@ const PaymentInfo = () => {
               <h2 className="text-center text-lg font-semibold mb-2">
                 {t("choosePaymentMethod")}
               </h2>
-              {myCards?.map((card) => (
-                <div
-                  onClick={() => setSelectedCardId(card?.guid)}
-                  key={card?.card_token}
-                  className={`flex flex-row justify-between border cursor-pointer ${
-                    card?.guid == selectedCardId
-                      ? "border-[#12ADC1]"
-                      : "border-[#F1F1F1]"
-                  }  py-3 px-4 rounded-2xl items-center`}
-                >
-                  <div className={"flex flex-row gap-6"}>
-                    <img
-                      className={"w-4 h-4"}
-                      src="images/Frame.svg"
-                      alt="icon"
-                    ></img>
-                    <div>**** **** {card?.credit_card?.slice(-8)}</div>
-                  </div>
-                  <button
-                    className={`${
-                      card?.guid == selectedCardId ? "block" : "hidden"
-                    }`}
+              {myCards?.map((card) => {
+                const { icon } = checkCardType(card?.credit_card);
+                return (
+                  <div
+                    onClick={() => setSelectedCardId(card?.guid)}
+                    key={card?.card_token}
+                    className={`flex flex-row justify-between border cursor-pointer ${
+                      card?.guid == selectedCardId
+                        ? "border-[#12ADC1]"
+                        : "border-[#F1F1F1]"
+                    }  py-3 px-4 rounded-2xl items-center`}
                   >
-                    <CheckCircleIcon sx={{ color: "#12ADC1" }} />
-                  </button>
-                </div>
-              ))}
+                    <div className={"flex flex-row gap-6"}>
+                      <img
+                        className={"w-4 h-4"}
+                        src={icon || cardicon}
+                        alt="icon"
+                      ></img>
+                      <div>{card?.credit_card}</div>
+                    </div>
+                    <button
+                      className={`${
+                        card?.guid == selectedCardId ? "block" : "hidden"
+                      }`}
+                    >
+                      <CheckCircleIcon sx={{ color: "#12ADC1" }} />
+                    </button>
+                  </div>
+                );
+              })}
               <button
                 style={{ background: "rgba(104, 107, 112, 0.05)" }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"

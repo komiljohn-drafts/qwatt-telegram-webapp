@@ -4,7 +4,7 @@ import MobileHeader from "@/components/UI/MobileHeader";
 const Documentation = () => {
   return (
     <div>
-      <MobileHeader title="Документация" />
+      <MobileHeader title="Документация" path="/" />
       <DocPage />
     </div>
   );

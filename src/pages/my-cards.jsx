@@ -4,7 +4,7 @@ import MyCardsPage from "@/components/Pages/MyCards";
 const MyCards = () => {
   return (
     <div>
-      <MobileHeader title="Мои карты" />
+      <MobileHeader title="Мои карты" path="/" />
       <MyCardsPage />
     </div>
   );

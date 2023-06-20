@@ -1,13 +1,14 @@
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import InputMask from "react-input-mask";
 import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
+import cardicon from "@/assets/images/card.jpg";
+import { checkCardType } from "@/helpers/checkCardType";
 import { setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import uzcardicon from "@/assets/images/Frame.svg";
 
 const AddingCard = () => {
   const dispatch = useDispatch();
@@ -16,15 +17,16 @@ const AddingCard = () => {
   const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
+  const [cardTypeIcon, setCardTypeIcon] = useState(null);
   const [isCardNumError, setIsCardNumError] = useState(false);
   const [isExpiryDateError, setIsExpiryDateError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
-  console.log("params in addcard", params.get("from"));
-
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
+    const { icon } = checkCardType(event.target.value);
+    setCardTypeIcon(icon);
     setIsCardNumError(false);
   };
 
@@ -80,9 +82,9 @@ const AddingCard = () => {
             })
           );
           if (params.get("from") == "order") {
-            navigate("/otp?from=order", { from: "order" });
+            navigate("/otp?from=order");
           } else if (params.get("from") == "payment") {
-            navigate("/otp?from=payment", { from: "payment" });
+            navigate("/otp?from=payment");
           } else {
             navigate("/otp");
           }
@@ -106,7 +108,7 @@ const AddingCard = () => {
         <div className={styles.cardNumber}>
           <p>{t("cardNumber")}</p>
           <div className={styles.cardBody}>
-            <img src={uzcardicon} alt="icon"></img>
+            <img src={cardTypeIcon || cardicon} alt="card"></img>
             <InputMask
               mask="9999 9999 9999 9999"
               maskChar={null}

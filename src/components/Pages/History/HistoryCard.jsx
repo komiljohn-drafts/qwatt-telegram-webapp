@@ -62,11 +62,7 @@ const HistoryCard = ({ order }) => {
           </div>
           <div className={styles.usedInfo}>
             <p>{t("paymentMethod")}</p>
-            <div>
-              **** **** ****{" "}
-              {order?.credit_card_list_id_data?.credit_card?.slice(-4) ||
-                "0000"}
-            </div>
+            <div>{order?.credit_card_list_id_data?.credit_card || ""}</div>
           </div>
           <div className={styles.usedInfo}>
             <p>{t("powerBankId")}</p>

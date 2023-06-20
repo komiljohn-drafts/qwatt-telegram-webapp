@@ -12,8 +12,8 @@ import { useTranslation } from "react-i18next";
 const OTPcode = () => {
   const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
   const [isOtpError, setIsOtpError] = useState(false);
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(30);
@@ -25,8 +25,6 @@ const OTPcode = () => {
   const [clickErrorNote, setClickErrorNote] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
-
-  console.log("params in otp", params.get("from"));
 
   const handleSendOtp = () => {
     if (otp.length < 5) {
@@ -42,8 +40,10 @@ const OTPcode = () => {
     })
       .then((res) => {
         dispatch(cardVerifyActions.setCardVerify(true));
+        console.log("card sms res", res);
 
-        if (res?.data?.data?.error_code) {
+        if (res?.data?.data?.data?.error_code) {
+          console.log("error code", res?.data?.data?.data?.error_code);
           setErrorAlertOpen(true);
           setErrorAlertProps({
             text: res?.data?.data?.data?.error_note,
@@ -51,6 +51,7 @@ const OTPcode = () => {
               setErrorAlertOpen(false);
             },
           });
+          return;
         }
 
         setCard({
@@ -61,12 +62,14 @@ const OTPcode = () => {
           },
         })
           .then(() => {
+            console.log("card list success");
             if (params.get("from") == "order") {
-              navigate("/order");
+              navigate("/order", { replace: true });
             } else if (params.get("from") == "payment") {
-              navigate("/payment");
+              navigate("/payment", { replace: true });
             } else {
-              navigate("/my-cards");
+              console.log("redirect to my cards");
+              navigate("/my-cards", { replace: true });
             }
           })
           .catch((err) => {
