@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import MobileHeader from "@/components/UI/MobileHeader";
 import { getTariffs } from "@/services/getTariffs";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Tarif = () => {
   const [data, setData] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getTariffs({
@@ -20,7 +22,7 @@ const Tarif = () => {
 
   return (
     <div>
-      <MobileHeader title="Тарифы" />
+      <MobileHeader title={t("tariffs")} />
 
       <div
         className={styles.priceHtml}
