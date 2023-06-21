@@ -21,7 +21,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: lang || "ru",
+  lng: "ru",
 
   keySeparator: false,
 
