@@ -25,13 +25,8 @@ const useTelegram = () => {
   useEffect(() => {
     setTgID(userTelegramData?.id);
     if (userTelegramData?.language_code) {
-      localStorage.setItem("lang", userTelegramData?.language_code);
+      changeLang(userTelegramData?.language_code);
     }
-    changeLang(
-      localStorage.getItem(
-        localStorage.setItem("lang", userTelegramData?.language_code || "ru")
-      )
-    );
 
     // setTgID("6054841751");
     // setTgID("6225306070");
