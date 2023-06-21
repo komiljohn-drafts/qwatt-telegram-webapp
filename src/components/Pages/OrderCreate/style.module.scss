@@ -14,12 +14,18 @@
     width: 343px;
   }
   .otpWrap {
-    margin: 0 auto;
+    margin: 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       input {
         border: 1px solid #12adc1;
         outline: 1px solid #12adc1 !important;
-        margin: 5px;
+        margin: 3px;
         border-radius: 12px;
         width: 48px !important;
         height: 48px !important;
