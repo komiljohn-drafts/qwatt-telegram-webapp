@@ -46,14 +46,14 @@ const PaymentInfo = () => {
   }, [selector]);
 
   const handleCreateOrder = () => {
-    // if (CheckUserBlocked() == true) {
-    //   setErrorAlertOpen(true);
-    //   setErrorAlertProps({
-    //     text: t("account_is_blocked"),
-    //     action: () => setErrorAlertOpen(false),
-    //   });
-    //   return;
-    // }
+    if (CheckUserBlocked() == true) {
+      setErrorAlertOpen(true);
+      setErrorAlertProps({
+        text: t("account_is_blocked"),
+        action: () => setErrorAlertOpen(false),
+      });
+      return;
+    }
 
     setOrder({
       data: {

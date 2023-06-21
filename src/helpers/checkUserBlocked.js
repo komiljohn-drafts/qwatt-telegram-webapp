@@ -8,12 +8,11 @@ export const CheckUserBlocked = () => {
   const [isBlocked, setIsBlocked] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
 
-  console.log("user check", userDetails);
-
   const getUserDetails = () => {
     if (!userData?.guid) return;
     getProfile(userData?.guid).then((res) => {
-      setUserDetails(res?.data?.data?.response?.[0]);
+      setUserDetails(res?.data?.data?.response);
+      console.log("user details", res);
     });
   };
 
@@ -22,10 +21,12 @@ export const CheckUserBlocked = () => {
   }, []);
 
   useEffect(() => {
-    if (userDetails?.blocked == true) {
+    if (userDetails?.block == true) {
       setIsBlocked(true);
     }
   }, [userData?.guid]);
+
+  console.log("user check", isBlocked);
 
   return isBlocked;
 };

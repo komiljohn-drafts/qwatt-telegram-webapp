@@ -3,7 +3,7 @@ import useOrderTimer from "@/hooks/useOrderTimer";
 import { useTranslation } from "react-i18next";
 
 export default function OrderInfo() {
-  const { debt, price, orderStatusTime, orderStatus } = useOrderTimer();
+  const { debt, price, orderStatusTime, orderStatus, place } = useOrderTimer();
   const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function OrderInfo() {
           )}
           <div className="flex flex-row w-full rounded-b-2xl bg-white p-4 justify-between items-center">
             <p className="text-[#686B70]">{t("rental_place")}:</p>
-            <p className="text-[#282727]">{params.get("place")}</p>
+            <p className="text-[#282727]">{params.get("place") || place}</p>
           </div>
         </div>
       </div>

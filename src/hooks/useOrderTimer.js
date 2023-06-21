@@ -11,6 +11,7 @@ export default function useOrderTimer() {
   const [orderStatus, setOrderStatus] = useState(null);
   const [orderStatusGuid, setOrderStatusGuid] = useState(null);
   const [price, setPrice] = useState(null);
+  const [place, setPlace] = useState(null);
   const [debt, setDebt] = useState(null);
   const [orderStatusTime, setOrderStatusTime] = useState({
     hours: 0,
@@ -18,6 +19,8 @@ export default function useOrderTimer() {
     seconds: 0,
   });
   const orderData = useSelector((state) => state.orderDetails?.data);
+
+  console.log("order data", orderData);
 
   const getOrderDetails = () => {
     if (!orderData?.guid) return;
@@ -29,6 +32,7 @@ export default function useOrderTimer() {
       console.log("order details", res?.data?.data?.response);
       setPrice(res?.data?.data?.response?.amounbefore);
       setFetchedData(res?.data?.data?.response);
+      setPlace(orderData?.merchant_list_id_data?.venune_name_in_english);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();
@@ -131,5 +135,5 @@ export default function useOrderTimer() {
     };
   }, [orderStatusTime]);
 
-  return { fetchedData, orderStatus, orderStatusTime, price, debt };
+  return { fetchedData, orderStatus, orderStatusTime, price, debt, place };
 }
