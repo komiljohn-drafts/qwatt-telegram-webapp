@@ -76,11 +76,6 @@ const OrderCreate = () => {
       </p>
       <div className={styles.otpWrap}>
         <ReactCodeInput
-          className="w-10 h-10"
-          style={{
-            width: "48px",
-            height: "48px",
-          }}
           value={orderNumber}
           onChange={handleOrderCode}
         ></ReactCodeInput>

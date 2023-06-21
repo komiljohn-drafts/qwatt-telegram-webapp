@@ -80,5 +80,6 @@
     "charge_and_enjoy":"Charge and enjoy using",
     "good":"Good",
     "error":"An error has occurred",
-    "error_text":"An error has occurred. Please try again later"
+    "error_text":"An error has occurred. Please try again later",
+    "continue":"Continue"
 }

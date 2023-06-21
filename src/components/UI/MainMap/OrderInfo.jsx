@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import useOrderTimer from "@/hooks/useOrderTimer";
 import { useTranslation } from "react-i18next";
 
 export default function OrderInfo() {
   const { debt, price, orderStatusTime, orderStatus } = useOrderTimer();
-  const params = new URLSearchParams();
+  const params = new URLSearchParams(document.location.search);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   if (
     orderStatus === "In The Lease" ||
@@ -19,9 +21,14 @@ export default function OrderInfo() {
               className="flex items-center justify-center px-2 py-1 rounded-2xl"
               style={{ background: "rgba(255, 255, 255, 0.15)" }}
             >
-              <p className="font-medium">{t("used")}</p>
+              <p className="font-medium">{t("on_use")}</p>
             </div>
-            <p className="font-medium">{t("how_to_return_powerbank")}</p>
+            <p
+              className="font-medium cursor-pointer"
+              onClick={() => navigate("/faq")}
+            >
+              {t("how_to_return_powerbank")}
+            </p>
           </div>
 
           <div className="flex flex-row w-full bg-white p-4 justify-between items-center">

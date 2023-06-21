@@ -29,6 +29,7 @@ const PaymentInfo = () => {
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+  const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
   const [isSuccessAlertOpen, setSuccessAlertOpen] = useState(false);
   const [successAlertProps, setSuccessAlertProps] = useState({});
   const [data, setData] = useState([]);
@@ -45,14 +46,14 @@ const PaymentInfo = () => {
   }, [selector]);
 
   const handleCreateOrder = () => {
-    if (CheckUserBlocked() == true) {
-      setErrorAlertOpen(true);
-      setErrorAlertProps({
-        text: t("account_is_blocked"),
-        action: () => setErrorAlertOpen(false),
-      });
-      return;
-    }
+    // if (CheckUserBlocked() == true) {
+    //   setErrorAlertOpen(true);
+    //   setErrorAlertProps({
+    //     text: t("account_is_blocked"),
+    //     action: () => setErrorAlertOpen(false),
+    //   });
+    //   return;
+    // }
 
     setOrder({
       data: {
@@ -74,10 +75,9 @@ const PaymentInfo = () => {
                   ...res?.data?.data?.data,
                 })
               );
-              navigate("/", {
-                place:
-                  selectorRes?.merchant_list_id_data?.venune_name_in_english,
-              });
+              navigate(
+                `/?place=${selectorRes?.merchant_list_id_data?.venune_name_in_english}`
+              );
             },
           });
         }
@@ -126,6 +126,15 @@ const PaymentInfo = () => {
     getMyCards();
   }, []);
 
+  useEffect(() => {
+    if (selectedCardId === "") return;
+    const selectedCard = selectedCardId
+      ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]?.credit_card
+      : myCards?.at(-1)?.credit_card;
+    const { icon } = checkCardType(selectedCard);
+    setSelectedCardIcon(icon);
+  }, [selectedCardId]);
+
   return (
     <div className={styles.PaymentWrap}>
       <div className={styles.stationHeader}>{t("station_info")}</div>
@@ -164,7 +173,11 @@ const PaymentInfo = () => {
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
           <div className={styles.editCard}>
-            <img className={styles.images} src={cardicon} alt="icon"></img>
+            <img
+              className={`${styles.cardIcon} w-6 h-6`}
+              src={selectedCardIcon}
+              alt="icon"
+            ></img>
             <div>
               {selectedCardId
                 ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]
@@ -213,7 +226,7 @@ const PaymentInfo = () => {
                   >
                     <div className={"flex flex-row gap-6"}>
                       <img
-                        className={"w-4 h-4"}
+                        className={"w-6 h-6"}
                         src={icon || cardicon}
                         alt="icon"
                       ></img>
@@ -246,7 +259,7 @@ const PaymentInfo = () => {
                 }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"
               >
-                {t("continueButton")}
+                {t("continue")}
               </button>
             </div>
           </SwipeableDrawer>

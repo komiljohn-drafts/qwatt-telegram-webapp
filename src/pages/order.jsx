@@ -6,7 +6,7 @@ const Order = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="w-full">
       <MobileHeader title={t("enter_qr_code")} />
       <OrderCreate />
     </div>
