@@ -41,7 +41,7 @@ export default function SuccessAlert({
         </h2>
 
         <p className="text-center text-sm text-[#686B70] mb-4">
-          {text || "Заряжайте и наслаждайтесь использованием."}
+          {text || t("charge_and_enjoy")}
         </p>
 
         <button

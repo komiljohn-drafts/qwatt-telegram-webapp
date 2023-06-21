@@ -73,5 +73,9 @@
     "rent_now":"Rent now",
     "rental_place":"Rental place",
     "to_menu":"To main menu",
-    "successfully_rented":"Successfully rented"
+    "successfully_rented":"Successfully rented",
+    "charge_and_enjoy":"Charge and enjoy using",
+    "good":"Good",
+    "error":"An error has occurred",
+    "error_text":"An error has occurred. Please try again later"
 }

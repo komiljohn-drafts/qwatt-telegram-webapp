@@ -22,6 +22,7 @@ import {
 import { useRef, useState } from "react";
 
 import CloseLocation from "./CloseLocation";
+import ErrorAlert from "../ErrorAlert/ErrorAlert";
 import MapPopup from "./MapPopup";
 import OrderInfo from "./OrderInfo";
 import { getMerchantList } from "@/services/getMerchant";
@@ -50,6 +51,7 @@ const MainMap = () => {
   const [nearestMerchants, setNearestMerchants] = useState([]);
   const userData = useSelector((state) => state.userData?.data);
   const mapRef = useRef();
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
 
@@ -96,6 +98,7 @@ const MainMap = () => {
       })
       .catch((err) => {
         console.log("merchant err", err);
+        setErrorAlertOpen(true);
       });
   }, [filterId]);
 
@@ -194,17 +197,21 @@ const MainMap = () => {
           user_id: userData?.guid,
         },
       },
-    }).then((res) => {
-      res.data.data.response?.forEach((ord) => {
-        if (ord?.end_time == "") {
-          dispatch(
-            orderDetailsActions?.setOrderDetails({
-              ...ord,
-            })
-          );
-        }
+    })
+      .then((res) => {
+        res.data.data.response?.forEach((ord) => {
+          if (ord?.end_time == "") {
+            dispatch(
+              orderDetailsActions?.setOrderDetails({
+                ...ord,
+              })
+            );
+          }
+        });
+      })
+      .catch((err) => {
+        console.log("merchant list err", err);
       });
-    });
   }, []);
 
   return (
@@ -367,9 +374,7 @@ const MainMap = () => {
                 }}
                 options={{
                   iconLayout: "default#image",
-                  // Custom image for the placemark icon.
                   iconImageHref: img,
-                  // The size of the placemark.
                   iconImageSize: [50, 50],
                   iconImageOffset: [-30, -30],
                 }}
@@ -397,6 +402,10 @@ const MainMap = () => {
       </YMaps>
 
       <OrderInfo />
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+      />
 
       <CloseLocation
         nearestMerchants={nearestMerchants}

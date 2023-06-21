@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -7,18 +6,18 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import { useState } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 export default function ErrorAlert({
-  title = "Произошла ошибка",
+  title,
   errorMesage,
   action,
   openAlert,
   setOpenAlert,
 }) {
-  const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
   const handleClose = () => {
-    setOpen(false);
     setOpenAlert(false);
   };
 
@@ -42,14 +41,14 @@ export default function ErrorAlert({
         id="alert-dialog-title"
         className="text-center font-semibold text-[17px] tracking-tight pb-2"
       >
-        {title}
+        {title ? title : t("error")}
       </DialogTitle>
       <DialogContent className="pb-2">
         <DialogContentText
           id="alert-dialog-description"
           className="text-xs font-normal text-center text-[#686B70]"
         >
-          {errorMesage}
+          {errorMesage ? errorMesage : t("error_text")}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -57,15 +56,30 @@ export default function ErrorAlert({
           <button
             className="bg-[#12ADC1] h-10 w-36 font-semibold text-white rounded-lg text-[15px]"
             onClick={() => {
-              setOpen(false);
               setOpenAlert(false);
               action();
             }}
           >
-            Хорошо
+            {t("good")}
           </button>
         </div>
       </DialogActions>
     </Dialog>
   );
 }
+
+ErrorAlert.propTypes = {
+  title: PropTypes.string,
+  errorMesage: PropTypes.string,
+  action: PropTypes.func,
+  openAlert: PropTypes.bool,
+  setOpenAlert: PropTypes.func,
+};
+
+ErrorAlert.defaultProps = {
+  title: "",
+  errorMesage: "",
+  action: () => {},
+  openAlert: false,
+  setOpenAlert: () => {},
+};

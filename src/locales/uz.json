@@ -73,5 +73,9 @@
     "rent_now":"Hozir ijaraga olish",
     "rental_place":"Ijara joyi",
     "to_menu":"Asosiy menyuga qaytish",
-    "successfully_rented":"Ijara muvaffaqiyatli amalga oshirildi"
-}
+    "successfully_rented":"Ijara muvaffaqiyatli amalga oshirildi",
+    "charge_and_enjoy":"Zaryad qiling va foydalanishdan zavqlaning.",
+    "good":"Yaxshi",
+    "error":"Xato ro'y berdi",
+    "error_text:" : "Xato ro'y berdi. Keyinroq qayta urinib ko'ring."
+    }
