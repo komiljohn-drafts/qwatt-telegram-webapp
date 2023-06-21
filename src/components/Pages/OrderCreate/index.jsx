@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
 import { orderActions } from "@/store/Order/order";
@@ -5,7 +7,6 @@ import { setStation } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const OrderCreate = () => {
@@ -62,6 +63,12 @@ const OrderCreate = () => {
     setOrderNumber(value);
   };
 
+  useEffect(() => {
+    if (orderNumber?.length == 6) {
+      handleSetStation();
+    }
+  }, [orderNumber]);
+
   return (
     <div className={styles.addingCardWrap}>
       <p className="text-center text-[#686B70] font-medium mb-8">
@@ -75,7 +82,6 @@ const OrderCreate = () => {
           }}
           value={orderNumber}
           onChange={handleOrderCode}
-          onComplete={handleSetStation}
         ></ReactCodeInput>
         {errorMsg?.count == 0 && (
           <p className={styles.errorMessage}>{t("incorrect_otp_leng")}</p>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import InputMask from "react-input-mask";
 import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
@@ -7,7 +9,6 @@ import { setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const AddingCard = () => {
@@ -101,6 +102,22 @@ const AddingCard = () => {
       .catch((err) => console.log("card create err", err));
   };
 
+  useEffect(() => {
+    console.log(
+      "cardNumber",
+      cardNumber.trim().replace(/\s/g, ""),
+      "expiryDate",
+      expiryDate
+    );
+    if (
+      cardNumber.trim().replace(/\s/g, "").length == 16 &&
+      expiryDate.length == 5
+    ) {
+      console.log("complete");
+      handleCheckCardValid();
+    }
+  }, [cardNumber, expiryDate]);
+
   return (
     <div className={styles.addingCardWrap}>
       <div className={styles.cardHeaderText}>{t("card_is_secured")}</div>
@@ -108,7 +125,11 @@ const AddingCard = () => {
         <div className={styles.cardNumber}>
           <p>{t("card_number")}</p>
           <div className={styles.cardBody}>
-            <img src={cardTypeIcon || cardicon} alt="card"></img>
+            <img
+              src={cardTypeIcon || cardicon}
+              className="w-6 h-6"
+              alt="card"
+            ></img>
             <InputMask
               mask="9999 9999 9999 9999"
               maskChar={null}

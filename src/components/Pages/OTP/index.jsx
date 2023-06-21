@@ -26,8 +26,8 @@ const OTPcode = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
-  const handleSendOtp = (val) => {
-    if (val.length < 5) {
+  const handleSendOtp = () => {
+    if (otp.length < 5) {
       setIsOtpError(true);
       return;
     }
@@ -112,6 +112,12 @@ const OTPcode = () => {
       clearInterval(interval);
     };
   }, [seconds]);
+
+  useEffect(() => {
+    if (otp.length == 5 && !isOtpError) {
+      handleSendOtp();
+    }
+  }, [otp]);
 
   return (
     <div className={styles.addingCardWrap}>
