@@ -21,6 +21,7 @@ import {
 } from "react-yandex-maps";
 import { useRef, useState } from "react";
 
+import { CheckLang } from "@/helpers/chengLang";
 import CloseLocation from "./CloseLocation";
 import ErrorAlert from "../ErrorAlert/ErrorAlert";
 import MapPopup from "./MapPopup";
@@ -54,6 +55,8 @@ const MainMap = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
+
+  console.log(CheckLang());
 
   useEffect(() => {
     if (typeof window !== "undefined") {
