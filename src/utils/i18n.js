@@ -1,11 +1,8 @@
-import { CheckLang } from "@/helpers/chengLang";
 import en from "@/locales/en.json";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import ru from "@/locales/ru.json";
 import uz from "@/locales/uz.json";
-
-const lang = CheckLang();
 
 const resources = {
   en: {
@@ -21,7 +18,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: "ru",
+  lng: localStorage.getItem("lang") || "ru",
 
   keySeparator: false,
 
