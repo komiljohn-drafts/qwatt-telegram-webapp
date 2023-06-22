@@ -20,7 +20,5 @@ export const useCheckUserBlocked = () => {
     getUserDetails();
   }, [userData?.guid]);
 
-  console.log("blocked", isBlocked);
-
   return isBlocked;
 };

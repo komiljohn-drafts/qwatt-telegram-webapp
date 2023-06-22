@@ -20,8 +20,6 @@ export default function useOrderTimer() {
   });
   const orderData = useSelector((state) => state.orderDetails?.data);
 
-  // console.log("order data", orderData);
-
   const getOrderDetails = () => {
     if (!orderData?.guid) return;
 
@@ -29,7 +27,6 @@ export default function useOrderTimer() {
       method: "GET",
       url: `/orders/${orderData?.guid}`,
     }).then((res) => {
-      console.log("order details", res?.data?.data?.response);
       setPrice(res?.data?.data?.response?.amounbefore);
       setFetchedData(res?.data?.data?.response);
       setPlace(orderData?.merchant_list_id_data?.venune_name_in_english);
@@ -43,8 +40,6 @@ export default function useOrderTimer() {
       const seconds = duration.seconds();
 
       setOrderStatusTime({ hours, minutes, seconds });
-
-      // console.log(`hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}`);
 
       setOrderStatusGuid(res?.data?.data?.response?.order_status_id);
 
@@ -68,7 +63,6 @@ export default function useOrderTimer() {
       method: "GET",
       url: `/order_status/${orderStatusGuid}`,
     }).then((res) => {
-      console.log("order status", res?.data?.data?.response);
       setOrderStatus(res?.data?.data?.response?.name);
       if (res?.data?.data?.response?.name === "Has been completed") {
         dispatch(orderDetailsActions.setOrderDetails({}));

@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import { ThreeDots } from "react-loader-spinner";
+// import { ThreeDots } from "react-loader-spinner";
 
 export default function FullScreenSpinner({ display }) {
   return (
-    <ThreeDots
+    <>
+      <div />
+      {/* <ThreeDots
       height="80"
       width="80"
       radius="9"
@@ -17,7 +19,8 @@ export default function FullScreenSpinner({ display }) {
       }}
       wrapperClassName=""
       visible={display || true}
-    />
+    /> */}
+    </>
   );
 }
 

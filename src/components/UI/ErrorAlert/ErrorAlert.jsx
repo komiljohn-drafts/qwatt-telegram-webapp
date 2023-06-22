@@ -19,6 +19,7 @@ export default function ErrorAlert({
   const { t } = useTranslation();
   const handleClose = () => {
     setOpenAlert(false);
+    action && action();
   };
 
   return (

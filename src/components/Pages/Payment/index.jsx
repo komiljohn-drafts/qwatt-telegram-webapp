@@ -3,14 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import SuccessAlert from "@/components/UI/SuccessAlert/SuccessAlert";
 import { SwipeableDrawer } from "@mui/material";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
 import { getCards } from "@/services/getCards";
 import { getPrice } from "@/services/getPrice";
-import { orderDetailsActions } from "@/store/Order/orderDetails";
+import { orderErrorNoteActions } from "@/store/Order/orderErrorNote";
 import { setOrder } from "@/services/setOrder";
+import { slotActions } from "@/store/Order/Slot";
 import styles from "./style.module.scss";
 import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
 import { useNavigate } from "react-router-dom";
@@ -23,16 +23,14 @@ const PaymentInfo = () => {
   const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
   const [myCards, setMyCards] = useState([]);
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
   const [selectedCardId, setSelectedCardId] = useState(
     myCards?.at(-1)?.guid || ""
   );
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({});
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
-  const [isSuccessAlertOpen, setSuccessAlertOpen] = useState(false);
-  const [successAlertProps, setSuccessAlertProps] = useState({});
   const [data, setData] = useState([]);
 
   const selectorRes = useMemo(() => {
@@ -57,32 +55,29 @@ const PaymentInfo = () => {
       return;
     }
 
+    navigate("/rent");
+
     setOrder({
       data: {
-        user_id: userData?.guid,
+        userId: userData?.guid,
         cabine_lists_id: selectorRes?.guid,
         merchant_list_id: selectorRes?.merchant_list_id,
         credit_card_list_id: selectedCardId,
       },
     })
       .then((res) => {
-        if (res.status === "CREATED") {
-          console.log("order create success", res?.data?.data?.data);
-          setSuccessAlertOpen(true);
-          setSuccessAlertProps({
-            action: () => {
-              setSuccessAlertOpen(false);
-              dispatch(
-                orderDetailsActions?.setOrderDetails({
-                  ...res?.data?.data?.data,
-                })
-              );
-              navigate(
-                `/?place=${selectorRes?.merchant_list_id_data?.venune_name_in_english}`
-              );
-            },
-          });
+        console.log("order create", res);
+        if (res?.data?.data?.data?.error_note) {
+          dispatch(
+            orderErrorNoteActions.setOrderErrorNote(
+              res?.data?.data?.data?.error_note
+            )
+          );
+          return;
         }
+        dispatch(
+          slotActions.setSlot(res?.data?.data?.data?.response?.[0]?.slot)
+        );
       })
       .catch((err) => {
         setErrorAlertOpen(true);
@@ -267,12 +262,6 @@ const PaymentInfo = () => {
           </SwipeableDrawer>
         </div>
       </div>
-
-      <SuccessAlert
-        openAlert={isSuccessAlertOpen}
-        setOpenAlert={setSuccessAlertOpen}
-        action={successAlertProps?.action}
-      />
 
       <div className={styles.question} onClick={() => navigate("./faq")}>
         {t("powerbank_lost")}

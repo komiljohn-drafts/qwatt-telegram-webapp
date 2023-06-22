@@ -11,6 +11,7 @@ import Order from "@/pages/order";
 import Payment from "@/pages/payment";
 import PrivacyPolicy from "@/pages/doc/privacypolicy";
 import Profile from "@/pages/profile";
+import Rent from "@/pages/rent";
 import Tarif from "@/pages/pricing_description";
 import Termconditions from "@/pages/doc/term&conditions";
 
@@ -24,6 +25,11 @@ const routes = [
         path: "/add-card",
         id: "add-card",
         element: <AddCard />,
+      },
+      {
+        path: "/rent",
+        id: "rent",
+        element: <Rent />,
       },
       {
         path: "/doc",

@@ -14,7 +14,6 @@ const OrderCreate = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [orderNumber, setOrderNumber] = useState();
-  const [errorMsg, setErrorMsg] = useState();
   const [isOrderNumError, setIsOrderNumError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
@@ -58,7 +57,6 @@ const OrderCreate = () => {
   };
 
   const handleOrderCode = (value) => {
-    setErrorMsg(null);
     setIsOrderNumError(false);
     setOrderNumber(value);
   };
@@ -79,21 +77,16 @@ const OrderCreate = () => {
           value={orderNumber}
           onChange={handleOrderCode}
         ></ReactCodeInput>
-        {errorMsg?.count == 0 && (
-          <p className={styles.errorMessage}>{t("incorrect_otp_leng")}</p>
-        )}
-        {isOrderNumError == true && (
-          <p className={styles.errorMessage}>{t("incorrect_otp_leng")}</p>
-        )}
-      </div>
-
+      </div>{" "}
+      {isOrderNumError == true && (
+        <p className="text-red-600 text-center">{t("incorrect_otp_leng")}</p>
+      )}
       <ErrorAlert
         action={errorAlertProps.action}
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
         errorMesage={errorAlertProps.text}
       />
-
       <div className={styles.addBtn}>
         <button
           className={styles.Btn}

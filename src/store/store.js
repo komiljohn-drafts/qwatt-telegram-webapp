@@ -17,7 +17,9 @@ import counterSlice from "./slices/counter";
 import { filterReducers } from "./slices/filter.slice";
 import { locationReducers } from "./userLocation/location";
 import { orderDetailsReducer } from "./Order/orderDetails";
+import { orderErrorNoteReducer } from "./Order/orderErrorNote";
 import { orderReducers } from "./Order/order";
+import { slotReducer } from "./Order/Slot";
 import storage from "redux-persist/lib/storage";
 import { userDataReducers } from "./slices/userData";
 import { userTelegramDataReducers } from "./slices/userTelegramData";
@@ -66,6 +68,8 @@ const rootReducer = combineReducers({
     userTelegramDataPersistConfig,
     userTelegramDataReducers
   ),
+  slot: slotReducer,
+  orderErrorNote: orderErrorNoteReducer,
 });
 
 export const store = configureStore({
