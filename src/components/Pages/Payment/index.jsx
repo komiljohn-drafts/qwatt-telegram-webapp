@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { CheckUserBlocked } from "@/helpers/checkUserBlocked";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import SuccessAlert from "@/components/UI/SuccessAlert/SuccessAlert";
 import { SwipeableDrawer } from "@mui/material";
@@ -13,12 +12,14 @@ import { getPrice } from "@/services/getPrice";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
 import { setOrder } from "@/services/setOrder";
 import styles from "./style.module.scss";
+import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isUserBlocked = useCheckUserBlocked();
   const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
   const [myCards, setMyCards] = useState([]);
@@ -46,7 +47,8 @@ const PaymentInfo = () => {
   }, [selector]);
 
   const handleCreateOrder = () => {
-    if (CheckUserBlocked() == true) {
+    if (isUserBlocked == true) {
+      console.log("blocked");
       setErrorAlertOpen(true);
       setErrorAlertProps({
         text: t("account_is_blocked"),

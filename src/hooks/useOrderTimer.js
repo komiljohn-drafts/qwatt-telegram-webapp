@@ -20,7 +20,7 @@ export default function useOrderTimer() {
   });
   const orderData = useSelector((state) => state.orderDetails?.data);
 
-  console.log("order data", orderData);
+  // console.log("order data", orderData);
 
   const getOrderDetails = () => {
     if (!orderData?.guid) return;
@@ -44,7 +44,7 @@ export default function useOrderTimer() {
 
       setOrderStatusTime({ hours, minutes, seconds });
 
-      console.log(`hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}`);
+      // console.log(`hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}`);
 
       setOrderStatusGuid(res?.data?.data?.response?.order_status_id);
 
