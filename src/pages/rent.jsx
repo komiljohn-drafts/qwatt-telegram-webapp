@@ -35,7 +35,6 @@ export default function Rent() {
           setSuccessAlertOpen(false);
           navigate("/", { replace: true });
           dispatch(slotActions.setSlot(""));
-          dispatch(orderErrorNoteActions.setError(""));
         },
       });
     }
@@ -46,26 +45,29 @@ export default function Rent() {
       setErrorAlertOpen(true);
       setErrorAlertProps({
         text: errorNote,
-        action: () => navigate("/", { replace: true }),
+        action: () => {
+          navigate("/", { replace: true });
+          dispatch(orderErrorNoteActions.setError(""));
+        },
       });
     }
-  }, [slot]);
+  }, [errorNote]);
 
   console.log("cabineInfo", cabineInfo);
 
   return (
-    <div className="h-screen w-full">
+    <div className="w-full">
       <MobileHeader title={t("rental")} path="/" />
-      <div className="flex items-center justify-center w-full h-[80%]">
+      <div className="flex items-center  justify-center w-full py-6">
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="flex flex-col items-center justify-center gap-6 border-2 rounded-3xl border-[#b8b8b8] px-14 py-12">
+          <div className="flex flex-col items-center justify-center gap-6 border-2 rounded-3xl border-[#b8b8b8] px-10 py-8">
             <img src={qwatt} alt="qwatt" className="w-40 " />
             <div
               className={`grid ${
                 cabineInfo?.powerbank_slots > 24
                   ? "grid-cols-4 gap-x-4"
                   : "grid-cols-2 gap-x-8"
-              } gap-y-4 `}
+              } gap-y-3 `}
             >
               {Array.from(
                 { length: cabineInfo?.powerbank_slots },
@@ -73,7 +75,7 @@ export default function Rent() {
               ).map((_, index) => (
                 <div
                   key={index}
-                  className={`h-6 w-20 border rounded-2xl ${
+                  className={`h-5 w-20 border rounded-2xl ${
                     index + 1 == slot
                       ? "bg-[#12ADC1]  border-[#12ADC1]"
                       : "bg-[#EFEFEF]  border-[#E0E0E0]"
