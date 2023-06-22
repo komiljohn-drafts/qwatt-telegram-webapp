@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { getOrders } from "@/services/setOrder";
 import moment from "moment";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
 import request from "@/utils/axios";
@@ -9,6 +10,7 @@ export default function useOrderTimer() {
   const dispatch = useDispatch();
   const [fetchedData, setFetchedData] = useState(null);
   const [orderStatus, setOrderStatus] = useState(null);
+  const userData = useSelector((state) => state.userData?.data);
   const [orderStatusGuid, setOrderStatusGuid] = useState(null);
   const [price, setPrice] = useState(null);
   const [place, setPlace] = useState(null);
@@ -18,18 +20,25 @@ export default function useOrderTimer() {
     minutes: 0,
     seconds: 0,
   });
-  const orderData = useSelector((state) => state.orderDetails?.data);
 
   const getOrderDetails = () => {
-    if (!orderData?.guid) return;
-
-    request({
-      method: "GET",
-      url: `/orders/${orderData?.guid}`,
+    getOrders({
+      data: {
+        with_relations: false,
+        user_id: userData?.guid,
+      },
     }).then((res) => {
-      setPrice(res?.data?.data?.response?.amounbefore);
-      setFetchedData(res?.data?.data?.response);
-      setPlace(orderData?.merchant_list_id_data?.venune_name_in_english);
+      console.log("all orders", res?.data?.data?.response);
+
+      const activeOrder = res?.data?.data?.response?.filter(
+        (el) => el?.end_time == ""
+      );
+
+      console.log("active order", activeOrder);
+
+      setPrice(activeOrder?.amounbefore);
+      setFetchedData(activeOrder);
+      setPlace(activeOrder?.merchant_list_id_data?.venune_name_in_english);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();
@@ -55,6 +64,8 @@ export default function useOrderTimer() {
       }
     });
   };
+
+  console.log("fetched data", fetchedData);
 
   const getOrderStatus = () => {
     if (!orderStatusGuid) return;

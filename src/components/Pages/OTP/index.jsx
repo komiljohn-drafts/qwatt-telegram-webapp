@@ -26,6 +26,8 @@ const OTPcode = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
+  console.log("card details", cardDetails);
+
   const handleSendOtp = () => {
     if (otp.length < 5) {
       setIsOtpError(true);
@@ -40,7 +42,7 @@ const OTPcode = () => {
     })
       .then((res) => {
         dispatch(cardVerifyActions.setCardVerify(true));
-        console.log("card sms res", res);
+        // console.log("card sms res", res);
 
         if (res?.data?.data?.data?.error_code) {
           console.log("error code", res?.data?.data?.data?.error_code);
@@ -123,7 +125,7 @@ const OTPcode = () => {
     <div className={styles.addingCardWrap}>
       <div className={styles.cardHeaderText}>
         {t("we_send_code")} {""}
-        {userData?.phone}
+        {cardDetails?.phone_number}
       </div>
       <div className={isOtpError ? styles.topErrWrap : styles.otpWrap}>
         <ReactCodeInput

@@ -103,12 +103,6 @@ const AddingCard = () => {
   };
 
   useEffect(() => {
-    console.log(
-      "cardNumber",
-      cardNumber.trim().replace(/\s/g, ""),
-      "expiryDate",
-      expiryDate
-    );
     if (
       cardNumber.trim().replace(/\s/g, "").length == 16 &&
       expiryDate.length == 5
