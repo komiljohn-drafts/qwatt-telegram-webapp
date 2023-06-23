@@ -1,6 +1,8 @@
 import { deleteCard, getCards } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
 import styles from "./style.module.scss";
@@ -13,6 +15,7 @@ const MyCardsPage = () => {
   const { t } = useTranslation();
   const userData = useSelector((state) => state.userData?.data);
   const [data, setData] = useState(null);
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
 
   const getMyCards = () => {
     if (!userData?.guid) return;
@@ -27,6 +30,7 @@ const MyCardsPage = () => {
         setData(res?.data?.data?.response);
       })
       .catch((err) => {
+        setErrorAlertOpen(true);
         console.log("my-cards err", err);
       });
   };
@@ -38,6 +42,7 @@ const MyCardsPage = () => {
         getMyCards();
       })
       .catch((err) => {
+        setErrorAlertOpen(true);
         console.log("delete-cards err", err);
       });
   };
@@ -46,8 +51,24 @@ const MyCardsPage = () => {
     getMyCards();
   }, []);
 
+  if (!data) {
+    return (
+      <>
+        <ErrorAlert
+          openAlert={isErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+        />
+        <FullScreenSpinner />
+      </>
+    );
+  }
+
   return (
     <div className={styles.myCards}>
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+      />
       {data?.length ? (
         <>
           <div className={styles.text}>

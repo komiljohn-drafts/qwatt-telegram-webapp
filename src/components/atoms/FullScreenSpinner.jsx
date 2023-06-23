@@ -1,29 +1,11 @@
-import PropTypes from "prop-types";
-// import { ThreeDots } from "react-loader-spinner";
+import { CircularProgress } from "@mui/material";
 
-export default function FullScreenSpinner({ display }) {
+export default function FullScreenSpinner() {
   return (
-    <>
-      <div />
-      {/* <ThreeDots
-      height="80"
-      width="80"
-      radius="9"
-      color="#12adc1"
-      ariaLabel="three-dots-loading"
-      wrapperStyle={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-      wrapperClassName=""
-      visible={display || true}
-    /> */}
-    </>
+    <div className="absolute h-screen w-screen">
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    </div>
   );
 }
-
-FullScreenSpinner.propTypes = {
-  display: PropTypes.bool,
-};

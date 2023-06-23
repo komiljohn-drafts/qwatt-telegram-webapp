@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import InputMask from "react-input-mask";
 import request from "@/utils/axios";
 import { setProfile } from "@/services/getProfile";
@@ -63,6 +64,7 @@ const AddProfileData = () => {
 
   return (
     <div className={styles.addDataBody}>
+      {!userData && <FullScreenSpinner />}
       <form
         className="flex flex-col px-4 h-full justify-between"
         onSubmit={handleSubmit(onSubmit)}

@@ -1,5 +1,6 @@
 import { Box, Modal } from "@mui/material";
 
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 // import { LightIcon } from "@/screen-capture/icons";
 import { deleteProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
@@ -48,19 +49,19 @@ const ProfilePage = () => {
       });
   };
 
+  if (Object.entries(userData).length == 0) {
+    return <FullScreenSpinner />;
+  }
+
   return (
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
         <p className={styles.profileHeader}>{t("personal_details")}</p>
         <p className={styles.profileText}>{userData?.phone || ""}</p>
-        {/* <div className={styles.balls}>
-          <LightIcon />
-          <p>0 {t("score")}</p>
-        </div> */}
+
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           {t("change")}
         </div>
-        {/* <p className={styles.getBall}>Заполните профиль и получите 20 баллов</p> */}
       </div>
       <div className={styles.profileBtn}>
         <div

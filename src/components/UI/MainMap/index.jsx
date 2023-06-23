@@ -23,6 +23,7 @@ import { useRef, useState } from "react";
 
 import CloseLocation from "./CloseLocation";
 import ErrorAlert from "../ErrorAlert/ErrorAlert";
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import MapPopup from "./MapPopup";
 import OrderInfo from "./OrderInfo";
 import { getMerchantList } from "@/services/getMerchant";
@@ -55,12 +56,12 @@ const MainMap = () => {
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const tele = window.Telegram?.WebApp;
-      tele.isClosingConfirmationEnabled = true;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const tele = window.Telegram?.WebApp;
+  //     tele.isClosingConfirmationEnabled = true;
+  //   }
+  // }, []);
 
   const variants = {
     initial: { x: "-100%", opacity: 0 },
@@ -216,6 +217,7 @@ const MainMap = () => {
 
   return (
     <div style={{ position: "relative" }}>
+      {!data && <FullScreenSpinner />}
       <div className={styles.headerNav}>
         <div
           className={`${styles.openSidebar} cursor-pointer`}

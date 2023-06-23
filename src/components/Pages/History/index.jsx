@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import ActiveCard from "./ActiveCard";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import HistoryCard from "./HistoryCard";
 import { getOrders } from "@/services/setOrder";
 import styles from "./style.module.scss";
@@ -9,7 +11,8 @@ import { useTranslation } from "react-i18next";
 
 const HistoryPage = () => {
   const userData = useSelector((state) => state.userData?.data);
-  const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState(null);
+  const [ErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const { t } = useTranslation();
 
   const getOrderHistory = () => {
@@ -18,14 +21,30 @@ const HistoryPage = () => {
         with_relations: false,
         user_id: userData?.guid,
       },
-    }).then((res) => {
-      setHistoryData(res?.data?.data?.response);
-    });
+    })
+      .then((res) => {
+        setHistoryData(res?.data?.data?.response);
+      })
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
   };
 
   useEffect(() => {
     getOrderHistory();
   }, []);
+
+  if (!historyData) {
+    return (
+      <>
+        <ErrorAlert
+          openAlert={ErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+        />
+        <FullScreenSpinner />
+      </>
+    );
+  }
 
   return (
     <div>

@@ -9,10 +9,7 @@ export default function RouteProvider() {
 
   return (
     <Suspense fallback={<FullScreenSpinner />}>
-      <RouterProvider
-        router={router}
-        fallbackElement={<FullScreenSpinner display={false} />}
-      />
+      <RouterProvider router={router} />
     </Suspense>
   );
 }

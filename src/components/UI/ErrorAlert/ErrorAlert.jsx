@@ -40,14 +40,14 @@ export default function ErrorAlert({
     >
       <DialogTitle
         id="alert-dialog-title"
-        className="text-center font-semibold text-[17px] tracking-tight pb-2"
+        className="text-center !font-semibold !text-[17px] tracking-tight !pb-1"
       >
         {title ? title : t("error")}
       </DialogTitle>
-      <DialogContent className="pb-2">
+      <DialogContent className="!pb-1">
         <DialogContentText
           id="alert-dialog-description"
-          className="text-xs font-normal text-center text-[#686B70]"
+          className="!text-xs !font-normal text-center text-[#686B70]"
         >
           {errorMesage ? errorMesage : t("error_text")}
         </DialogContentText>
@@ -55,7 +55,7 @@ export default function ErrorAlert({
       <DialogActions>
         <div className="w-full flex items-center justify-center pb-2">
           <button
-            className="bg-[#12ADC1] h-10 w-36 font-semibold text-white rounded-lg text-[15px]"
+            className="bg-[#12ADC1] h-10 w-36 font-semibold text-white rounded-lg text-sm"
             onClick={() => {
               setOpenAlert(false);
               action();
