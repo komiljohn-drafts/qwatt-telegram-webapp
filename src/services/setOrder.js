@@ -1,10 +1,6 @@
 import axios from "axios";
 import request from "@/utils/axios";
 
-// export const setOrder = async (data) => {
-//   return await request({ method: "post", url: "/orders", data });
-// };
-
 export const setStation = async (data) => {
   return await request({
     method: "post",
@@ -15,6 +11,14 @@ export const setStation = async (data) => {
 
 export const getOrders = async (data) => {
   return await request({ method: "post", url: "/get-list/orders", data });
+};
+
+export const getOrderById = async (guid, data) => {
+  return await request({
+    method: "get",
+    url: `/orders/${guid}`,
+    data,
+  });
 };
 
 export const setOrder = async (data) => {

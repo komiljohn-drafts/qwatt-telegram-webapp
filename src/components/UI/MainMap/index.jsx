@@ -210,7 +210,7 @@ const MainMap = () => {
         });
       })
       .catch((err) => {
-        console.log("merchant list err", err);
+        console.log("order list err", err);
       });
   }, []);
 

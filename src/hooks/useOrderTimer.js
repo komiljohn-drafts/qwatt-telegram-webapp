@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { getOrders } from "@/services/setOrder";
+import { getOrderById } from "@/services/setOrder";
 import moment from "moment";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
 import request from "@/utils/axios";
@@ -15,30 +15,24 @@ export default function useOrderTimer() {
   const [price, setPrice] = useState(null);
   const [place, setPlace] = useState(null);
   const [debt, setDebt] = useState(null);
+  const orderData = useSelector((state) => state.orderDetails?.data);
   const [orderStatusTime, setOrderStatusTime] = useState({
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
 
+  console.log("active", fetchedData);
+
   const getOrderDetails = () => {
-    getOrders({
-      data: {
-        with_relations: false,
-        user_id: userData?.guid,
-      },
+    if (!orderData?.guid) return;
+
+    getOrderById(orderData?.guid, {
+      data: { with_relations: false, user_id: userData?.guid },
     }).then((res) => {
-      console.log("all orders", res?.data?.data?.response);
-
-      const activeOrder = res?.data?.data?.response?.filter(
-        (el) => el?.end_time == ""
-      )?.[0];
-
-      console.log("active order", activeOrder);
-
-      setPrice(activeOrder?.amounbefore);
-      setFetchedData(activeOrder);
-      setPlace(activeOrder?.merchant_list_id_data?.venune_name_in_english);
+      setPrice(res?.data?.data?.response?.amounbefore);
+      setFetchedData(res?.data?.data?.response);
+      setPlace(orderData?.merchant_list_id_data?.venune_name_in_english);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();
@@ -65,7 +59,7 @@ export default function useOrderTimer() {
     });
   };
 
-  console.log("fetched data", fetchedData);
+  // console.log("fetched data", fetchedData);
 
   const getOrderStatus = () => {
     if (!orderStatusGuid) return;
