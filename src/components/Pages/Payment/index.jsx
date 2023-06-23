@@ -55,7 +55,7 @@ const PaymentInfo = () => {
       return;
     }
 
-    navigate("/rent");
+    navigate("/rent", { replace: true });
 
     setOrder({
       data: {
@@ -243,7 +243,7 @@ const PaymentInfo = () => {
                 style={{ background: "rgba(104, 107, 112, 0.05)" }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"
                 onClick={() => {
-                  navigate("/add-card", { from: "payment" });
+                  navigate("/add-card/?from=payment");
                 }}
               >
                 + {t("add_card")}

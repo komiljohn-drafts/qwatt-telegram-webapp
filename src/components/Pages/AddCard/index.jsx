@@ -83,9 +83,9 @@ const AddingCard = () => {
             })
           );
           if (params.get("from") == "order") {
-            navigate("/otp?from=order");
+            navigate("/otp?from=order", { replace: true });
           } else if (params.get("from") == "payment") {
-            navigate("/otp?from=payment");
+            navigate("/otp?from=payment", { replace: true });
           } else {
             navigate("/otp");
           }

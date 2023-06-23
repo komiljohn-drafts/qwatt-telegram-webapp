@@ -32,7 +32,7 @@ export default function useOrderTimer() {
 
       const activeOrder = res?.data?.data?.response?.filter(
         (el) => el?.end_time == ""
-      );
+      )?.[0];
 
       console.log("active order", activeOrder);
 

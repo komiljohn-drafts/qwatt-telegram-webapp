@@ -26,8 +26,6 @@ const OTPcode = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
 
-  console.log("card details", cardDetails);
-
   const handleSendOtp = () => {
     if (otp.length < 5) {
       setIsOtpError(true);
@@ -42,17 +40,20 @@ const OTPcode = () => {
     })
       .then((res) => {
         dispatch(cardVerifyActions.setCardVerify(true));
-        // console.log("card sms res", res);
 
         if (res?.data?.data?.data?.error_code) {
           console.log("error code", res?.data?.data?.data?.error_code);
+          setOtp("");
+
           setErrorAlertOpen(true);
+
           setErrorAlertProps({
             text: res?.data?.data?.data?.error_note,
             action: () => {
               setErrorAlertOpen(false);
             },
           });
+          console.log("otp", otp);
           return;
         }
 
@@ -83,11 +84,13 @@ const OTPcode = () => {
                 setErrorAlertOpen(false);
               },
             });
+            setOtp("");
           });
       })
       .catch((err) => {
         console.log("click verify err", err);
         dispatch(cardVerifyActions.setCardVerify(false));
+        setOtp("");
       });
   };
 
@@ -130,14 +133,10 @@ const OTPcode = () => {
       <div className={isOtpError ? styles.topErrWrap : styles.otpWrap}>
         <ReactCodeInput
           fields={5}
-          value={otp}
+          value={isErrorAlertOpen ? "" : otp}
           onChange={(val) => {
             setIsOtpError(false);
             setOtp(val);
-
-            // if (val.length == 5) {
-            //   handleSendOtp(val);
-            // }
           }}
           style={{ width: "48px", height: "48px" }}
         ></ReactCodeInput>

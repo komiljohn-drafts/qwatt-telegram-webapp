@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { CheckSlotPosition } from "@/helpers/checkSlotPosition";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import { LinearProgress } from "@mui/material";
 import MobileHeader from "@/components/UI/MobileHeader";
@@ -19,13 +20,12 @@ export default function Rent() {
   const errorNote = useSelector((state) => state.orderErrorNote?.error);
   const [isSuccessAlertOpen, setSuccessAlertOpen] = useState(false);
   const [successAlertProps, setSuccessAlertProps] = useState({});
+  const [slotPosition, setSlotPosition] = useState("");
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const cabineInfo = useSelector(
     (state) => state.orders?.orderIds?.response?.[0]
   );
-
-  console.log("slot", slot);
 
   useEffect(() => {
     if (slot) {
@@ -38,6 +38,8 @@ export default function Rent() {
         },
       });
     }
+
+    setSlotPosition(CheckSlotPosition(cabineInfo?.powerbank_slots, slot));
   }, [slot]);
 
   useEffect(() => {
@@ -47,25 +49,27 @@ export default function Rent() {
         text: errorNote,
         action: () => {
           navigate("/", { replace: true });
-          dispatch(orderErrorNoteActions.setError(""));
+          dispatch(orderErrorNoteActions.setOrderErrorNote(""));
         },
       });
     }
   }, [errorNote]);
-
-  console.log("cabineInfo", cabineInfo);
 
   return (
     <div className="w-full">
       <MobileHeader title={t("rental")} path="/" />
       <div className="flex items-center  justify-center w-full py-6">
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="flex flex-col items-center justify-center gap-6 border-2 rounded-3xl border-[#b8b8b8] px-10 py-8">
+          <div
+            className={`flex flex-col items-center justify-center gap-6 border-2 rounded-3xl border-[#b8b8b8] py-8 ${
+              cabineInfo?.powerbank_slots > 24 ? "px-4" : "px-10"
+            }`}
+          >
             <img src={qwatt} alt="qwatt" className="w-40 " />
             <div
               className={`grid ${
                 cabineInfo?.powerbank_slots > 24
-                  ? "grid-cols-4 gap-x-4"
+                  ? "grid-cols-4 gap-x-1"
                   : "grid-cols-2 gap-x-8"
               } gap-y-3 `}
             >
@@ -75,8 +79,10 @@ export default function Rent() {
               ).map((_, index) => (
                 <div
                   key={index}
-                  className={`h-5 w-20 border rounded-2xl ${
-                    index + 1 == slot
+                  className={`${
+                    cabineInfo?.powerbank_slots > 24 ? "w-16" : "w-20"
+                  } h-5 border rounded-2xl ${
+                    index + 1 == slotPosition
                       ? "bg-[#12ADC1]  border-[#12ADC1]"
                       : "bg-[#EFEFEF]  border-[#E0E0E0]"
                   }`}

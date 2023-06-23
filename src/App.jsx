@@ -11,14 +11,14 @@ function App() {
   const dispatch = useDispatch();
   const match = useMatch("/");
 
-  if (match) {
-    return <Main />;
-  }
-
   if (userInitialData?.guid) {
     getProfile(userInitialData?.guid).then((res) => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response));
     });
+  }
+
+  if (match) {
+    return <Main />;
   }
 
   return (
