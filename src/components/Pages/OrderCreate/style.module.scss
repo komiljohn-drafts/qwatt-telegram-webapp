@@ -24,7 +24,7 @@
       justify-content: center;
       align-items: center;
       input {
-        border: 1px solid #12adc1;
+        border: 1px solid #12adc1 !important;
         outline: 1px solid #12adc1 !important;
         margin: 3px;
         border-radius: 12px;
@@ -32,10 +32,10 @@
         height: 48px !important;
         font-family: sans-serif;
       }
-      input:focus {
-        // border: 1px solid #12adc1 !important;
-        outline: 1px solid #12adc1 !important;
-      }
+      // input:focus {
+      //   border: 1px solid #12adc1 !important;
+      //   outline: 1px solid #12adc1 !important;
+      // }
     }
   }
   .otpErrWrap {

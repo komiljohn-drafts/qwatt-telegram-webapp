@@ -14,7 +14,7 @@
     margin: 0 auto;
     div {
       input {
-        border: 1px solid #12adc1;
+        border: 1px solid #12adc1 !important;
         outline: 1px solid #12adc1 !important;
         margin: 5px;
         border-radius: 12px;
@@ -22,9 +22,9 @@
         height: 48px !important;
         font-family: sans-serif;
       }
-      input:focus {
-        outline: 1px solid #12adc1 !important;
-      }
+      // input:focus {
+      //   outline: 1px solid #12adc1 !important;
+      // }
     }
   }
   .topErrWrap{

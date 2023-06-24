@@ -126,6 +126,7 @@ const AddingCard = () => {
             ></img>
             <InputMask
               mask="9999 9999 9999 9999"
+              autoFocus={true}
               maskChar={null}
               placeholder={t("card_number")}
               value={cardNumber}
