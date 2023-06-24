@@ -31,7 +31,7 @@ const DocPage = () => {
           <ForwardIcon />
         </div>
         <div className={styles.document} onClick={() => navigate("/faq")}>
-          <div>Реквизиты</div>
+          <div>{t("requisites")}</div>
           <ForwardIcon />
         </div>
       </div>

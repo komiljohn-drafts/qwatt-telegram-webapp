@@ -1,6 +1,8 @@
 {
     "profile":"Profile",
     "order_history":"Order history",
+    "take_powerbank":"Take powerbank",
+    "return_powerbank":"Return powerbank",
     "my_cards":"My cards",
     "tariffs":"Tariffs",
     "documentation":"Documentation",
