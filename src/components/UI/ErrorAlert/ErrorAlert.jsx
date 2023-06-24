@@ -15,11 +15,13 @@ export default function ErrorAlert({
   action,
   openAlert,
   setOpenAlert,
+  dependency,
 }) {
   const { t } = useTranslation();
   const handleClose = () => {
     setOpenAlert(false);
     action && action();
+    dependency && dependency();
   };
 
   return (
@@ -75,6 +77,7 @@ ErrorAlert.propTypes = {
   action: PropTypes.func,
   openAlert: PropTypes.bool,
   setOpenAlert: PropTypes.func,
+  dependency: PropTypes.any,
 };
 
 ErrorAlert.defaultProps = {

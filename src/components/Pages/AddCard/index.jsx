@@ -99,7 +99,7 @@ const AddingCard = () => {
           });
         }
       })
-      .catch((err) => console.log("card create err", err));
+      .catch(() => setErrorAlertOpen(true));
   };
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const AddingCard = () => {
           <div className={styles.cardBody}>
             <img
               src={cardTypeIcon || cardicon}
-              className="w-6 h-6"
+              className={`h-[32px] w-[32px] p-1`}
               alt="card"
             ></img>
             <InputMask

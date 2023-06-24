@@ -22,8 +22,6 @@ export default function useOrderTimer() {
     seconds: 0,
   });
 
-  console.log("active", fetchedData);
-
   const getOrderDetails = () => {
     if (!orderData?.guid) return;
 
@@ -59,8 +57,6 @@ export default function useOrderTimer() {
     });
   };
 
-  // console.log("fetched data", fetchedData);
-
   const getOrderStatus = () => {
     if (!orderStatusGuid) return;
 
@@ -85,7 +81,7 @@ export default function useOrderTimer() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [orderData]);
 
   useEffect(() => {
     getOrderStatus();

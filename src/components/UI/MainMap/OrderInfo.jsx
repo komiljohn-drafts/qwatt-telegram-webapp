@@ -49,7 +49,7 @@ export default function OrderInfo() {
           </div>
           {debt && (
             <div className="flex flex-row w-full bg-white p-4 justify-between items-center">
-              <p className="text-[#686B70]">:</p>
+              <p className="text-[#686B70]">{t("debt")}</p>
               <p className="text-[#ED4337]">
                 {debt} {t("сум")}
               </p>

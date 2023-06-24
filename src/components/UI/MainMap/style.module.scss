@@ -1,10 +1,4 @@
-// .qrscan {
-//   position: absolute;
-//   padding: 20px;
-//   background-color: red;
-//   bottom: 10px;
-//   left: 10px;
-// }
+
 .headerNav {
   position: absolute;
   top: 0;
@@ -35,7 +29,6 @@
       padding: 16px;
       width: 100%;
       cursor: pointer;
-      // background: #f9f9f9;
       font-size: 15px;
       font-weight: 500;
       line-height: 22px;
@@ -187,7 +180,6 @@
     overflow-x: scroll;
     overflow-y: auto;
     width: 100%;
-    margin-left: 8px;
 
     .closestBox {
       display: flex;

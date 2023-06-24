@@ -1,6 +1,6 @@
 import { setCard, setCardOtp, setConfirmCardToken } from "@/services/getCards";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
@@ -25,6 +25,8 @@ const OTPcode = () => {
   const [clickErrorNote, setClickErrorNote] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+  const [isClearInput, setIsClearInput] = useState(false);
+  const inputRef = useRef();
 
   const handleSendOtp = () => {
     if (otp.length < 5) {
@@ -119,6 +121,14 @@ const OTPcode = () => {
   }, [seconds]);
 
   useEffect(() => {
+    if (inputRef?.current && isClearInput) {
+      setOtp("");
+      inputRef.current.__clearvalues__();
+      setIsClearInput(false);
+    }
+  }, [isClearInput]);
+
+  useEffect(() => {
     if (otp.length == 5 && !isOtpError) {
       handleSendOtp();
     }
@@ -130,8 +140,13 @@ const OTPcode = () => {
         {t("we_send_code")} {""}
         {cardDetails?.phone_number}
       </div>
-      <div className={isOtpError ? styles.topErrWrap : styles.otpWrap}>
+      <div
+        className={
+          isOtpError || isErrorAlertOpen ? styles.topErrWrap : styles.otpWrap
+        }
+      >
         <ReactCodeInput
+          ref={inputRef}
           fields={5}
           value={isErrorAlertOpen ? "" : otp}
           onChange={(val) => {
@@ -191,6 +206,9 @@ const OTPcode = () => {
           openAlert={isErrorAlertOpen}
           setOpenAlert={setErrorAlertOpen}
           action={errorAlertProps.action}
+          dependency={() => {
+            setIsClearInput(true);
+          }}
         />
 
         <button

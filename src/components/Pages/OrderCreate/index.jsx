@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
@@ -17,6 +17,8 @@ const OrderCreate = () => {
   const [isOrderNumError, setIsOrderNumError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+  const [isClearInput, setIsClearInput] = useState(false);
+  const inputRef = useRef();
 
   const handleSetStation = () => {
     setStation({
@@ -62,18 +64,35 @@ const OrderCreate = () => {
   };
 
   useEffect(() => {
+    if (inputRef?.current && isClearInput) {
+      setOrderNumber("");
+      inputRef.current.__clearvalues__();
+      setIsClearInput(false);
+    }
+  }, [isClearInput]);
+
+  useEffect(() => {
     if (orderNumber?.length == 6) {
       handleSetStation();
     }
   }, [orderNumber]);
+
+  console.log("ref", inputRef);
 
   return (
     <div className={styles.addingCardWrap}>
       <p className="text-center text-[#686B70] font-medium mb-8">
         {t("enter_station_code")}
       </p>
-      <div className={styles.otpWrap}>
+      <div
+        className={`${
+          isOrderNumError || isErrorAlertOpen
+            ? styles.otpErrWrap
+            : styles.otpWrap
+        }`}
+      >
         <ReactCodeInput
+          ref={inputRef}
           value={orderNumber}
           onChange={handleOrderCode}
         ></ReactCodeInput>
@@ -86,6 +105,9 @@ const OrderCreate = () => {
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
         errorMesage={errorAlertProps.text}
+        dependency={() => {
+          setIsClearInput(true);
+        }}
       />
       <div className={styles.addBtn}>
         <button

@@ -31,7 +31,7 @@
   }
 
   .addBtn {
-    padding: 14px 0;
+    padding: 12px;
     border: 1px solid #ededed;
     text-align: center;
     border-radius: 12px;
@@ -47,18 +47,17 @@
     background: linear-gradient(0deg, rgba(104, 107, 112, 0.05), rgba(104, 107, 112, 0.05)),
       linear-gradient(0deg, #f9f9f9, #f9f9f9);
     border: 1px solid #686b700d;
-    padding: 12px 16px;
+    padding: 8px 16px;
+    padding-left: 8px;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
     .editCard {
       display: flex;
+      align-items: center;
       gap: 12px;
-
-      .images {
-        height: 20px;
-      }
     }
     .editBtn {
       color: #12adc1;

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import { SwipeableDrawer } from "@mui/material";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
@@ -22,7 +23,7 @@ const PaymentInfo = () => {
   const isUserBlocked = useCheckUserBlocked();
   const { t } = useTranslation();
   const selector = useSelector((state) => state.orders);
-  const [myCards, setMyCards] = useState([]);
+  const [myCards, setMyCards] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
@@ -31,7 +32,7 @@ const PaymentInfo = () => {
   );
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   const selectorRes = useMemo(() => {
     if (
@@ -99,9 +100,13 @@ const PaymentInfo = () => {
           selectorRes?.merchant_list_id_data?.merchant_pricing_id,
         pricing_languages: "russian",
       },
-    }).then((res) => {
-      setData(res?.data?.data?.response);
-    });
+    })
+      .then((res) => {
+        setData(res?.data?.data?.response);
+      })
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
   };
 
   const getMyCards = () => {
@@ -110,12 +115,16 @@ const PaymentInfo = () => {
         with_relations: false,
         user_id: userData?.guid,
       },
-    }).then((res) => {
-      setMyCards(res?.data?.data?.response);
-      if (selectedCardId === "") {
-        setSelectedCardId(res?.data?.data?.response?.at(-1)?.guid || "");
-      }
-    });
+    })
+      .then((res) => {
+        setMyCards(res?.data?.data?.response);
+        if (selectedCardId === "") {
+          setSelectedCardId(res?.data?.data?.response?.at(-1)?.guid || "");
+        }
+      })
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
   };
 
   useEffect(() => {
@@ -131,6 +140,18 @@ const PaymentInfo = () => {
     const { icon } = checkCardType(selectedCard);
     setSelectedCardIcon(icon);
   }, [selectedCardId]);
+
+  if (!data || !myCards) {
+    return (
+      <>
+        <ErrorAlert
+          openAlert={isErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+        />
+        <FullScreenSpinner />
+      </>
+    );
+  }
 
   return (
     <div className={styles.PaymentWrap}>
@@ -171,7 +192,7 @@ const PaymentInfo = () => {
         <div className={styles.paymentMethod}>
           <div className={styles.editCard}>
             <img
-              className={`${styles.cardIcon} w-6 h-6`}
+              className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
               src={selectedCardIcon}
               alt="icon"
             ></img>
@@ -215,15 +236,15 @@ const PaymentInfo = () => {
                   <div
                     onClick={() => setSelectedCardId(card?.guid)}
                     key={card?.card_token}
-                    className={`flex flex-row justify-between border cursor-pointer ${
+                    className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
                       card?.guid == selectedCardId
                         ? "border-[#12ADC1]"
                         : "border-[#F1F1F1]"
-                    }  py-3 px-4 rounded-2xl items-center`}
+                    }  py-2 px-2 rounded-2xl items-center`}
                   >
-                    <div className={"flex flex-row gap-6"}>
+                    <div className={"flex flex-row gap-6 items-center"}>
                       <img
-                        className={"w-6 h-6"}
+                        className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
                         src={icon || cardicon}
                         alt="icon"
                       ></img>

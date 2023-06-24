@@ -80,7 +80,7 @@ const MyCardsPage = () => {
               <div className={styles.paymentMethod} key={card.guid}>
                 <div className={styles.editCard}>
                   <img
-                    className={styles.images}
+                    className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
                     src={icon || cardicon}
                     alt="icon"
                   ></img>
