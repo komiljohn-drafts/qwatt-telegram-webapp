@@ -46,7 +46,7 @@ const ActiveCard = ({ order }) => {
         <div className={styles.usedInfo}>
           <p>{t("rental_amount")}</p>
           <div>
-            {`${order?.amounbefore || 0}`} {t("on_use")}
+            {`${order?.amounbefore || 0}`} {t("sum")}
           </div>
         </div>
       )}
