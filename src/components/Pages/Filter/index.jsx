@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fitlerActions } from "../../../store/slices/filter.slice";
 import styles from "./style.module.scss";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const data = [
@@ -17,15 +18,18 @@ const data = [
 
 const FilterPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { filterId } = useSelector((state) => state.filter);
   const { t } = useTranslation();
 
   const handleClick = (filterId) => {
     dispatch(fitlerActions.setFilterId(filterId));
+    navigate("/");
   };
 
   const handleResetFilter = () => {
     dispatch(fitlerActions.resetFilter());
+    navigate("/");
   };
 
   return (
