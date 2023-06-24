@@ -149,7 +149,7 @@ const AddingCard = () => {
                 className={styles.InputMask}
                 mask="99/99"
                 maskChar={null}
-                placeholder={t("card_validation")}
+                placeholder={t("expiry_date")}
                 value={expiryDate}
                 onChange={handleExpiryDateChange}
               ></InputMask>
