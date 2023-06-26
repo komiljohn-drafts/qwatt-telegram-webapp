@@ -85,5 +85,6 @@
     "error_text":"An error has occurred. Please try again later",
     "continue":"Continue",
     "selecting_powerbank":"We select a charged power bank",
-    "expiry_date":"Expiry date"
+    "expiry_date":"Expiry date",
+    "confirm_delete":"Delete card?"
 }

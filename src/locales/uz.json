@@ -85,5 +85,6 @@
     "error_text:" : "Xato ro'y berdi. Keyinroq qayta urinib ko'ring.",
     "continue":"Davom etish",
     "selecting_powerbank":"Biz zaryadlangan quvvat bankini tanlaymiz",
-    "expiry_date":"Amal qilish muddati"
+    "expiry_date":"Amal qilish muddati",
+    "confirm_delete":"O'chirishni tasdiqlash"
     }

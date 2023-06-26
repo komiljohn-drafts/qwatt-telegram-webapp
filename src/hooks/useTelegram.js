@@ -22,9 +22,6 @@ const useTelegram = () => {
     }
   }, []);
 
-  // console.log("w", window.Telegram?.WebApp);
-  // console.log("usertgdata", userTelegramData);
-
   useEffect(() => {
     setTgID(userTelegramData?.id);
     if (userTelegramData?.language_code) {
@@ -41,7 +38,6 @@ const useTelegram = () => {
     if (tgID) {
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
-          console.log("user get", res);
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {

@@ -8,11 +8,8 @@ import { userDataActions } from "./store/slices/userData";
 
 function App() {
   const userInitialData = useTelegram();
-  // const userTelegramData = useSelector((state) => state.userTelegramData?.data);
   const dispatch = useDispatch();
   const match = useMatch("/");
-
-  // console.log("tg data", userTelegramData);
 
   if (userInitialData?.guid) {
     getProfile(userInitialData?.guid).then((res) => {

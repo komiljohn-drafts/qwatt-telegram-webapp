@@ -35,9 +35,7 @@ const AddingCard = () => {
 
   const handleExpiryDateChange = (event) => {
     let value = event.target.value;
-    // Only allow numbers
     value = value.replace(/\D/g, "");
-    // Format date as DD/MM/YYYY
     let val = value.replace(/^(\d{2})(\d)/, "$1/$2");
     let d = new Date();
     setExpiryDate(val);
@@ -127,9 +125,6 @@ const AddingCard = () => {
       expiryDateRef?.current?.focus();
     }
   }, [cardNumber]);
-
-  console.log("card", cardNumberRef?.current?.focused);
-  console.log("expire", expiryDateRef?.current?.focused);
 
   return (
     <div className={styles.addingCardWrap}>
