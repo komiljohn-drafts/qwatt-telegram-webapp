@@ -28,6 +28,9 @@ const useTelegram = () => {
       changeLang(userTelegramData?.language_code);
     }
 
+    console.log("w", window.Telegram?.WebApp);
+    console.log("usertgdata", userTelegramData);
+
     // setTgID("6054841751");
     // setTgID("6225306070");
     // setTgID("6267637476");
