@@ -22,14 +22,15 @@ const useTelegram = () => {
     }
   }, []);
 
+  console.log("w", window.Telegram?.WebApp);
+  console.log("usertgdata", userTelegramData);
+
   useEffect(() => {
     setTgID(userTelegramData?.id);
     if (userTelegramData?.language_code) {
+      console.log("inside");
       changeLang(userTelegramData?.language_code);
     }
-
-    console.log("w", window.Telegram?.WebApp);
-    console.log("usertgdata", userTelegramData);
 
     // setTgID("6054841751");
     // setTgID("6225306070");
