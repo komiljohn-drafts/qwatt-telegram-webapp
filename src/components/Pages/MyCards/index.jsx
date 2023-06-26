@@ -15,6 +15,7 @@ const MyCardsPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const userData = useSelector((state) => state.userData?.data);
+  const orderData = useSelector((state) => state.orderDetails?.data);
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -88,14 +89,16 @@ const MyCardsPage = () => {
                   ></img>
                   <div>{card?.credit_card}</div>
                 </div>
-                <button
-                  className={styles.editBtn}
-                  onClick={() => {
-                    setDeleteConfirmOpen(true);
-                  }}
-                >
-                  {t("delete")}
-                </button>
+                {!orderData?.guid && (
+                  <button
+                    className={styles.editBtn}
+                    onClick={() => {
+                      setDeleteConfirmOpen(true);
+                    }}
+                  >
+                    {t("delete")}
+                  </button>
+                )}
                 <Dialog
                   open={isDeleteConfirmOpen}
                   onClose={() => setDeleteConfirmOpen(false)}
