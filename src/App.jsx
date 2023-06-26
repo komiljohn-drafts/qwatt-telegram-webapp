@@ -11,6 +11,8 @@ function App() {
   const dispatch = useDispatch();
   const match = useMatch("/");
 
+  console.log("initial data", userInitialData);
+
   if (userInitialData?.guid) {
     getProfile(userInitialData?.guid).then((res) => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response));

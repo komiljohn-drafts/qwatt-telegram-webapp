@@ -41,7 +41,7 @@ const useTelegram = () => {
     if (tgID) {
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
-          // console.log("user get", res);
+          console.log("user get", res);
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
