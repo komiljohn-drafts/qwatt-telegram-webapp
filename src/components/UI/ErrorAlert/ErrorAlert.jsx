@@ -61,6 +61,7 @@ export default function ErrorAlert({
             onClick={() => {
               setOpenAlert(false);
               action();
+              dependency && dependency();
             }}
           >
             {t("good")}
