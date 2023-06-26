@@ -22,8 +22,8 @@ const useTelegram = () => {
     }
   }, []);
 
-  console.log("w", window.Telegram?.WebApp);
-  console.log("usertgdata", userTelegramData);
+  // console.log("w", window.Telegram?.WebApp);
+  // console.log("usertgdata", userTelegramData);
 
   useEffect(() => {
     setTgID(userTelegramData?.id);

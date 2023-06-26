@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import InputMask from "react-input-mask";
@@ -16,6 +16,8 @@ const AddingCard = () => {
   const { t } = useTranslation();
   const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
+  const expiryDateRef = useRef();
+  const cardNumberRef = useRef();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cardTypeIcon, setCardTypeIcon] = useState(null);
@@ -32,7 +34,11 @@ const AddingCard = () => {
   };
 
   const handleExpiryDateChange = (event) => {
-    const val = event.target.value;
+    let value = event.target.value;
+    // Only allow numbers
+    value = value.replace(/\D/g, "");
+    // Format date as DD/MM/YYYY
+    let val = value.replace(/^(\d{2})(\d)/, "$1/$2");
     let d = new Date();
     setExpiryDate(val);
     if (
@@ -112,6 +118,19 @@ const AddingCard = () => {
     }
   }, [cardNumber, expiryDate]);
 
+  useEffect(() => {
+    if (
+      expiryDateRef?.current &&
+      cardNumber.trim().replace(/\s/g, "").length == 16
+    ) {
+      console.log("expiryDateRef", expiryDateRef);
+      expiryDateRef?.current?.focus();
+    }
+  }, [cardNumber]);
+
+  console.log("card", cardNumberRef?.current?.focused);
+  console.log("expire", expiryDateRef?.current?.focused);
+
   return (
     <div className={styles.addingCardWrap}>
       <div className={styles.cardHeaderText}>{t("card_is_secured")}</div>
@@ -125,8 +144,9 @@ const AddingCard = () => {
               alt="card"
             ></img>
             <InputMask
+              ref={cardNumberRef}
               mask="9999 9999 9999 9999"
-              autoFocus={true}
+              autoFocus={cardNumber.trim().replace(/\s/g, "").length != 16}
               maskChar={null}
               placeholder={t("card_number")}
               value={cardNumber}
@@ -145,14 +165,14 @@ const AddingCard = () => {
               {t("month")} / {t("year")}
             </p>
             <div className={styles.cardDate}>
-              <InputMask
+              <input
+                ref={expiryDateRef}
+                maxLength={5}
                 className={styles.InputMask}
-                mask="99/99"
-                maskChar={null}
                 placeholder={t("expiry_date")}
                 value={expiryDate}
                 onChange={handleExpiryDateChange}
-              ></InputMask>
+              ></input>
             </div>
             {isExpiryDateError && (
               <div className="text-sm text-red-600">
