@@ -306,10 +306,20 @@ const MainMap = () => {
                 <div className={styles.downloadApp}>
                   <p>{t("download_app")}</p>
                   <div className={styles.apps}>
-                    <div>
+                    <div
+                      onClick={() =>
+                        (window.location =
+                          "https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516")
+                      }
+                    >
                       <AppStoreIcon />
                     </div>
-                    <div>
+                    <div
+                      onClick={() => {
+                        window.location =
+                          "https://play.google.com/store/apps/details?id=com.q.watt";
+                      }}
+                    >
                       <PlayMarketIcon />
                     </div>
                   </div>

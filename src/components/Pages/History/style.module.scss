@@ -47,10 +47,16 @@
     justify-content: flex-end;
     color: #12adc1;
     font-size: 13px;
+    background: #f9f9f9;
     font-weight: 500;
     line-height: 18px;
     cursor: pointer;
   }
+    .moreWrap:active,
+    .moreWrap:focus {
+      outline: none !important;
+      background-color: #f9f9f9 !important;background: #f9f9f9;
+    }
 }
 
 .NoHistory {
