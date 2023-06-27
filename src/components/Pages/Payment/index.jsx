@@ -284,7 +284,7 @@ const PaymentInfo = () => {
         </div>
       </div>
 
-      <div className={styles.question} onClick={() => navigate("./faq")}>
+      <div className={styles.question} onClick={() => navigate("/faq")}>
         {t("powerbank_lost")}
       </div>
 

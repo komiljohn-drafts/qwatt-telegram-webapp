@@ -29,7 +29,7 @@ const useTelegram = () => {
       changeLang(userTelegramData?.language_code);
     }
 
-    // setTgID("6054841751");
+    setTgID("6054841751");
     // setTgID("6225306070");
     // setTgID("6267637476");
   }, [userTelegramData]);
