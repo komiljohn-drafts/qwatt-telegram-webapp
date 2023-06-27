@@ -272,7 +272,6 @@ const PaymentInfo = () => {
               <button
                 style={{ background: "rgba(133, 127, 127, 0.15)" }}
                 onClick={() => {
-                  handleCreateOrder();
                   setCardSelectOpen(false);
                 }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"
