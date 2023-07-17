@@ -25,7 +25,7 @@ labels:
 # command: ["/bin/sh","-c"]
 # args: ["echo 'consuming a message'; sleep 5"]
 
-serviceAccount:
+serviceAccount:qwatt_telegram_frontend
   # Specifies whether a service account should be created
   create: true
   # Annotations to add to the service account
@@ -118,7 +118,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - key: kubernetes.io/ucode-prod
+            - key: kubernetes.io/ucode-test
               operator: In
               values:
                 - "true"
