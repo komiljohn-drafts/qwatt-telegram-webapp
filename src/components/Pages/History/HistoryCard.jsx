@@ -47,7 +47,7 @@ const HistoryCard = ({ order }) => {
           )}
           <div className={styles.usedInfo}>
             <p>{t("rental_start")}</p>
-            <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
+            <div>{order?.merchant_list_id_data?.detail_adress_in_uzbek}</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
               moment.utc(order?.created_time).format("HH:mm") || ""
             }`}</div>
@@ -55,8 +55,8 @@ const HistoryCard = ({ order }) => {
 
           <div className={styles.usedInfo}>
             <p>{t("rental_end")}</p>
-            <div>Метро Ноза</div>
-            <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
+            <div>{order?.merchant_list_id_2_data?.detail_adress_in_uzbek}</div>
+            <div>{`${format(parseISO(order?.end_time), "dd MMMM yyyy")} - ${
               moment.utc(order?.end_time).format("HH:mm") || ""
             }`}</div>
           </div>
