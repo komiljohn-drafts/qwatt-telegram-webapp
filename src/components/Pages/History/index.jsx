@@ -8,6 +8,7 @@ import { getOrders } from "@/services/setOrder";
 import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { sortOrders } from "@/helpers/sortOrders";
 
 const HistoryPage = () => {
   const userData = useSelector((state) => state.userData?.data);
@@ -23,7 +24,7 @@ const HistoryPage = () => {
       },
     })
       .then((res) => {
-        setHistoryData(res?.data?.data?.response);
+        setHistoryData(sortOrders(res?.data?.data?.response));
       })
       .catch(() => {
         setErrorAlertOpen(true);
