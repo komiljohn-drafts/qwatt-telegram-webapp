@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styles from "./style.module.scss";
 import useOrderTimer from "@/hooks/useOrderTimer";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const ActiveCard = ({ order }) => {
   const { orderStatusTime } = useOrderTimer();
@@ -35,11 +36,11 @@ const ActiveCard = ({ order }) => {
 
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
-          <p>{t("rental_amount")}</p>
-          <div>{order?.merchant_list_id_data?.detail_address_in_english}</div>
+          <p>{t("rental_start")}</p>
+          <div>{order?.merchant_list_id_data?.detail_adress_in_uzbek}</div>
           <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-            order?.merchant_list_id_data?.business_hour_start || ""
-          }`}</div>
+              moment.utc(order?.created_time).format("HH:mm") || ""
+            }`}</div>
         </div>
       )}
       {order?.end_time == "" && (
