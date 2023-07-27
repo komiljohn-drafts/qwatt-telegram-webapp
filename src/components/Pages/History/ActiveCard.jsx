@@ -39,7 +39,7 @@ const ActiveCard = ({ order }) => {
           <p>{t("rental_start")}</p>
           <div>{order?.merchant_list_id_data?.detail_adress_in_uzbek}</div>
           <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-              moment.utc(order?.created_time).format("HH:mm") || ""
+              moment(order?.created_time).format("HH:mm") || ""
             }`}</div>
         </div>
       )}
