@@ -227,6 +227,7 @@ const MainMap = () => {
         </div>
         <div className={styles.openFilter} onClick={() => navigate("/filter")}>
           <FilterIcon />
+          <div className={filterId ? styles.circle : styles.hidden}></div>
         </div>
       </div>
       {isOpen && <MapPopup selectedBranch={selectedBranch} setOpen={setOpen} />}

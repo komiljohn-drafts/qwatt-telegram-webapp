@@ -12,6 +12,25 @@
   padding: 0 16px;
   z-index: 1000;
   width: 100%;
+
+  .openFilter {
+    position: relative;
+
+    .circle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+      background: #12adc1;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+    
+    .hidden {
+      display: none;
+    }
+  }
 }
 .menu {
   height: 100vh;
