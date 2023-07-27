@@ -2,7 +2,7 @@ export const CheckSlotPosition = (slots, slot) => {
   let index = "";
 
   if (slots == 12) {
-    switch (slot.toString()) {
+    switch (slot?.toString()) {
       case "1":
         index = 11;
         break;
@@ -45,7 +45,7 @@ export const CheckSlotPosition = (slots, slot) => {
   }
 
   if (slots == 24) {
-    switch (slot.toString()) {
+    switch (slot?.toString()) {
       case "1":
         index = 23;
         break;
@@ -124,7 +124,7 @@ export const CheckSlotPosition = (slots, slot) => {
   }
 
   if (slots == 48) {
-    switch (slot.toString()) {
+    switch (slot?.toString()) {
       case "1":
         index = 45;
         break;
