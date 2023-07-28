@@ -130,13 +130,19 @@ const PaymentInfo = () => {
       },
     })
       .then((res) => {
-        setMyCards(res?.data?.data?.response);
-        console.log("res payment: ", res?.data?.data?.response);
-        if (selectedCardId === "") {
-          sendMsgTg("Card is not selected")
-          setSelectedCardId(res?.data?.data?.response?.at(-1)?.guid || "");
-          sendMsgTg("Selected card is set now")
+        const responseData = res?.data?.data?.response;
+        if (Array.isArray(responseData) && responseData.length > 0) {
+          setMyCards(responseData);
+          console.log("res payment: ", responseData);
+          if (selectedCardId === "") {
+            sendMsgTg("Card is not selected");
+            setSelectedCardId(responseData.at(-1)?.guid || "");
+            sendMsgTg("Selected card is set now");
+          }
+        } else {
+          setErrorAlertOpen(true);
         }
+
       })
       .catch(() => {
         setErrorAlertOpen(true);
