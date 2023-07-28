@@ -123,7 +123,8 @@ const PaymentInfo = () => {
   };
 
   const getMyCards = () => {
-    sendMsgTg(userData, "userData.guid")
+    sendMsgTg(userData.guid, "userData.guid")
+    console.log("user_guid", userData.guid);
     getCards({
       data: {
         with_relations: false,
