@@ -41,7 +41,7 @@ const PaymentInfo = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
   const [selectedCardId, setSelectedCardId] = useState(
-    Array.isArray(myCards) && myCards.length > 0 ? myCards.at(-1)?.guid || "" : ""
+    Array.isArray(myCards) && myCards.length > 0 ? myCards?.[myCards.length-1]?.guid || "" : ""
   );
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
@@ -134,27 +134,16 @@ const PaymentInfo = () => {
       .then((res) => {
         const responseData = res?.data?.data?.response;
         if (Array.isArray(responseData) && responseData.length > 0) {
-          sendMsgTg(responseData[responseData.length-1].guid || "+")
           setMyCards(responseData);
-          console.log("res payment: ", responseData);
-          console.log("selectedCardId: ", selectedCardId);
           if (selectedCardId === "") {
-            sendMsgTg("Card is not selected");
-            console.log("Card is not selected");
-            setSelectedCardId(responseData[responseData.length-1].guid || "");
-            sendMsgTg("Selected card is set now");
-            console.log("Selected card is set now");
+            setSelectedCardId(responseData?.[responseData?.length-1]?.guid || "");
           }
         } else {
-          console.log("undef || null");
-          sendMsgTg("undef || null")
           setErrorAlertOpen(true);
         }
 
       })
       .catch(() => {
-        console.log("the other one");
-        sendMsgTg("the other one");
         setErrorAlertOpen(true);
       });
   };
@@ -169,7 +158,7 @@ const PaymentInfo = () => {
     sendMsgTg("Third enter")
     const selectedCard = selectedCardId
       ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]?.credit_card
-      : myCards?.at(-1)?.credit_card;
+      : myCards?.[myCards?.length-1]?.credit_card;
       sendMsgTg("Third done")
     const { icon } = checkCardType(selectedCard);
     setSelectedCardIcon(icon);
@@ -234,7 +223,7 @@ const PaymentInfo = () => {
               {selectedCardId
                 ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]
                     ?.credit_card
-                : myCards?.at(-1)?.credit_card}
+                : myCards?.[myCards?.length-1]?.credit_card}
             </div>
           </div>
           <button
