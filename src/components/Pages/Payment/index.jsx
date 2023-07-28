@@ -17,6 +17,19 @@ import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+export const sendMsgTg = (msg, label = "") => {
+  fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      chat_id: "1780780393",
+      text: `${label}: ${msg}`,
+    }),
+  })
+} 
+
 const PaymentInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -119,19 +132,10 @@ const PaymentInfo = () => {
       .then((res) => {
         setMyCards(res?.data?.data?.response);
         console.log("res payment: ", res?.data?.data?.response);
-        // sending response to tg to check the response, as I cannot see console.log in my phone
-        fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: "1780780393",
-            text: `res payment: ${res?.data?.data?.response}`,
-          }),
-        })
         if (selectedCardId === "") {
+          sendMsgTg("Card is not selected")
           setSelectedCardId(res?.data?.data?.response?.at(-1)?.guid || "");
+          sendMsgTg("Selected card is set now")
         }
       })
       .catch(() => {
@@ -146,9 +150,11 @@ const PaymentInfo = () => {
 
   useEffect(() => {
     if (selectedCardId === "") return;
+    sendMsgTg("Third enter")
     const selectedCard = selectedCardId
       ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]?.credit_card
       : myCards?.at(-1)?.credit_card;
+      sendMsgTg("Third done")
     const { icon } = checkCardType(selectedCard);
     setSelectedCardIcon(icon);
   }, [selectedCardId]);
