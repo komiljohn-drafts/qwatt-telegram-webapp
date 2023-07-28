@@ -134,19 +134,27 @@ const PaymentInfo = () => {
       .then((res) => {
         const responseData = res?.data?.data?.response;
         if (Array.isArray(responseData) && responseData.length > 0) {
+          sendMsgTg(responseData[responseData.length-1].guid || "+")
           setMyCards(responseData);
           console.log("res payment: ", responseData);
+          console.log("selectedCardId: ", selectedCardId);
           if (selectedCardId === "") {
             sendMsgTg("Card is not selected");
-            setSelectedCardId(responseData.at(-1)?.guid || "");
+            console.log("Card is not selected");
+            setSelectedCardId(responseData[responseData.length-1].guid || "");
             sendMsgTg("Selected card is set now");
+            console.log("Selected card is set now");
           }
         } else {
+          console.log("undef || null");
+          sendMsgTg("undef || null")
           setErrorAlertOpen(true);
         }
 
       })
       .catch(() => {
+        console.log("the other one");
+        sendMsgTg("the other one");
         setErrorAlertOpen(true);
       });
   };
