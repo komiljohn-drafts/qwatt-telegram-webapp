@@ -81,7 +81,7 @@ const OrderCreate = () => {
 
   return (
     <div className={styles.addingCardWrap}>
-      <p className="text-center text-[#686B70] font-medium mb-8">
+      <p className={`text-center text-[#686B70] font-medium mb-8 ${styles.enterCode}`}>
         {t("enter_station_code")}
       </p>
       <div

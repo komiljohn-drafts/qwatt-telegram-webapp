@@ -4,6 +4,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  .enterCode {
+    font-size: 15px;
+  }
   
   .cardHeaderText {
     font-size: 15px;
@@ -79,6 +83,7 @@
       color: white;
       border-radius: 12px;
       border: none;
+      font-weight: 600;
     }
   }
   .second {
