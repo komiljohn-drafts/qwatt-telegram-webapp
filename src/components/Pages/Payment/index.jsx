@@ -16,6 +16,7 @@ import styles from "./style.module.scss";
 import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { formatCardNumber } from "@/helpers/formatCardNumber";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -203,9 +204,8 @@ const PaymentInfo = () => {
             ></img>
             <div>
               {selectedCardId
-                ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]
-                    ?.credit_card
-                : myCards?.[myCards?.length-1]?.credit_card}
+                ? formatCardNumber(myCards.find((card) => card?.guid == selectedCardId)?.credit_card)
+                : formatCardNumber(myCards?.[myCards?.length-1]?.credit_card)}
             </div>
           </div>
           <button
