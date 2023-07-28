@@ -10,6 +10,7 @@ import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { formatCardNumber } from "@/helpers/formatCardNumber";
 
 const MyCardsPage = () => {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ const MyCardsPage = () => {
                     src={icon || cardicon}
                     alt="icon"
                   ></img>
-                  <div>{card?.credit_card}</div>
+                  <div>{formatCardNumber(card?.credit_card)}</div>
                 </div>
                 {!orderData?.guid && (
                   <button

@@ -113,7 +113,7 @@ const AddProfileData = () => {
           </div>
         </div>
         <button
-          className="w-full bg-[#12ADC1] text-white rounded-[12px] h-[48px]"
+          className={`w-full bg-[#12ADC1] text-white rounded-[12px] h-[48px] ${styles.saveBtn}`}
           type="submit"
         >
           {t("save")}
