@@ -80,9 +80,7 @@ export default function Rent() {
               ).map((_, index) => (
                 <div
                   key={index}
-                  className={`${
-                    cabineInfo?.powerbank_slots > 24 ? "w-16" : "w-20"
-                  } h-5 border rounded-2xl ${
+                  className={`w-12 h-4 border rounded-2xl ${
                     index + 1 == slotPosition
                       ? "bg-[#12ADC1]  border-[#12ADC1]"
                       : "bg-[#EFEFEF]  border-[#E0E0E0]"
