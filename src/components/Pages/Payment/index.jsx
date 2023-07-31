@@ -76,9 +76,18 @@ const PaymentInfo = () => {
           );
           return;
         }
-        dispatch(
-          slotActions.setSlot(res?.data?.data?.data?.response?.[0]?.slot)
-        );
+        if (res?.data?.data?.data?.response?.[0]?.slot) {
+          dispatch(
+            slotActions.setSlot(res?.data?.data?.data?.response?.[0]?.slot)
+          );
+        } else {
+          setErrorAlertOpen(true);
+          setErrorAlertProps({
+            text: "Something went wrong",
+            action: () => setErrorAlertOpen(false),
+          });
+          console.log("There is no slot in response");
+        }
       })
       .catch((err) => {
         setErrorAlertOpen(true);
