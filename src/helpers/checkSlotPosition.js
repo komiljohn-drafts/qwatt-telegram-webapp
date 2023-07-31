@@ -1,48 +1,13 @@
 export const CheckSlotPosition = (slots, slot) => {
+  console.log("slot", slot); // log
+
   let index = "";
 
-  if (slots == 12) {
-    switch (slot?.toString()) {
-      case "1":
-        index = 11;
-        break;
-      case "2":
-        index = 9;
-        break;
-      case "3":
-        index = 7;
-        break;
-      case "4":
-        index = 5;
-        break;
-      case "5":
-        index = 3;
-        break;
-      case "6":
-        index = 1;
-        break;
-      case "7":
-        index = 12;
-        break;
-      case "8":
-        index = 10;
-        break;
-      case "9":
-        index = 8;
-        break;
-      case "10":
-        index = 6;
-        break;
-      case "11":
-        index = 4;
-        break;
-      case "12":
-        index = 2;
-        break;
-      default:
-        break;
-    }
-  }
+  const type6 = [5, 3, 1, 6, 4, 2]
+  const type12 = [11, 9, 7, 5, 3, 1, 12, 10, 8, 6, 4, 2]
+  const type18 = [17, 15, 13, 11, 9, 7, 5, 3, 1, 18, 16, 14, 12, 10, 8, 6, 4, 2]
+  const type30 = [29, 25, 21, 17, 13, 9, 5, 1, 30, 26, 22, 18, 14, 10, 6, 2, 27, 23, 19, 15, 11, 7, 3, 28, 24, 20, 16, 12, 8, 4]
+  const type36 = [33, 29, 25, 21, 17, 13, 9, 5, 1, 34, 30, 26, 22, 18, 14, 10, 6, 2, 35, 31, 27, 23, 19, 15, 11, 7, 3, 36, 32, 28, 24, 20, 16, 12, 8, 4]
 
   if (slots == 24) {
     switch (slot?.toString()) {
@@ -121,9 +86,7 @@ export const CheckSlotPosition = (slots, slot) => {
       default:
         break;
     }
-  }
-
-  if (slots == 48) {
+  } else if (slots == 48) {
     switch (slot?.toString()) {
       case "1":
         index = 45;
@@ -272,6 +235,21 @@ export const CheckSlotPosition = (slots, slot) => {
       default:
         break;
     }
+  } else if (slots%6 === 0) {
+      switch (slots) {
+        case 6:
+          return type6[slot-1]
+        case 12:
+          return type12[slot-1]
+        case 18:
+          return type18[slot-1]
+        case 30:
+          return type30[slot-1]
+        case 36:
+          return type36[slot-1]
+        default:
+          break;
+      }
   }
 
   return index;

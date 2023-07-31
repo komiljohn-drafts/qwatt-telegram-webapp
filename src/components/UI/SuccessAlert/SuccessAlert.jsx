@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { SuccessIcon } from "@/screen-capture/icons";
 import { SwipeableDrawer } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -34,7 +33,6 @@ export default function SuccessAlert({
           className="rounded-2xl h-1 w-10 self-center"
           style={{ background: "rgba(133, 127, 127, 0.15)" }}
         />
-        <SuccessIcon />
 
         <h2 className="text-center text-lg font-semibold">
           {title || t("successfully_rented")}

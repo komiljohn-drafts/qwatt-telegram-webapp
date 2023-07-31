@@ -11,6 +11,7 @@ import qwatt from "@/assets/images/qwatt.svg";
 import { slotActions } from "@/store/Order/Slot";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import styles from "./style.module.scss";
 
 export default function Rent() {
   const { t } = useTranslation();
@@ -58,20 +59,20 @@ export default function Rent() {
   return (
     <div className="w-full">
       <MobileHeader title={t("rental")} path="/" />
-      <div className="flex items-center  justify-center w-full py-6">
+      <div className={`flex items-center  justify-center w-full py-8 ${slot ? styles.py3 : ""}`}>
         <div className="flex flex-col items-center justify-center gap-4">
           <div
             className={`flex flex-col items-center justify-center gap-6 border-2 rounded-3xl border-[#b8b8b8] py-8 ${
               cabineInfo?.powerbank_slots > 24 ? "px-4" : "px-10"
             }`}
           >
-            <img src={qwatt} alt="qwatt" className="w-40 " />
+            <img src={qwatt} alt="qwatt" className="w-20 " />
             <div
               className={`grid ${
                 cabineInfo?.powerbank_slots > 24
-                  ? "grid-cols-4 gap-x-1"
-                  : "grid-cols-2 gap-x-8"
-              } gap-y-3 `}
+                  ? "grid-cols-4 gap-x-2"
+                  : "grid-cols-2 gap-x-5"
+              } gap-y-2.5 `}
             >
               {Array.from(
                 { length: cabineInfo?.powerbank_slots },
