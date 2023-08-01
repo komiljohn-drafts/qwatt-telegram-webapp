@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { LightingIcon2 } from "@/screen-capture/icons";
 
 const style = {
   position: "absolute",
@@ -58,7 +59,10 @@ const ProfilePage = () => {
       <div className={styles.profileData}>
         <p className={styles.profileHeader}>{t("personal_details")}</p>
         <p className={styles.profileText}>{userData?.phone || ""}</p>
-
+        <div className={styles.bonus}>
+          {LightingIcon2("#fff")}
+          <p>{(userData?.bonus +" "+ t("score")) || ""}</p>
+        </div>
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           {t("change")}
         </div>
