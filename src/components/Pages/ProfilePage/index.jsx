@@ -30,7 +30,7 @@ const ProfilePage = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const userData = useSelector((state) => state.userData?.data);
-  const [bonus, setBonus] = useState(null);
+  const [bonus, setBonus] = useState("");
 
   const handleUserDelete = () => {
     deleteProfile({
@@ -59,8 +59,9 @@ const ProfilePage = () => {
       }
     })
       .then(res => {
-        if(res.data.data.data.response[0].bonus){
-          setBonus(res.data.data.data.response[0].bonus)
+        const resData = res?.data?.data?.data?.response?.[0]?.bonus
+        if( resData || resData == 0){
+          setBonus(resData)
         } else {
           setErrorAlertOpen(true)
         }
@@ -82,7 +83,7 @@ const ProfilePage = () => {
         <p className={styles.profileText}>{userData?.phone || ""}</p>
         <div className={styles.bonus}>
           {LightingIcon2("#fff")}
-          <p>{(bonus +" "+ t("score")) || ""}</p>
+          <p>{bonus !== "" ? (bonus +" "+ t("score")) : ""}</p>
         </div>
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           {t("change")}
