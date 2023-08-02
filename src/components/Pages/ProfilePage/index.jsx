@@ -59,7 +59,11 @@ const ProfilePage = () => {
       }
     })
       .then(res => {
-        setBonus(res.data.data.data.response[0].bonus)
+        if(res.data.data.data.response[0].bonus){
+          setBonus(res.data.data.data.response[0].bonus)
+        } else {
+          setErrorAlertOpen(true)
+        }
       })
       .catch(err => {
         console.log("getBonus Err", err); // log

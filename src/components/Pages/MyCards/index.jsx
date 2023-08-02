@@ -31,7 +31,11 @@ const MyCardsPage = () => {
       },
     })
       .then((res) => {
-        setData(res?.data?.data?.response);
+        if (res?.data?.data?.response) {
+          setData(res?.data?.data?.response);
+        } else {
+          setErrorAlertOpen(true);
+        }
       })
       .catch((err) => {
         setErrorAlertOpen(true);

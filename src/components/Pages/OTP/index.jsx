@@ -67,7 +67,6 @@ const OTPcode = () => {
           },
         })
           .then(() => {
-            console.log("card list success");
             if (params.get("from") == "order") {
               navigate("/order", { replace: true });
             } else if (params.get("from") == "payment") {

@@ -21,7 +21,11 @@ const Tarif = () => {
       },
     })
       .then((res) => {
-        setData(res.data.data.response[0].description);
+        if(res.data.data.response[0].description){
+          setData(res.data.data.response[0].description);
+        } else {
+          setErrorAlertOpen(true)
+        }
       })
       .catch(() => {
         setErrorAlertOpen(true);
