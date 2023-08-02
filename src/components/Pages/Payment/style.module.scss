@@ -116,21 +116,36 @@
     color: #12adc1;
     margin-bottom: 27px;
   }
-  .rentBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    margin: 0 auto;
-    background-color: #12adc1;
-    color: white;
-    border-radius: 12px;
-    border: none;
-    margin-top: auto;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-  }
+}
+
+.rentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  margin: 0 auto;
+  background-color: #12adc1;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  margin-top: auto;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.bonus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 100px;
+  background: rgba(249, 205, 47, 0.15);
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px; 
+  color: #F9CD2F;
 }

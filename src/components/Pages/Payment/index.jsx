@@ -10,13 +10,14 @@ import { checkCardType } from "@/helpers/checkCardType";
 import { getCards } from "@/services/getCards";
 import { getPrice } from "@/services/getPrice";
 import { orderErrorNoteActions } from "@/store/Order/orderErrorNote";
-import { setOrder } from "@/services/setOrder";
+import { getBonus, setOrder } from "@/services/setOrder";
 import { slotActions } from "@/store/Order/Slot";
 import styles from "./style.module.scss";
 import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatCardNumber } from "@/helpers/formatCardNumber";
+import { BonusIcon, starIcon } from "@/screen-capture/icons";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ const PaymentInfo = () => {
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
   const [data, setData] = useState(null);
+  const [isBonus, setIsBonus] = useState(false);
+  const [bonus, setBonus] = useState(null);
 
   const selectorRes = useMemo(() => {
     if (
@@ -65,6 +68,7 @@ const PaymentInfo = () => {
         cabine_lists_id: selectorRes?.guid,
         merchant_list_id: selectorRes?.merchant_list_id,
         credit_card_list_id: selectedCardId,
+        is_bonus: isBonus,
       },
     })
       .then((res) => {
@@ -98,6 +102,18 @@ const PaymentInfo = () => {
         console.log("order create error", err?.data?.data);
       });
   };
+
+  const handleBonusClick = () => {
+    if (bonus > 5000) {
+      setIsBonus(!isBonus)
+    } else {
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        text: t("notEnoughPointsToCreateLease"),
+        action: () => setErrorAlertOpen(false),
+      })
+    }
+  }
 
   const getOrderPrice = () => {
     if (!selectorRes?.merchant_list_id_data?.merchant_pricing_id) return;
@@ -141,10 +157,26 @@ const PaymentInfo = () => {
         setErrorAlertOpen(true);
       });
   };
+  
+  const fetchBonus = () => {
+    getBonus({
+      data: {
+        guid: userData?.guid
+      }
+    })
+      .then(res => {
+        setBonus(res.data.data.data.response[0].bonus)
+      })
+      .catch(err => {
+        console.log("getBonus Err", err); // log
+        setErrorAlertOpen(true);
+      })
+  }
 
   useEffect(() => {
     getOrderPrice();
     getMyCards();
+    fetchBonus();
   }, []);
 
   useEffect(() => {
@@ -205,18 +237,29 @@ const PaymentInfo = () => {
 
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
-          <div className={styles.editCard}>
-            <img
-              className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
-              src={selectedCardIcon}
-              alt="icon"
-            ></img>
-            <div>
-              {selectedCardId
-                ? formatCardNumber(myCards.find((card) => card?.guid == selectedCardId)?.credit_card)
-                : formatCardNumber(myCards?.[myCards?.length-1]?.credit_card)}
+          {isBonus ? (
+              <div className={"flex flex-row gap-2 items-center"}>
+                {BonusIcon()}
+                <div>{t("score")}</div>
+                <div className={styles.bonus}>
+                  <div>{starIcon()}</div>
+                  <div>{bonus}</div>
+                </div>
+              </div>
+          ) : (
+            <div className={styles.editCard}>
+              <img
+                className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
+                src={selectedCardIcon}
+                alt="icon"
+              ></img>
+              <div>
+                {selectedCardId
+                  ? formatCardNumber(myCards.find((card) => card?.guid == selectedCardId)?.credit_card)
+                  : formatCardNumber(myCards?.[myCards?.length-1]?.credit_card)}
+              </div>
             </div>
-          </div>
+          )}
           <button
             className={styles.editBtn}
             onClick={() => setCardSelectOpen(true)}
@@ -244,6 +287,27 @@ const PaymentInfo = () => {
               <h2 className="text-center text-lg font-semibold mb-2">
                 {t("choose_payment_method")}
               </h2>
+
+              <div
+                onClick={handleBonusClick}
+                className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
+                  isBonus ? "border-[#12ADC1]" : "border-[#F1F1F1]"
+                  } py-2 px-2 rounded-2xl items-center`}
+              >
+                <div className={"flex flex-row gap-6 items-center"}>
+                  {BonusIcon()}
+                  <div>{t("score")}</div>
+                  <div className={styles.bonus}>
+                    <div>{starIcon()}</div>
+                    <div>{bonus}</div>
+                  </div>
+                </div>
+                <button
+                  className={isBonus ? "block" : "hidden"}
+                >
+                  <CheckCircleIcon sx={{ color: "#12ADC1" }} />
+                </button>
+              </div>
               {myCards?.map((card) => {
                 const { icon } = checkCardType(card?.credit_card);
                 return (
@@ -265,9 +329,7 @@ const PaymentInfo = () => {
                       <div>{card?.credit_card}</div>
                     </div>
                     <button
-                      className={`${
-                        card?.guid == selectedCardId ? "block" : "hidden"
-                      }`}
+                      className={card?.guid == selectedCardId ? "block" : "hidden"}
                     >
                       <CheckCircleIcon sx={{ color: "#12ADC1" }} />
                     </button>
@@ -284,11 +346,10 @@ const PaymentInfo = () => {
                 + {t("add_card")}
               </button>
               <button
-                style={{ background: "rgba(133, 127, 127, 0.15)" }}
                 onClick={() => {
                   setCardSelectOpen(false);
                 }}
-                className="p-3 rounded-2xl text-[#686B70] font-medium"
+                className={`p-3 rounded-2xl text-[#686B70] font-medium ${styles.rentBtn}`}
               >
                 {t("continue")}
               </button>

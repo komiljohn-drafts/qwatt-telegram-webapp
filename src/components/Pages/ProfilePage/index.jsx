@@ -6,9 +6,10 @@ import { deleteProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LightingIcon2 } from "@/screen-capture/icons";
+import { getBonus } from "@/services/setOrder";
 
 const style = {
   position: "absolute",
@@ -29,6 +30,7 @@ const ProfilePage = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const userData = useSelector((state) => state.userData?.data);
+  const [bonus, setBonus] = useState(null);
 
   const handleUserDelete = () => {
     deleteProfile({
@@ -50,6 +52,21 @@ const ProfilePage = () => {
       });
   };
 
+  useEffect(() => {
+    getBonus({
+      data: {
+        guid: userData?.guid
+      }
+    })
+      .then(res => {
+        setBonus(res.data.data.data.response[0].bonus)
+      })
+      .catch(err => {
+        console.log("getBonus Err", err); // log
+        setErrorAlertOpen(true);
+      })
+  },[userData])
+
   if (Object.entries(userData).length == 0) {
     return <FullScreenSpinner />;
   }
@@ -61,7 +78,7 @@ const ProfilePage = () => {
         <p className={styles.profileText}>{userData?.phone || ""}</p>
         <div className={styles.bonus}>
           {LightingIcon2("#fff")}
-          <p>{(userData?.bonus +" "+ t("score")) || ""}</p>
+          <p>{(bonus +" "+ t("score")) || ""}</p>
         </div>
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           {t("change")}
