@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   DestinationIcon,
+  LightingIcon,
   QwattBlueIcon,
   QwattYellowIcon,
   XIcon,
@@ -10,16 +11,23 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getPrice } from "@/services/getPrice";
 import styles from "./style.module.scss";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import request from "@/utils/axios";
+import { useNavigate } from "react-router-dom";
 
 const MapPopup = ({ selectedBranch, setOpen }) => {
   // const [touchStart, setTouchStart] = useState(null);
   // const [touchEnd, setTouchEnd] = useState(null);
+  const userData = useSelector((state) => state.userData?.data);
   const [data, setData] = useState(null);
+  const { t } = useTranslation();
   const variants = {
     initial: { y: "100%", opacity: 0 },
     visible: { y: 0, opacity: 1 },
     // transitionEnd: { display: "none" },
   };
+  const navigate = useNavigate();
 
   // const { data } = useObjectList({
   //   tableSlug: "/pricing_descs",
@@ -35,6 +43,29 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
   //     select: (data) => data.data.data.response,
   //   },
   // });
+
+  const handleClick = () => {
+    if (!userData?.guid) {
+      return;
+    }
+    request
+      .post("get-list/credit_card_list", {
+        data: {
+          with_relations: false,
+          user_id: userData?.guid,
+        },
+      })
+      .then((res) => {
+        if (res?.data?.data?.count == 0) {
+          navigate("/add-card?from=order");
+        } else {
+          navigate("/order");
+        }
+      })
+      .catch((err) => {
+        console.log("my cards error", err);
+      });
+  };
 
   useEffect(() => {
     getPrice({
@@ -109,6 +140,9 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
             ))}
           </div>
         </div>
+        <button onClick={handleClick} className={`${styles.getButton} mb-2`}>
+          <LightingIcon /> {t("get_powerbank")}
+        </button>
       </motion.div>
     </AnimatePresence>
   );
