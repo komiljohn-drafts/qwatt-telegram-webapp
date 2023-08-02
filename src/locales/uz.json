@@ -16,6 +16,7 @@
     "logout":"Chiqish",
     "delete_account":"Accountni o'chirish",
     "cancel":"Bekor qilish",
+    "notEnoughPointsToCreateLease":"Quvvatlagichni olish uchun ballar yetarli emas",
     "delete":"O'chirish",
     "delete_account_confirmation":"Barcha ijara maʼlumotlaringiz va toʻplangan ballaringiz butunlay oʻchirib tashlanadi.",
     "confirm":"Tasdiqlash",

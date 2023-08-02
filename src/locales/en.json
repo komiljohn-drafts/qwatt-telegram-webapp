@@ -18,6 +18,7 @@
     "logout":"Logout",
     "delete_account":"Delete account",
     "cancel":"Cancel",
+    "notEnoughPointsToCreateLease":"Not enough points to create a lease",
     "delete":"Delete",
     "delete_account_confirmation":"All your rental data and accrued points will be permanently deleted.",
     "name":"Name",

@@ -16,6 +16,7 @@
    "logout":"Выйти из аккаунта",
    "delete_account":"Удалить аккаунт",
    "cancel":"Отменить",
+   "notEnoughPointsToCreateLease":"Hедостаточно баллов для создания аренды",
    "delete":"Удалить",
    "delete_account_confirmation":"Все ваши данные аренд и  начисленные балы будут удалены безвозвратно.",
    "name":"Имя",
