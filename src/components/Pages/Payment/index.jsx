@@ -104,7 +104,7 @@ const PaymentInfo = () => {
   };
 
   const handleBonusClick = () => {
-    if (bonus > 5000) {
+    if (bonus >= 5000) {
       setIsBonus(!isBonus)
     } else {
       setErrorAlertOpen(true)
