@@ -238,9 +238,9 @@ const PaymentInfo = () => {
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
           {isBonus ? (
-              <div className={"flex flex-row gap-2 items-center"}>
+              <div className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}>
                 {BonusIcon()}
-                <div>{t("score")}</div>
+                <div>{t("scores")}</div>
                 <div className={styles.bonus}>
                   <div>{starIcon()}</div>
                   <div>{bonus}</div>
@@ -294,9 +294,9 @@ const PaymentInfo = () => {
                   isBonus ? "border-[#12ADC1]" : "border-[#F1F1F1]"
                   } py-2 px-2 rounded-2xl items-center`}
               >
-                <div className={"flex flex-row gap-6 items-center"}>
+                <div className={`flex flex-row gap-6 items-center ${styles.bonusTxt}`}>
                   {BonusIcon()}
-                  <div>{t("score")}</div>
+                  <div>{t("scores")}</div>
                   <div className={styles.bonus}>
                     <div>{starIcon()}</div>
                     <div>{bonus}</div>

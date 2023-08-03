@@ -114,6 +114,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
             </div>
             <p>брать</p>
           </div>
+          <div className={styles.verticalLine}></div>
           <div className={styles.iconWrap}>
             <div className={styles.icon}>
               <QwattYellowIcon />
@@ -121,6 +122,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
             </div>
             <p>вернуть</p>
           </div>
+          <div className={styles.verticalLine}></div>
           <div className={styles.iconWrap2}>
             <div className={styles.icon}>
               <DestinationIcon />
@@ -135,7 +137,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
                 <div>{item?.title}</div>
 
                 <div className={styles.tarifLine}></div>
-                <div>{item?.pricing}</div>
+                <div className="font-medium">{item?.pricing}</div>
               </div>
             ))}
           </div>

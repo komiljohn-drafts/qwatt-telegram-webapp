@@ -65,7 +65,7 @@
     padding: 12px;
     .paymentBox {
       display: flex;
-      margin: 12px;
+      margin: 12px 0;
       .tarifLine {
         flex-grow: 1;
         border-bottom: 1px solid #282727;
@@ -148,4 +148,7 @@
   font-weight: 600;
   line-height: 18px; 
   color: #F9CD2F;
+}
+.bonusTxt {
+  color: #12ADC1;
 }

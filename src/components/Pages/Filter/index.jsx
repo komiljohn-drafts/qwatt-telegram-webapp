@@ -43,10 +43,10 @@ const FilterPage = () => {
         {data?.map((item) => (
           <label
             key={item.guid}
-            className={`${styles.control} border-b border-b-[#F4F4F4] py-2 items-center`}
+            className={`${styles.control} border-b border-b-[#F4F4F4] py-3 items-center`}
             htmlFor={item.guid}
           >
-            {t(item?.name)}
+            <p>{t(item?.name)}</p>
             <input
               type="checkbox"
               className="self-center"

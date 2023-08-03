@@ -90,10 +90,14 @@
     margin: 12px 4px 0 0;
     font-size: 17px;
     color: #000;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0.5px;
   }
   .adress {
     margin: 2px 4px 20px 0;
     font-size: 13px;
+    line-height: 18px;
   }
   .popUpDash {
     border-bottom: 3px solid #e6e6e6;
@@ -113,8 +117,14 @@
     align-items: center;
     background-color: #f9f9f9;
     border-radius: 12px;
-    height: 52px;
-    padding: 0 40px;
+    height: 56px;
+    gap: 8px;
+
+    .verticalLine {
+      height: 32px;
+      border-right: 1px solid #282727;
+      opacity: 0.06;
+    }
     .iconWrap {
       width: 104px;
       padding-left: 20px;
@@ -122,6 +132,12 @@
         display: flex;
         align-items: center;
         gap: 6px;
+      }
+      span {
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
       }
     }
   }
@@ -137,6 +153,7 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    font-weight: 600;
   }
   .PriceText {
     font-size: 15px;
