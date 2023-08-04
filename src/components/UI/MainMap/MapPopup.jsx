@@ -68,7 +68,6 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
   };
 
   const handleRouteToDestination = () => {
-    console.log(selectedBranch.latitude, selectedBranch.longitude)
     const destCoordinates = `${selectedBranch.latitude},${selectedBranch.longitude}`
     window.Telegram.WebApp.openLink(`https://maps.google.com/maps?q=${destCoordinates}`);
   }
