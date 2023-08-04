@@ -70,7 +70,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
   const handleRouteToDestination = () => {
     console.log(selectedBranch.latitude, selectedBranch.longitude)
     const destCoordinates = `${selectedBranch.latitude},${selectedBranch.longitude}`
-    window.open(`geo:${destCoordinates}`, "_blank");
+    window.Telegram.WebApp.openLink(`geo:${destCoordinates}`);
   }
 
   useEffect(() => {
