@@ -350,7 +350,7 @@ export function DrawIcon() {
 }
 export function QwattBlueIcon() {
   return (
-    <svg width="15" height="25" viewBox="0 0 15 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="30" viewBox="0 0 15 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M13.3333 2.90002H1.3333C0.670559 2.90002 0.133301 3.43728 0.133301 4.10002V20.9C0.133301 21.5628 0.670559 22.1 1.3333 22.1H13.3333C13.996 22.1 14.5333 21.5628 14.5333 20.9V4.10002C14.5333 3.43728 13.996 2.90002 13.3333 2.90002Z"
         fill="#12ADC1"
@@ -364,7 +364,7 @@ export function QwattBlueIcon() {
 }
 export function QwattYellowIcon() {
   return (
-    <svg width="15" height="25" viewBox="0 0 15 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="30" viewBox="0 0 15 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M13.2 2.90002H1.2C0.537258 2.90002 0 3.43728 0 4.10002V20.9C0 21.5628 0.537258 22.1 1.2 22.1H13.2C13.8627 22.1 14.4 21.5628 14.4 20.9V4.10002C14.4 3.43728 13.8627 2.90002 13.2 2.90002Z"
         fill="#F9CD2F"
