@@ -67,6 +67,12 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
       });
   };
 
+  const handleRouteToDestination = () => {
+    console.log(selectedBranch.latitude, selectedBranch.longitude)
+    const destCoordinates = `${selectedBranch.latitude},${selectedBranch.longitude}`
+    window.open(`geo:${destCoordinates}`, "_blank");
+  }
+
   useEffect(() => {
     getPrice({
       data: {
@@ -123,7 +129,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
             <p>вернуть</p>
           </div>
           <div className={styles.verticalLine}></div>
-          <div className={styles.iconWrap2}>
+          <div onClick={handleRouteToDestination} className={styles.iconWrap2}>
             <div className={styles.icon}>
               <DestinationIcon />
             </div>
