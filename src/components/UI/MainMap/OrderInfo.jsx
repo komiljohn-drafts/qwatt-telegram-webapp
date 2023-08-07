@@ -31,7 +31,7 @@ export default function OrderInfo() {
             </p>
           </div>
 
-          <div className="flex flex-row w-full bg-white p-4 justify-between items-center">
+          <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
             <p className="text-[#686B70]">{t("on_use")}:</p>
             <p className="text-[#282727]">{`${
               orderStatusTime.hours < 10 ? "0" : ""
@@ -41,21 +41,21 @@ export default function OrderInfo() {
               orderStatusTime.seconds < 10 ? "0" : ""
             }${orderStatusTime.seconds}`}</p>
           </div>
-          <div className="flex flex-row w-full bg-white p-4 justify-between items-center">
+          <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
             <p className="text-[#686B70]">{t("rental_price")}:</p>
             <p className="text-[#282727]">
               {price} {t("сум")}
             </p>
           </div>
           {debt && (
-            <div className="flex flex-row w-full bg-white p-4 justify-between items-center">
+            <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
               <p className="text-[#686B70]">{t("debt")}</p>
               <p className="text-[#ED4337]">
                 {debt} {t("сум")}
               </p>
             </div>
           )}
-          <div className="flex flex-row w-full rounded-b-2xl bg-white p-4 justify-between items-center">
+          <div className="flex flex-row w-full rounded-b-2xl bg-white py-1 px-4 justify-between items-center">
             <p className="text-[#686B70]">{t("rental_place")}:</p>
             <p className="text-[#282727]">{params.get("place") || place}</p>
           </div>

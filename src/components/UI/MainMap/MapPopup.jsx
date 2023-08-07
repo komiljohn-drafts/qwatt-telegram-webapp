@@ -147,7 +147,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
             ))}
           </div>
         </div>
-        <button onClick={handleClick} className={`${styles.getButton} mb-2`}>
+        <button onClick={handleClick} className={styles.getButton}>
           <LightingIcon /> {t("get_powerbank")}
         </button>
       </motion.div>
