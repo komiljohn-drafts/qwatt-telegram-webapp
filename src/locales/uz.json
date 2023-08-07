@@ -68,6 +68,8 @@
     "station_is_disabled":"The vending machine is out of order and cannot issue a lease (disabled)",
     "station_is_not_found":"Stansiya topilmadi",
     "rental":"Ijara",
+   "youHaveDebt":"Sizda qarz bor (vaqtincha)",
+   "youHaveChargerInUse":"Siz da ishlatilayotgan powerbank bor!",
     "account_is_blocked":"Account bloklangan",
     "station_info":"Stansiya haqida ma'lumot",
     "cabinet_id":"Kabinet ID",

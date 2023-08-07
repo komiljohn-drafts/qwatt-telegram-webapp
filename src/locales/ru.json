@@ -68,6 +68,8 @@
    "station_is_disabled":"Автомат находится в неисправном состоянии и не может выдавать аренду (инвалид)",
    "station_is_not_found":"Автомат не найден",
    "rental":"Аренда",
+   "youHaveDebt":"У вас есть долг",
+   "youHaveChargerInUse":"Вы используете зарядное устройство!",
    "account_is_blocked":"Аккаунт заблокирован",
    "station_info":"Информация о станции",
    "cabinet_id":"Кабинет ID",

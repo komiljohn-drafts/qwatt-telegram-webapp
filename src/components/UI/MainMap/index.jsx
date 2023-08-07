@@ -39,6 +39,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getOrders } from "@/services/setOrder";
+import { userDataActions } from "@/store/slices/userData";
 
 const MainMap = () => {
   const { t } = useTranslation();
@@ -196,6 +197,8 @@ const MainMap = () => {
       }
     })
       .then((res) => {
+        let hasNoDebt = true
+        
         res.data?.data?.data?.response?.forEach((ord) => {
           if (ord?.end_time == "") {
             dispatch(
@@ -204,7 +207,18 @@ const MainMap = () => {
               })
             );
           }
+          if (ord?.debt > 0 && hasNoDebt) {
+            hasNoDebt = false
+            dispatch(
+              userDataActions?.setUserDebt(true)
+            )
+          }
         });
+        if (hasNoDebt) {
+          dispatch(
+            userDataActions?.setUserDebt(false)
+          )
+        }
       })
       .catch((err) => {
         console.log("order list err", err);

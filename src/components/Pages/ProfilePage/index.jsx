@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 
 const style = {
   position: "absolute",
@@ -27,10 +28,38 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const userData = useSelector((state) => state.userData?.data);
+  const userDebt = useSelector((state) => state.userData?.debt)
+  const orderData = useSelector((state) => state.orderDetails?.data);
   const [bonus, setBonus] = useState("");
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertProps, setErrorAlertProps] = useState({})  
+
+  const checkBeforeDeleting = () => {
+    if (orderData?.order_guid) {
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        title: "You cannot delete accout", // staticd ata
+        text: t("youHaveChargerInUse"), // temporary data
+        action: () => {
+          setErrorAlertOpen(false);
+        }
+      })
+    } else if (userDebt) {
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        title: "You cannot delete accout", // staticd ata
+        text: t("youHaveDebt"), // temporary data
+        action: () => {
+          setErrorAlertOpen(false);
+        }
+      })
+    } else {
+      setOpen(true)
+    }
+  }
+
+  const handleClose = () => setOpen(false);
 
   const handleUserDelete = () => {
     deleteProfile({
@@ -98,7 +127,7 @@ const ProfilePage = () => {
         >
           {t("logout")}
         </div>
-        <div onClick={handleOpen} className={styles.deleteAccount}>
+        <div onClick={checkBeforeDeleting} className={styles.deleteAccount}>
           {t("delete_account")}
         </div>
       </div>
@@ -134,6 +163,14 @@ const ProfilePage = () => {
           </div>
         </Box>
       </Modal>
+
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        title={errorAlertProps.title}
+        errorMesage={errorAlertProps.text}
+        action={errorAlertProps.action}
+      />
     </div>
   );
 };

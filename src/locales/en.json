@@ -68,6 +68,8 @@
     "station_is_disabled":"The vending machine is out of order and cannot issue a lease (disabled)",
     "station_is_not_found":"Station not found",
     "rental":"Rental",
+    "youHaveDebt":"You have debt (temporary)",
+    "youHaveChargerInUse":"You have powerbank in use (temporary)",
     "account_is_blocked":"Your account is blocked",
     "station_info":"Station information",
     "cabinet_id":"Cabinet ID",
