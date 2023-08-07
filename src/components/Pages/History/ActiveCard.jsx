@@ -37,7 +37,7 @@ const ActiveCard = ({ order }) => {
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
           <p>{t("rental_start")}</p>
-          <div>{order?.merchant_list_id_data?.detail_adress_in_uzbek}</div>
+          <div>{order?.started_merchant}</div>
           <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
               moment(order?.created_time).format("HH:mm") || ""
             }`}</div>
@@ -47,7 +47,7 @@ const ActiveCard = ({ order }) => {
         <div className={styles.usedInfo}>
           <p>{t("rental_amount")}</p>
           <div>
-            {`${order?.amounbefore || 0}`} {t("sum")}
+            {`${order?.total || 0}`} {t("sum")}
           </div>
         </div>
       )}
@@ -55,7 +55,7 @@ const ActiveCard = ({ order }) => {
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
           <p>{t("powerbank_id")}</p>
-          <div>{order?.battery_list_id_data?.powerbank_id}</div>
+          <div>{order?.power_bank_id}</div>
         </div>
       )}
     </div>

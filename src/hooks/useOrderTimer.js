@@ -23,14 +23,14 @@ export default function useOrderTimer() {
   });
 
   const getOrderDetails = () => {
-    if (!orderData?.guid) return;
+    if (!orderData?.order_guid) return;
 
-    getOrderById(orderData?.guid, {
+    getOrderById(orderData?.order_guid, {
       data: { with_relations: false, user_id: userData?.guid },
     }).then((res) => {
       setPrice(res?.data?.data?.response?.amounbefore);
       setFetchedData(res?.data?.data?.response);
-      setPlace(orderData?.merchant_list_id_data?.venune_name_in_english);
+      setPlace(orderData?.started_merchant);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();

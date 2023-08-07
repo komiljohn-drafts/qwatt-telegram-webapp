@@ -19,12 +19,16 @@ const HistoryPage = () => {
   const getOrderHistory = () => {
     getOrders({
       data: {
-        with_relations: false,
-        user_id: userData?.guid,
-      },
+        userId: userData?.guid
+      }
     })
       .then((res) => {
-        setHistoryData(sortOrders(res?.data?.data?.response));
+        if(res?.data?.data?.data?.response){
+          setHistoryData(sortOrders(res?.data?.data?.data?.response));
+          console.log(res?.data?.data?.data?.response)
+        } else {
+          setErrorAlertOpen(true);
+        }
       })
       .catch(() => {
         setErrorAlertOpen(true);

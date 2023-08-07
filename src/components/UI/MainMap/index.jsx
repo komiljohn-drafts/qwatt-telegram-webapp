@@ -38,6 +38,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { getOrders } from "@/services/setOrder";
 
 const MainMap = () => {
   const { t } = useTranslation();
@@ -189,18 +190,13 @@ const MainMap = () => {
   useEffect(() => {
     if (!userData?.guid) return;
 
-    request({
-      method: "POST",
-      url: "get-list/orders",
+    getOrders({
       data: {
-        data: {
-          with_relations: false,
-          user_id: userData?.guid,
-        },
-      },
+        userId: userData?.guid
+      }
     })
       .then((res) => {
-        res.data.data.response?.forEach((ord) => {
+        res.data?.data?.data?.response?.forEach((ord) => {
           if (ord?.end_time == "") {
             dispatch(
               orderDetailsActions?.setOrderDetails({

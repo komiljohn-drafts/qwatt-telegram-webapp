@@ -34,6 +34,8 @@
   }
   .historyInfo {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     padding: 2px;
     gap: 10px;
     font-size: 15px;

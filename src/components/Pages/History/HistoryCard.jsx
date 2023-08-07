@@ -1,4 +1,4 @@
-import { DollorIcon, DownIcon, TimeIcon, UpIcon } from "@/screen-capture/icons";
+import { BonusIcon, DollorIcon, DownIcon, LightingIcon, QwattBlueIcon, TimeIcon, UpIcon, starIcon } from "@/screen-capture/icons";
 import { format, parseISO } from "date-fns";
 
 import PropTypes from "prop-types";
@@ -13,6 +13,32 @@ const HistoryCard = ({ order }) => {
   const readMoreHandler = () => {
     setOpen(!open);
   };
+
+  const paymentMethod = () => {
+    const {ball, total, rental_name, card} = order
+    let result = ""
+    let icon = <></>
+    if (ball > 0) {
+      result = t("scores")
+      icon = starIcon()
+      if (total > 0) {
+        result += (" + " + card)
+      }
+    } else if (rental_name) {
+      result = rental_name
+      icon = <LightingIcon color="#12ADC1" />
+      if (total > 0) {
+        result += (" + " + card)
+      }
+    } else {
+      result = card
+    }
+    return (
+      <span className="flex items-center gap-1">
+        {icon} {result}
+      </span>
+    )
+  }
 
   if (order?.end_time == "") {
     return null;
@@ -31,23 +57,32 @@ const HistoryCard = ({ order }) => {
           <DollorIcon />
         </div>
         <div>
-          {`${order?.amounbefore || 0}`} {t("sum")}
+          {`${order?.total || 0}`} {t("sum")}
         </div>
       </div>
+      {order?.ball > 0
+        && <div className={styles.historyInfo}>
+          <div>
+            <BonusIcon />
+          </div>
+          <div>
+            {`${order?.ball}`} {t("score")}
+          </div>
+      </div>}
 
       {open && (
         <>
-          {order?.amounbefore - order?.amount_after > 0 && (
+          {order?.debt > 0 && (
             <div className={styles.usedInfo}>
               <p>{t("debt")}</p>
               <div className={styles.debtPayment}>
-                {`${order?.amounbefore - order?.amount_after || 0}`} {t("sum")}
+                {`${order?.debt}`} {t("sum")}
               </div>
             </div>
           )}
           <div className={styles.usedInfo}>
             <p>{t("rental_start")}</p>
-            <div>{order?.merchant_list_id_data?.detail_adress_in_uzbek}</div>
+            <div>{order?.started_merchant}</div>
             <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
               moment(order?.created_time).format("HH:mm") || ""
             }`}</div>
@@ -55,18 +90,18 @@ const HistoryCard = ({ order }) => {
 
           <div className={styles.usedInfo}>
             <p>{t("rental_end")}</p>
-            <div>{order?.merchant_list_id_2_data?.detail_adress_in_uzbek}</div>
+            <div>{order?.end_merchant}</div>
             <div>{`${format(parseISO(order?.end_time), "dd MMMM yyyy")} - ${
               moment(order?.end_time).format("HH:mm") || ""
             }`}</div>
           </div>
           <div className={styles.usedInfo}>
             <p>{t("payment_method")}</p>
-            <div>{order?.credit_card_list_id_data?.credit_card || ""}</div>
+            <div>{paymentMethod()}</div>
           </div>
           <div className={styles.usedInfo}>
             <p>{t("powerbank_id")}</p>
-            <div>{order?.battery_list_id_data?.powerbank_id}</div>
+            <div>{order?.power_bank_id}</div>
           </div>
         </>
       )}
