@@ -25,7 +25,6 @@ const HistoryPage = () => {
       .then((res) => {
         if(res?.data?.data?.data?.response){
           setHistoryData(sortOrders(res?.data?.data?.data?.response));
-          console.log(res?.data?.data?.data?.response)
         } else {
           setErrorAlertOpen(true);
         }
@@ -58,10 +57,10 @@ const HistoryPage = () => {
           {historyData
             ?.filter((el) => el?.end_time == "")
             ?.map((order) => {
-              return <ActiveCard key={order?.guid} order={order} />;
+              return <ActiveCard key={order?.order_guid} order={order} />;
             })}
           {historyData?.map((order) => {
-            return <HistoryCard key={order?.guid} order={order} />;
+            return <HistoryCard key={order?.order_guid} order={order} />;
           })}
         </>
       ) : (
