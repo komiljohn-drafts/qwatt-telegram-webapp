@@ -23,13 +23,13 @@ const ActiveCard = ({ order }) => {
                 {t("on_use")}
               </p>
             </div>
-            <p className="font-medium text-[#12ADC1]">{`${
-              orderStatusTime.hours < 10 ? "0" : ""
-            }${orderStatusTime.hours}:${
-              orderStatusTime.minutes < 10 ? "0" : ""
-            }${orderStatusTime.minutes}:${
-              orderStatusTime.seconds < 10 ? "0" : ""
-            }${orderStatusTime.seconds}`}</p>
+            <p className="font-medium text-[#12ADC1]">{`
+              ${orderStatusTime.days < 10 ? "0" : ""}${orderStatusTime.days}
+              :
+              ${orderStatusTime.hours < 10 ? "0" : ""}${orderStatusTime.hours}
+              :
+              ${orderStatusTime.minutes < 10 ? "0" : ""}${orderStatusTime.minutes}
+            `}</p>
           </div>
         )}
       </div>
