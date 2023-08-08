@@ -5,9 +5,9 @@ import InputMask from "react-input-mask";
 import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
-import { setCardToken } from "@/services/getCards";
+import { getCards, setCardToken } from "@/services/getCards";
 import styles from "./style.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -25,6 +25,8 @@ const AddingCard = () => {
   const [isExpiryDateError, setIsExpiryDateError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
+  const userData = useSelector((state) => state.userData?.data);
+  const [myCards, setMyCards] = useState([]);
 
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
@@ -32,6 +34,37 @@ const AddingCard = () => {
     setCardTypeIcon(icon);
     setIsCardNumError(false);
   };
+
+  const getMyCards = () => {
+    getCards({
+      data: {
+        with_relations: false,
+        user_id: userData?.guid,
+      },
+    })
+      .then((res) => {
+        const responseData = res?.data?.data?.response;
+        if (Array.isArray(responseData)) {
+          setMyCards(responseData);
+        } else {
+          setErrorAlertOpen(true);
+        }
+
+      })
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
+  };
+
+  const checkIfExists = () => {
+    if (!myCards.length) return false
+    const starredNumber = cardNumber.slice(0,4)
+      +cardNumber.slice(5,7)
+      +"******"
+      +cardNumber.slice(15,19);
+
+    return !!myCards.find(item => item.credit_card === starredNumber)
+  }
 
   const handleExpiryDateChange = (event) => {
     let value = event.target.value;
@@ -68,6 +101,15 @@ const AddingCard = () => {
       return;
     } else if (isCardNumError || isExpiryDateError) {
       return;
+    } else if (checkIfExists()) {
+      setErrorAlertOpen(true);
+      setErrorAlertProps({
+        text: "You have already added the card", // static data
+        action: () => {
+          setErrorAlertOpen(false);
+        },
+      })
+      return;
     }
 
     setCardToken({
@@ -103,8 +145,14 @@ const AddingCard = () => {
           });
         }
       })
-      .catch(() => setErrorAlertOpen(true));
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
   };
+
+  useEffect(() => {
+    getMyCards()
+  }, [])
 
   useEffect(() => {
     if (
