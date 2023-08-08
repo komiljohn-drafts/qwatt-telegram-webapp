@@ -8,9 +8,6 @@ export default function OrderInfo() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const orderStatusDay = Math.floor(orderStatusTime.hours / 24)
-  const orderStatusHour = orderStatusTime.hours % 24
-
   if (
     orderStatus === "In The Lease" ||
     orderStatus === "Order time out" ||
@@ -37,9 +34,9 @@ export default function OrderInfo() {
           <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
             <p className="text-[#686B70]">{t("on_use")}:</p>
             <p className="text-[#282727]">{`
-              ${orderStatusDay < 10 ? "0" : ""}${orderStatusDay}
+              ${orderStatusTime.days < 10 ? "0" : ""}${orderStatusTime.days}
               :
-              ${orderStatusHour < 10 ? "0" : ""}${orderStatusHour}
+              ${orderStatusTime.hours < 10 ? "0" : ""}${orderStatusTime.hours}
               :
               ${orderStatusTime.minutes < 10 ? "0" : ""}${orderStatusTime.minutes}
             `}</p>

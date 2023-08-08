@@ -36,11 +36,12 @@ export default function useOrderTimer() {
       const timenow = moment();
       const diffe = timenow.diff(timestamp, "seconds");
       const duration = moment.duration(diffe, "seconds");
+      const days = duration.days();
       const hours = duration.hours();
       const minutes = duration.minutes();
       const seconds = duration.seconds();
 
-      setOrderStatusTime({ hours, minutes, seconds });
+      setOrderStatusTime({ days, hours, minutes, seconds });
 
       setOrderStatusGuid(res?.data?.data?.response?.order_status_id);
 
