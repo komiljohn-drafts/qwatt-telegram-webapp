@@ -197,6 +197,11 @@ const MainMap = () => {
       }
     })
       .then((res) => {
+        if (res.data?.data?.data?.response == null) {
+          dispatch(
+            orderDetailsActions?.setOrderDetails({})
+          )
+        }
         let hasNoDebt = true
         
         res.data?.data?.data?.response?.forEach((ord) => {
