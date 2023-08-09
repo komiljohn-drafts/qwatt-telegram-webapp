@@ -23,8 +23,10 @@ const HistoryPage = () => {
       }
     })
       .then((res) => {
-        if(res?.data?.data?.data?.response){
+        if(typeof res?.data?.data?.data?.response == "array"){
           setHistoryData(sortOrders(res?.data?.data?.data?.response));
+        } else if(res?.data?.data?.data?.response == null){
+          setHistoryData([])
         } else {
           setErrorAlertOpen(true);
         }

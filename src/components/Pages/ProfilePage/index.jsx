@@ -2,7 +2,7 @@ import { Box, Modal } from "@mui/material";
 
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 // import { LightIcon } from "@/screen-capture/icons";
-import { deleteProfile } from "@/services/getProfile";
+import { deleteProfile, deleteUser } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -39,7 +39,7 @@ const ProfilePage = () => {
     if (orderData?.order_guid) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: "You cannot delete accout", // staticd ata
+        title: "You cannot delete accout", // static data
         text: t("youHaveChargerInUse"), // temporary data
         action: () => {
           setErrorAlertOpen(false);
@@ -48,7 +48,7 @@ const ProfilePage = () => {
     } else if (userDebt) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: "You cannot delete accout", // staticd ata
+        title: "You cannot delete accout", // static data
         text: t("youHaveDebt"), // temporary data
         action: () => {
           setErrorAlertOpen(false);
@@ -62,23 +62,37 @@ const ProfilePage = () => {
   const handleClose = () => setOpen(false);
 
   const handleUserDelete = () => {
-    deleteProfile({
+    // deleteProfile({  // previous api to delete account
+    //   data: {
+    //     phone_after_deletion: userData?.phone || "",
+    //     email: "",
+    //     email_after_deletion: "",
+    //     guid: userData?.guid || "",
+    //     is_deleted: true,
+    //     phone: "",
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log("profile delete res", res);
+    //     window.Telegram?.WebApp?.close();
+    //   })
+    //   .catch((err) => {
+    //     console.log("profile delete err", err);
+    //   });
+    deleteUser({
       data: {
-        phone_after_deletion: userData?.phone || "",
-        email: "",
-        email_after_deletion: "",
-        guid: userData?.guid || "",
-        is_deleted: true,
-        phone: "",
-      },
+          guid: userData?.guid,
+          is_deleted: true
+      }
     })
-      .then((res) => {
-        console.log("profile delete res", res);
+      .then(res => {
+        console.log(res);
         window.Telegram?.WebApp?.close();
+        console.log(userData);
       })
-      .catch((err) => {
-        console.log("profile delete err", err);
-      });
+      .catch(err => {
+        setErrorAlertOpen(true)
+      })
   };
 
   useEffect(() => {
