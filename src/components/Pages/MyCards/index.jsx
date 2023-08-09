@@ -94,7 +94,7 @@ const MyCardsPage = () => {
                   ></img>
                   <div>{formatCardNumber(card?.credit_card)}</div>
                 </div>
-                {!orderData?.guid && (
+                {orderData?.card !== card?.credit_card  && (
                   <button
                     className={styles.editBtn}
                     onClick={() => {
