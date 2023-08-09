@@ -1,4 +1,4 @@
-import { setCard, setCardOtp, setConfirmCardToken } from "@/services/getCards";
+import { setCard, setCardOtp, setCardToken, setConfirmCardToken } from "@/services/getCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,6 +8,7 @@ import { cardVerifyActions } from "@/store/slices/cardVerify";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
 
 const OTPcode = () => {
   const params = new URLSearchParams(document.location.search);
@@ -44,7 +45,6 @@ const OTPcode = () => {
         dispatch(cardVerifyActions.setCardVerify(true));
 
         if (res?.data?.data?.data?.error_code) {
-          console.log("error code", res?.data?.data?.data?.error_code);
           setOtp("");
 
           setErrorAlertOpen(true);
@@ -55,7 +55,6 @@ const OTPcode = () => {
               setErrorAlertOpen(false);
             },
           });
-          console.log("otp", otp);
           return;
         }
 
@@ -72,12 +71,10 @@ const OTPcode = () => {
             } else if (params.get("from") == "payment") {
               navigate("/payment", { replace: true });
             } else {
-              console.log("redirect to my cards");
               navigate("/my-cards", { replace: true });
             }
           })
           .catch((err) => {
-            console.log("card list err", err);
             setErrorAlertOpen(true);
             setErrorAlertProps({
               text: err?.data?.data,
@@ -89,11 +86,46 @@ const OTPcode = () => {
           });
       })
       .catch((err) => {
-        console.log("click verify err", err);
+        setErrorAlertOpen(true);
         dispatch(cardVerifyActions.setCardVerify(false));
         setOtp("");
       });
   };
+
+  const sendAgain = () => {
+    setCardToken({
+      data: {
+        card: cardDetails?.card_number,
+        expired_date: cardDetails?.expire_date,
+      },
+    })
+      .then((res) => {
+        if (res?.data?.data?.status == "done") {
+          dispatch(
+            cardDetailsActions.setCardDetails({
+              ...res.data?.data?.data?.response?.[0],
+              card_number: cardDetails?.card_number,
+              expire_date: cardDetails?.expire_date,
+            })
+          );
+          dispatch(cardVerifyActions.setCardVerify(false));
+          setSeconds(30)
+          setMinutes(1)
+        } else {
+          setErrorAlertOpen(true);
+          setErrorAlertProps({
+            text: res?.data?.data?.data?.error_note,
+            action: () => {
+              setErrorAlertOpen(false);
+            },
+          });
+        }
+        navigate("/otp");
+      })
+      .catch(() => {
+        setErrorAlertOpen(true);
+      });
+  }
 
   useEffect(() => {
     if (cardVerified == true) {
@@ -132,6 +164,10 @@ const OTPcode = () => {
       handleSendOtp();
     }
   }, [otp]);
+
+  useEffect(() => {
+    dispatch(cardVerifyActions.setCardVerify(false))
+  },[])
 
   return (
     <div className={styles.addingCardWrap}>
@@ -174,25 +210,26 @@ const OTPcode = () => {
             </p>
           ) : (
             <p
-              onClick={() => {
-                setConfirmCardToken({
-                  service_id: Number(clickCredentials?.service_id),
-                  card_number: cardDetails?.card_number,
-                  expire_date: cardDetails?.expire_date,
-                  temporary: 0,
-                })
-                  .then(() => {
-                    setOtp("");
-                    dispatch(cardVerifyActions.setCardVerify(false));
-                    setSeconds(30);
-                    setMinutes(1);
-                    setClickErrorNote("");
-                    setOtp("");
-                  })
-                  .catch((err) => {
-                    console.log("click err", err);
-                  });
-              }}
+              // onClick={() => {
+              //   setConfirmCardToken({
+              //     service_id: Number(clickCredentials?.service_id),
+              //     card_number: cardDetails?.card_number,
+              //     expire_date: cardDetails?.expire_date,
+              //     temporary: 0,
+              //   })
+              //     .then(() => {
+              //       setOtp("");
+              //       dispatch(cardVerifyActions.setCardVerify(false));
+              //       setSeconds(30);
+              //       setMinutes(1);
+              //       setClickErrorNote("");
+              //       setOtp("");
+              //     })
+              //     .catch((err) => {
+              //       console.log("click err", err);
+              //     });
+              // }}
+              onClick={sendAgain}
               className="font-semibold cursor-pointer text-center mb-4 text-[#12ADC1]"
             >
               {t("send_again")}
