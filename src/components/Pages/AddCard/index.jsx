@@ -119,8 +119,15 @@ const AddingCard = () => {
       },
     })
       .then((res) => {
-        console.log("card create res", res);
-        if (res?.data?.data?.status == "done") {
+        if(res?.data?.data?.data?.error_note){
+          setErrorAlertOpen(true);
+          setErrorAlertProps({
+            text: res?.data?.data?.data?.error_note,
+            action: () => {
+              setErrorAlertOpen(false);
+            },
+          });
+        } else if (res?.data?.data?.status == "done") {
           dispatch(
             cardDetailsActions.setCardDetails({
               ...res.data?.data?.data?.response?.[0],
@@ -137,12 +144,6 @@ const AddingCard = () => {
           }
         } else {
           setErrorAlertOpen(true);
-          setErrorAlertProps({
-            text: res?.data?.data?.data?.error_note,
-            action: () => {
-              setErrorAlertOpen(false);
-            },
-          });
         }
       })
       .catch(() => {
