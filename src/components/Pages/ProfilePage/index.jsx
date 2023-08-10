@@ -36,7 +36,7 @@ const ProfilePage = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({})  
 
   const checkBeforeDeleting = () => {
-    if (orderData?.order_guid) {
+    if (orderData?.userID == userData?.guid && orderData?.order?.order_guid) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
         title: "You cannot delete accout", // static data

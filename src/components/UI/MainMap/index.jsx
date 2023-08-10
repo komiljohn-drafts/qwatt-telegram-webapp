@@ -54,6 +54,7 @@ const MainMap = () => {
   const [nearestMerchants, setNearestMerchants] = useState([]);
   const userData = useSelector((state) => state.userData?.data);
   const mapRef = useRef();
+  const orderData = useSelector((state) => state.orderDetails?.data);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
@@ -199,7 +200,10 @@ const MainMap = () => {
       .then((res) => {
         if (res.data?.data?.data?.response == null) {
           dispatch(
-            orderDetailsActions?.setOrderDetails({})
+            orderDetailsActions?.setOrderDetails({
+              userID: userData?.guid,
+              order: {}
+            })
           )
         }
         let hasNoDebt = true
@@ -208,7 +212,8 @@ const MainMap = () => {
           if (ord?.end_time == "") {
             dispatch(
               orderDetailsActions?.setOrderDetails({
-                ...ord,
+                userID: userData.guid,
+                order: ord
               })
             );
           }
@@ -228,7 +233,7 @@ const MainMap = () => {
       .catch((err) => {
         console.log("order list err", err);
       });
-  }, []);
+  }, [userData]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -429,7 +434,7 @@ const MainMap = () => {
         </Map>
       </YMaps>
 
-      <OrderInfo />
+      {orderData?.userID == userData?.guid && <OrderInfo />}
       <ErrorAlert
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
