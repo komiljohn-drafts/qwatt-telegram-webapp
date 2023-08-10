@@ -23,14 +23,15 @@ export default function useOrderTimer() {
   });
 
   const getOrderDetails = () => {
-    if (!orderData?.order_guid) return;
+    if (!orderData?.order?.order_guid) return;
+    if (orderData?.userID !== userData.guid) return;
 
-    getOrderById(orderData?.order_guid, {
+    getOrderById(orderData?.order?.order_guid, {
       data: { with_relations: false, user_id: userData?.guid },
     }).then((res) => {
       setPrice(res?.data?.data?.response?.amounbefore);
       setFetchedData(res?.data?.data?.response);
-      setPlace(orderData?.started_merchant);
+      setPlace(orderData?.order?.started_merchant);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();
@@ -67,7 +68,10 @@ export default function useOrderTimer() {
     }).then((res) => {
       setOrderStatus(res?.data?.data?.response?.name);
       if (res?.data?.data?.response?.name === "Has been completed") {
-        dispatch(orderDetailsActions.setOrderDetails({}));
+        dispatch(orderDetailsActions.setOrderDetails({
+          userID: userData?.guid,
+          order: {}
+        }));
       }
     });
   };
