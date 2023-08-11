@@ -260,7 +260,7 @@ const MainMap = () => {
             transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
             exit={{ y: "50%", opacity: 0, transition: { duration: 0.1 } }}
             style={{
-              zIndex: 1000,
+              zIndex: 1001,
               position: "absolute",
               width: "100%",
               backgroundColor: "#fff",
