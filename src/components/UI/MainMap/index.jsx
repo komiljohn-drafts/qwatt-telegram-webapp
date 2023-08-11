@@ -236,7 +236,7 @@ const MainMap = () => {
   }, [userData]);
 
   return (
-    <div style={{ position: "relative", height: '100vh'}}>
+    <div style={{ position: "relative"}}>
       {!data && <FullScreenSpinner />}
       <div className={styles.headerNav}>
         <div
@@ -365,7 +365,7 @@ const MainMap = () => {
             controls: [],
           }}
           width={"100%"}
-          height={"75vh"}
+          height={"100vh"}
           instanceRef={mapRef}
           // onLoad={(ymaps) => setYmaps(ymaps)}
           options={{ suppressMapOpenBlock: true, controls: [] }}
