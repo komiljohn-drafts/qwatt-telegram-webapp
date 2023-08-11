@@ -19,7 +19,16 @@ const AddProfileData = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData?.data);
 
-  const { register, control, reset, handleSubmit } = useForm();
+  const { register, control, reset, handleSubmit, formState: { errors } } = useForm();
+
+  const validateAge = (selectedDate) => {
+    const today = new Date();
+    const selected = new Date(selectedDate);
+    const diff = today - selected;
+    const years = diff / (1000 * 60 * 60 * 24 * 365.25); // Approximate years
+
+    return years >= 14; // Minimum age requirement
+  };
 
   const onSubmit = (data) => {
     if (!userData?.guid) return;
@@ -102,9 +111,10 @@ const AddProfileData = () => {
             ></input> */}
             <input 
               className={styles.ageInput} 
-              {...register("age")}
+              {...register("age", { validate: validateAge })}
               type="date" 
             />
+             {errors.age && <p className={`text-red-500 ${styles.errorMsg}`}>Age must be at least 14 years.</p>}
           </div>
           <div className={styles.addData}>
             <p>{t("gender")}</p>
