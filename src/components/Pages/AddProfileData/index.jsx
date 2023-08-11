@@ -24,12 +24,14 @@ const AddProfileData = () => {
   const onSubmit = (data) => {
     if (!userData?.guid) return;
 
+    const dateOfBirth = new Date(data.age)
+
     setProfile({
       data: {
         fcm_token: "",
         guid: userData?.guid,
         name: data.name,
-        birth_date: data.age,
+        birth_date: dateOfBirth.toISOString(),
         gender: [`${gender}`],
       },
     })
@@ -56,9 +58,13 @@ const AddProfileData = () => {
     } else if (userData?.gender?.[0] == 2) {
       setGender(2);
     }
+
+    const date = new Date(userData?.birth_date);
+    const formattedDate = date.toISOString().split('T')[0];
+
     reset({
       name: userData?.name,
-      age: userData?.birth_date,
+      age: formattedDate,
     });
   }, [userData]);
 
@@ -84,13 +90,21 @@ const AddProfileData = () => {
             ></InputMask>
           </div>
           <div className={styles.addData}>
-            <p>{t("age")}</p>
-            <input
+            <p>
+              {/* static data */}
+              date of birth 
+            </p>
+            {/* <input
               control={control}
               {...register("age")}
               type="number"
               className={styles.ageInput}
-            ></input>
+            ></input> */}
+            <input 
+              className={styles.ageInput} 
+              {...register("age")}
+              type="date" 
+            />
           </div>
           <div className={styles.addData}>
             <p>{t("gender")}</p>
