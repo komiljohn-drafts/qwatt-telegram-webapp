@@ -24,8 +24,7 @@ const ActiveCard = ({ order }) => {
               </p>
             </div>
             <p className="font-medium text-[#12ADC1]">{`
-              ${orderStatusTime.days < 10 ? "0" : ""}${orderStatusTime.days}
-              :
+              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day") +".      " : ""}
               ${orderStatusTime.hours < 10 ? "0" : ""}${orderStatusTime.hours}
               :
               ${orderStatusTime.minutes < 10 ? "0" : ""}${orderStatusTime.minutes}

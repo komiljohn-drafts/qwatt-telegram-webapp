@@ -90,5 +90,6 @@
     "continue":"Continue",
     "selecting_powerbank":"We select a charged power bank",
     "expiry_date":"Expiry date",
-    "confirm_delete":"Delete card?"
+    "confirm_delete":"Delete card?",
+    "day":"d"
 }

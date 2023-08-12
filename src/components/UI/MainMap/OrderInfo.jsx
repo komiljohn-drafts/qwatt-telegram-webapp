@@ -34,8 +34,7 @@ export default function OrderInfo() {
           <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
             <p className="text-[#686B70]">{t("on_use")}:</p>
             <p className="text-[#282727]">{`
-              ${orderStatusTime.days < 10 ? "0" : ""}${orderStatusTime.days}
-              :
+              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day") +".      " : ""}
               ${orderStatusTime.hours < 10 ? "0" : ""}${orderStatusTime.hours}
               :
               ${orderStatusTime.minutes < 10 ? "0" : ""}${orderStatusTime.minutes}
