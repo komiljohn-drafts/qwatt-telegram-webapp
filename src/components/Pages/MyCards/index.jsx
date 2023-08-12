@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { CircularProgress, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { deleteCard, getCards } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
@@ -19,7 +19,8 @@ const MyCardsPage = () => {
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false); // boolean or card guid that is being deleted. To open modal confirm delete 
+  const [isDeleting, setIsDeleting] = useState(false); // boolean or card guid that is being deleted. To show circular progress
 
   const getMyCards = () => {
     if (!userData?.guid) return;
@@ -44,6 +45,7 @@ const MyCardsPage = () => {
   };
 
   const deleteMyCard = (guid) => {
+    setIsDeleting(guid)
     deleteCard(guid, { data: {} })
       .then((res) => {
         console.log("delete-cards res", res);
@@ -52,7 +54,10 @@ const MyCardsPage = () => {
       .catch((err) => {
         setErrorAlertOpen(true);
         console.log("delete-cards err", err);
-      });
+      })
+      .finally(() => {
+        setIsDeleting(false)
+      })
   };
 
   useEffect(() => {
@@ -94,64 +99,66 @@ const MyCardsPage = () => {
                   ></img>
                   <div>{formatCardNumber(card?.credit_card)}</div>
                 </div>
-                {!(orderData?.order?.card == card?.credit_card 
-                  && orderData?.userID == userData?.guid)
-                  && (
-                  <button
-                    className={styles.editBtn}
-                    onClick={() => {
-                      setDeleteConfirmOpen(true);
-                    }}
-                  >
-                    {t("delete")}
-                  </button>
-                )}
-                <Dialog
-                  open={isDeleteConfirmOpen}
-                  onClose={() => setDeleteConfirmOpen(false)}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                  className="!rounded-2xl"
-                  borderRadius="2xl"
-                  maxWidth="xs"
-                  fullWidth={false}
-                  PaperProps={{
-                    sx: {
-                      borderRadius: "12px",
-                    },
+                { isDeleting == card?.guid ? (
+                    <CircularProgress size={20} />
+                  ) : !(orderData?.order?.card == card?.credit_card 
+                    && orderData?.userID == userData?.guid) 
+                    && (
+                    <button
+                      className={styles.editBtn}
+                      onClick={() => {
+                        setDeleteConfirmOpen(card?.guid);
+                      }}
+                    >
+                      {t("delete")}
+                    </button>
+                  )}
+              </div>
+            )}
+          )}
+          <Dialog
+            open={!!isDeleteConfirmOpen}
+            onClose={() => setDeleteConfirmOpen(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className="!rounded-2xl"
+            borderRadius="2xl"
+            maxWidth="xs"
+            fullWidth={false}
+            PaperProps={{
+              sx: {
+                borderRadius: "12px",
+              },
+            }}
+          >
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center !font-semibold !text-[17px] tracking-tight !pb-1"
+            >
+              {t("confirm_delete")}
+            </DialogTitle>
+            <DialogActions>
+              <div className="w-full flex items-center justify-between px-4 pb-2">
+                <button
+                  className=" h-10 w-36 font-semibold text-[#12ADC1] rounded-lg text-sm"
+                  onClick={() => {
+                    setDeleteConfirmOpen(false);
                   }}
                 >
-                  <DialogTitle
-                    id="alert-dialog-title"
-                    className="text-center !font-semibold !text-[17px] tracking-tight !pb-1"
-                  >
-                    {t("confirm_delete")}
-                  </DialogTitle>
-                  <DialogActions>
-                    <div className="w-full flex items-center justify-between px-4 pb-2">
-                      <button
-                        className=" h-10 w-36 font-semibold text-[#12ADC1] rounded-lg text-sm"
-                        onClick={() => {
-                          setDeleteConfirmOpen(false);
-                        }}
-                      >
-                        {t("cancel")}
-                      </button>
-                      <button
-                        className="bg-[#12ADC1] h-10 w-36 font-semibold text-white rounded-lg text-sm"
-                        onClick={() => {
-                          deleteMyCard(card?.guid, { data: {} });
-                          setDeleteConfirmOpen(false);
-                        }}
-                      >
-                        {t("delete")}
-                      </button>
-                    </div>
-                  </DialogActions>
-                </Dialog>
+                  {t("cancel")}
+                </button>
+                <button
+                  className="bg-[#12ADC1] h-10 w-36 font-semibold text-white rounded-lg text-sm"
+                  onClick={() => {
+                    deleteMyCard(isDeleteConfirmOpen);
+                    setDeleteConfirmOpen(false);
+                  }}
+                >
+                  {t("delete")}
+                </button>
               </div>
-            );
-          })}
+            </DialogActions>
+          </Dialog>
         </>
       ) : (
         <>
