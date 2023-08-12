@@ -91,5 +91,6 @@
     "selecting_powerbank":"Biz zaryadlangan quvvat bankini tanlaymiz",
     "expiry_date":"Amal qilish muddati",
     "confirm_delete":"O'chirishni tasdiqlash",
-    "day":"k"
+    "day":"k",
+    "finished": "Yakunlandi"
     }

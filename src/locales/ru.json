@@ -91,5 +91,6 @@
    "selecting_powerbank":"Подбираем заряженный повербанк",
    "expiry_date":"Срок действия",
    "confirm_delete":"Удалить карту?",
-   "day":"д"
+   "day":"д",
+   "finished": "Завершено"
 }

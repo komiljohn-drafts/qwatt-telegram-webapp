@@ -209,7 +209,7 @@ const MainMap = () => {
         let hasNoDebt = true
         
         res.data?.data?.data?.response?.forEach((ord) => {
-          if (ord?.end_time == "") {
+          if (ord?.status_name == "In The Lease") {
             dispatch(
               orderDetailsActions?.setOrderDetails({
                 userID: userData.guid,

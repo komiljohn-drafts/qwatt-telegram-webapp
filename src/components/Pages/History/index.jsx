@@ -57,7 +57,7 @@ const HistoryPage = () => {
       {historyData?.length ? (
         <>
           {historyData
-            ?.filter((el) => el?.end_time == "")
+            ?.filter((el) => el?.status_name == "In The Lease")
             ?.map((order) => {
               return <ActiveCard key={order?.order_guid} order={order} />;
             })}

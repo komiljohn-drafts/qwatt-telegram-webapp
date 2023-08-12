@@ -9,9 +9,7 @@ export default function OrderInfo() {
   const navigate = useNavigate();
 
   if (
-    orderStatus === "In The Lease" ||
-    orderStatus === "Order time out" ||
-    orderStatus === "Have to buy"
+    orderStatus === "In The Lease"
   ) {
     return (
       <div className="flex absolute z-20 top-20  my-0 mx-auto right-0 left-0 items-center justify-center px-5">

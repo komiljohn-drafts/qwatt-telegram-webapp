@@ -40,12 +40,16 @@ const HistoryCard = ({ order }) => {
     )
   }
 
-  if (order?.end_time == "") {
-    return null;
-  }
-
   return (
     <div className={styles.usedHistory}>
+      <div
+        className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
+        style={{ background: "rgba(18, 173, 193, 0.15)" }}
+      >
+        <p className="font-medium text-sm text-[#12ADC1]">
+          {t("finished")}
+        </p>
+      </div>
       <div className={styles.historyInfo}>
         <div>
           <TimeIcon />
