@@ -16,8 +16,8 @@ const OTPcode = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [isOtpError, setIsOtpError] = useState(false);
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(30);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const cardVerified = useSelector((state) => state.cardVerify?.verified);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData?.data);
@@ -166,6 +166,8 @@ const OTPcode = () => {
   }, [otp]);
 
   useEffect(() => {
+    setMinutes(1)
+    setSeconds(30)
     dispatch(cardVerifyActions.setCardVerify(false))
   },[])
 
