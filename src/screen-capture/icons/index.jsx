@@ -55,9 +55,9 @@ export function starIcon() {
           y2="15.2629"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFCF95" />
-          <stop offset="0.427" stop-color="#FFC954" />
-          <stop offset="1" stop-color="#FFC200" />
+          <stop stopColor="#FFCF95" />
+          <stop offset="0.427" stopColor="#FFC954" />
+          <stop offset="1" stopColor="#FFC200" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2144_13573"
@@ -67,11 +67,11 @@ export function starIcon() {
           y2="3.18726"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_2144_13573"
@@ -81,11 +81,11 @@ export function starIcon() {
           y2="4.14241"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_2144_13573"
@@ -95,11 +95,11 @@ export function starIcon() {
           y2="8.13352"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_2144_13573"
@@ -109,11 +109,11 @@ export function starIcon() {
           y2="9.66382"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_2144_13573"
@@ -123,11 +123,11 @@ export function starIcon() {
           y2="6.24748"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
         <linearGradient
           id="paint6_linear_2144_13573"
@@ -137,11 +137,11 @@ export function starIcon() {
           y2="7.00931"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC200" stop-opacity="0" />
-          <stop offset="0.203" stop-color="#FFBB00" stop-opacity="0.203" />
-          <stop offset="0.499" stop-color="#FFA700" stop-opacity="0.499" />
-          <stop offset="0.852" stop-color="#FF8800" stop-opacity="0.852" />
-          <stop offset="1" stop-color="#FF7800" />
+          <stop stopColor="#FFC200" stopOpacity="0" />
+          <stop offset="0.203" stopColor="#FFBB00" stopOpacity="0.203" />
+          <stop offset="0.499" stopColor="#FFA700" stopOpacity="0.499" />
+          <stop offset="0.852" stopColor="#FF8800" stopOpacity="0.852" />
+          <stop offset="1" stopColor="#FF7800" />
         </linearGradient>
       </defs>
     </svg>

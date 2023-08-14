@@ -74,41 +74,39 @@ const HistoryCard = ({ order }) => {
           </div>
       </div>}
 
-      {open && (
-        <>
-          {order?.debt > 0 && (
-            <div className={styles.usedInfo}>
-              <p>{t("debt")}</p>
-              <div className={styles.debtPayment}>
-                {`${order?.debt}`} {t("sum")}
-              </div>
+      <div className={`${styles.openCard} ${open ? '' : styles.card}`}>
+        {order?.debt > 0 && (
+          <div className={styles.usedInfo}>
+            <p>{t("debt")}</p>
+            <div className={styles.debtPayment}>
+              {`${order?.debt}`} {t("sum")}
             </div>
-          )}
-          <div className={styles.usedInfo}>
-            <p>{t("rental_start")}</p>
-            <div>{order?.started_merchant}</div>
-            <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-              moment(order?.created_time).format("HH:mm") || ""
-            }`}</div>
           </div>
+        )}
+        <div className={styles.usedInfo}>
+          <p>{t("rental_start")}</p>
+          <div>{order?.started_merchant}</div>
+          <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
+            moment(order?.created_time).format("HH:mm") || ""
+          }`}</div>
+        </div>
 
-          <div className={styles.usedInfo}>
-            <p>{t("rental_end")}</p>
-            <div>{order?.end_merchant}</div>
-            <div>{`${format(parseISO(order?.end_time), "dd MMMM yyyy")} - ${
-              moment(order?.end_time).format("HH:mm") || ""
-            }`}</div>
-          </div>
-          <div className={styles.usedInfo}>
-            <p>{t("payment_method")}</p>
-            <div>{paymentMethod()}</div>
-          </div>
-          <div className={styles.usedInfo}>
-            <p>{t("powerbank_id")}</p>
-            <div>{order?.power_bank_id}</div>
-          </div>
-        </>
-      )}
+        <div className={styles.usedInfo}>
+          <p>{t("rental_end")}</p>
+          <div>{order?.end_merchant}</div>
+          <div>{`${format(parseISO(order?.end_time), "dd MMMM yyyy")} - ${
+            moment(order?.end_time).format("HH:mm") || ""
+          }`}</div>
+        </div>
+        <div className={styles.usedInfo}>
+          <p>{t("payment_method")}</p>
+          <div>{paymentMethod()}</div>
+        </div>
+        <div className={styles.usedInfo}>
+          <p>{t("powerbank_id")}</p>
+          <div>{order?.power_bank_id}</div>
+        </div>
+      </div>
 
       <div className={styles.moreWrap}>
         <div className={""} onClick={readMoreHandler}>

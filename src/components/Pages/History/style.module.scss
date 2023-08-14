@@ -59,6 +59,19 @@
       outline: none !important;
       background-color: #f9f9f9 !important;background: #f9f9f9;
     }
+  
+    
+  .openCard {
+    max-height: 1000px; /* Set to a sufficiently large value */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  
+  .card {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
 }
 
 .NoHistory {
