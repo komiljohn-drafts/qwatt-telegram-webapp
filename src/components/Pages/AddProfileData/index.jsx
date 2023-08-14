@@ -34,13 +34,15 @@ const AddProfileData = () => {
     if (!userData?.guid) return;
 
     const dateOfBirth = new Date(data.age)
+    const isoDate = dateOfBirth.toISOString();
+    const formattedDate = isoDate.slice(0,10) +" "+isoDate.slice(11,23)
 
     setProfile({
       data: {
         fcm_token: "",
         guid: userData?.guid,
         name: data.name,
-        birth_date: dateOfBirth.toISOString(),
+        birth_date: formattedDate,
         gender: [`${gender}`],
       },
     })
