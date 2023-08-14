@@ -3,6 +3,8 @@
   margin: 24px 16px 16px;
   border-radius: 12px;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
 
   .usedTime {
     display: flex;
@@ -53,6 +55,7 @@
     font-weight: 500;
     line-height: 18px;
     cursor: pointer;
+    align-self: flex-end;
   }
     .moreWrap:active,
     .moreWrap:focus {

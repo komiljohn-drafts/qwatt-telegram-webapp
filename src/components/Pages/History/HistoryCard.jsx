@@ -109,7 +109,7 @@ const HistoryCard = ({ order }) => {
       </div>
 
       <div className={styles.moreWrap}>
-        <div className={""} onClick={readMoreHandler}>
+        <div onClick={readMoreHandler}>
           {!open ? t("more") : t("close")}
         </div>
         {!open ? <DownIcon /> : <UpIcon />}
