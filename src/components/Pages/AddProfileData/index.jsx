@@ -70,12 +70,12 @@ const AddProfileData = () => {
       setGender(2);
     }
 
-    const date = new Date(userData?.birth_date);
-    const formattedDate = date.toISOString().split('T')[0];
+    // const date = new Date(userData?.birth_date.slice(0,10));
+    const date = userData?.birth_date.slice(0,10);
 
     reset({
       name: userData?.name,
-      age: formattedDate,
+      age: date,
     });
   }, [userData]);
 
