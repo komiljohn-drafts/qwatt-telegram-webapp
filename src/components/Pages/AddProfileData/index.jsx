@@ -24,11 +24,28 @@ const AddProfileData = () => {
   const validateAge = (selectedDate) => {
     const today = new Date();
     const selected = new Date(selectedDate);
-    const diff = today - selected;
-    const years = diff / (1000 * 60 * 60 * 24 * 365.25); // Approximate years
-
-    return years >= 14; // Minimum age requirement
-  };
+  
+    // Ignore the time of day for comparison
+    today.setHours(0, 0, 0, 0);
+    selected.setHours(0, 0, 0, 0);
+  
+    // Check if the selected date is in the future
+    if (selected > today) {
+      return false;
+    }
+  
+    // Calculate age in terms of years, months, and days
+    let yearsDiff = today.getFullYear() - selected.getFullYear();
+    const monthsDiff = today.getMonth() - selected.getMonth();
+    const daysDiff = today.getDate() - selected.getDate();
+  
+    // Adjust for cases where the birthdate month/day hasn't occurred yet this year
+    if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+      yearsDiff--;
+    }
+  
+    return yearsDiff >= 14; // Minimum age requirement
+  };  
 
   const onSubmit = (data) => {
     if (!userData?.guid) return;
@@ -102,20 +119,14 @@ const AddProfileData = () => {
           </div>
           <div className={styles.addData}>
             <p>
-              {/* static data */}
-              date of birth 
+              {t("date_of_birth")} 
             </p>
-            {/* <input
-              control={control}
-              {...register("age")}
-              type="number"
-              className={styles.ageInput}
-            ></input> */}
             <input 
               className={styles.ageInput} 
               {...register("age", { validate: validateAge })}
               type="date" 
             />
+            {/* static data */}
              {errors.age && <p className={`text-red-500 ${styles.errorMsg}`}>Age must be at least 14 years.</p>}
           </div>
           <div className={styles.addData}>

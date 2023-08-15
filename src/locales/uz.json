@@ -92,5 +92,6 @@
     "expiry_date":"Amal qilish muddati",
     "confirm_delete":"O'chirishni tasdiqlash",
     "day":"k",
-    "finished": "Yakunlandi"
+    "finished": "Yakunlandi",
+    "date_of_birth": "Tug'ilgan kun"
     }
