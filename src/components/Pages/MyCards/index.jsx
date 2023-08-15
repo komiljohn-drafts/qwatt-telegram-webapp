@@ -22,6 +22,7 @@ const MyCardsPage = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false); // boolean or card guid that is being deleted. To open modal confirm delete 
   const [isDeleting, setIsDeleting] = useState(false); // boolean or card guid that is being deleted. To show circular progress
+  const [mainCardId, setMainCardId] = useState("");
 
   const getMyCards = () => {
     if (!userData?.guid) return;
@@ -35,6 +36,7 @@ const MyCardsPage = () => {
       .then((res) => {
         if (res?.data?.data?.response) {
           setData(res?.data?.data?.response);
+          setMainCardId(res?.data?.data?.response.find((card) => card?.main_card)?.guid)
         } else {
           setErrorAlertOpen(true);
         }
@@ -62,6 +64,7 @@ const MyCardsPage = () => {
   };
 
   const changeMainCard = (card) => {
+    setMainCardId(card?.guid)
     setMainCard({
       data: {
           guid: card?.guid,
@@ -70,15 +73,15 @@ const MyCardsPage = () => {
       }
     })
       .then(res => {
-        if (res?.data?.status == "OK") {
-          getMyCards()
-        } else {
+        if (res?.data?.status != "OK") {
           setErrorAlertOpen(true)
+          getMyCards()
         }
       })
       .catch(err => {
         console.log(err)
         setErrorAlertOpen(true)
+        getMyCards()
       })
   }
 
@@ -113,8 +116,9 @@ const MyCardsPage = () => {
             const { icon } = checkCardType(card?.credit_card);
             return (
               <div 
-                className={`${styles.paymentMethod} ${card?.main_card ? styles.mainCard : ''}`} 
+                className={`${styles.paymentMethod} ${card?.guid == mainCardId ? styles.mainCard : ''}`} 
                 key={card.guid}
+                onClick={() => changeMainCard(card)}
               >
                 <div className={styles.editCard}>
                   <img
@@ -132,7 +136,8 @@ const MyCardsPage = () => {
                     && (
                     <button
                       className={styles.editBtn}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setDeleteConfirmOpen(card?.guid);
                       }}
                     >
@@ -140,12 +145,12 @@ const MyCardsPage = () => {
                     </button>
                 )}
 
-                { card?.main_card ? (
-                  <button onClick={() => changeMainCard(card)}>
+                { card?.guid == mainCardId ? (
+                  <button>
                     <CheckCircleIcon sx={{ color: "#12ADC1" }} />
                   </button>
                 ) : (
-                  <button onClick={() => changeMainCard(card)}>
+                  <button>
                     <div className={styles.circle}>
                       <div className={styles.icon}></div>
                     </div>

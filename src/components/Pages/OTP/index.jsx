@@ -1,4 +1,4 @@
-import { setCard, setCardOtp, setCardToken, setConfirmCardToken } from "@/services/getCards";
+import { getCards, setCard, setCardOtp, setCardToken, setConfirmCardToken, setMainCard } from "@/services/getCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
@@ -41,7 +41,7 @@ const OTPcode = () => {
         sms_code: Number(otp),
       },
     })
-      .then((res) => {
+      .then((res) => { // setCardOtp
         dispatch(cardVerifyActions.setCardVerify(true));
 
         if (res?.data?.data?.data?.error_code) {
@@ -56,25 +56,59 @@ const OTPcode = () => {
             },
           });
           return;
-        }
+        } // end if
 
-        setCard({
+        setCard({ 
           data: {
             credit_card: res?.data?.data?.data?.response?.[0]?.card_number,
             card_token: res?.data?.data?.data?.response?.[0]?.card_token,
             user_id: userData?.guid,
           },
         })
-          .then(() => {
-            if (params.get("from") == "order") {
-              navigate("/order", { replace: true });
-            } else if (params.get("from") == "payment") {
-              navigate("/payment", { replace: true });
-            } else {
-              navigate("/my-cards", { replace: true });
-            }
+          .then(() => { // setCard
+            getCards({
+              data: {
+                with_relations: false,
+                user_id: userData?.guid,
+              },
+            })
+              .then((cardsRes) => { // getCards
+                if (cardsRes?.data?.data?.response) {
+                  let myCards = cardsRes?.data?.data?.response
+                  let card = myCards.find(item => item.card_token == res?.data?.data?.data?.response?.[0]?.card_token)
+                  setMainCard({ 
+                    data: {
+                        guid: card?.guid,
+                        main_card: true,
+                        user_id: userData?.guid
+                    }
+                  })
+                    .catch(err => console.log(err)) // setMainCard
+                    .finally(()=>{ // setmMainCard
+                      if (params.get("from") == "order") {
+                        navigate("/order", { replace: true });
+                      } else if (params.get("from") == "payment") {
+                        navigate("/payment", { replace: true });
+                      } else {
+                        navigate("/my-cards", { replace: true });
+                      }
+                    })
+                } // end if
+              })
+              .catch(err => { // getCards
+                setErrorAlertOpen(true)
+              })
+              .finally(()=>{
+                if (params.get("from") == "order") {
+                  navigate("/order", { replace: true });
+                } else if (params.get("from") == "payment") {
+                  navigate("/payment", { replace: true });
+                } else {
+                  navigate("/my-cards", { replace: true });
+                }
+              })
           })
-          .catch((err) => {
+          .catch((err) => { // setCard
             setErrorAlertOpen(true);
             setErrorAlertProps({
               text: err?.data?.data,
@@ -83,9 +117,9 @@ const OTPcode = () => {
               },
             });
             setOtp("");
-          });
+          })
       })
-      .catch((err) => {
+      .catch((err) => { // setCardOtp
         setErrorAlertOpen(true);
         dispatch(cardVerifyActions.setCardVerify(false));
         setOtp("");
