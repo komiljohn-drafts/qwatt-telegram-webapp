@@ -29,9 +29,7 @@ const PaymentInfo = () => {
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
-  const [selectedCardId, setSelectedCardId] = useState(
-    Array.isArray(myCards) && myCards.length > 0 ? myCards?.[myCards.length-1]?.guid || "" : ""
-  );
+  const [selectedCardId, setSelectedCardId] = useState();
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
   const [data, setData] = useState(null);
@@ -145,9 +143,7 @@ const PaymentInfo = () => {
         const responseData = res?.data?.data?.response;
         if (Array.isArray(responseData) && responseData.length > 0) {
           setMyCards(responseData);
-          if (selectedCardId === "") {
-            setSelectedCardId(responseData?.[responseData?.length-1]?.guid || "");
-          }
+          setSelectedCardId(responseData?.find(item => item?.main_card)?.guid || "");
         } else {
           setErrorAlertOpen(true);
         }

@@ -1,8 +1,9 @@
 import { CircularProgress, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { deleteCard, getCards } from "@/services/getCards";
+import { deleteCard, getCards, setMainCard } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
@@ -60,6 +61,27 @@ const MyCardsPage = () => {
       })
   };
 
+  const changeMainCard = (card) => {
+    setMainCard({
+      data: {
+          guid: card?.guid,
+          main_card: !card?.main_card,
+          user_id: userData?.guid
+      }
+    })
+      .then(res => {
+        if (res?.data?.status == "OK") {
+          getMyCards()
+        } else {
+          setErrorAlertOpen(true)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        setErrorAlertOpen(true)
+      })
+  }
+
   useEffect(() => {
     getMyCards();
   }, []);
@@ -87,10 +109,13 @@ const MyCardsPage = () => {
           <div className={styles.text}>
             <p>{t("this_is_cards")}</p>
           </div>
-          {data?.map((card) => {
+          {data?.map(card => {
             const { icon } = checkCardType(card?.credit_card);
             return (
-              <div className={styles.paymentMethod} key={card.guid}>
+              <div 
+                className={`${styles.paymentMethod} ${card?.main_card ? styles.mainCard : ''}`} 
+                key={card.guid}
+              >
                 <div className={styles.editCard}>
                   <img
                     className={`bg-white h-[32px] w-[32px] p-1 border border-[#ECECEC] rounded-lg`}
@@ -99,6 +124,7 @@ const MyCardsPage = () => {
                   ></img>
                   <div>{formatCardNumber(card?.credit_card)}</div>
                 </div>
+
                 { isDeleting == card?.guid ? (
                     <CircularProgress size={20} />
                   ) : !(orderData?.order?.card == card?.credit_card 
@@ -112,7 +138,20 @@ const MyCardsPage = () => {
                     >
                       {t("delete")}
                     </button>
-                  )}
+                )}
+
+                { card?.main_card ? (
+                  <button onClick={() => changeMainCard(card)}>
+                    <CheckCircleIcon sx={{ color: "#12ADC1" }} />
+                  </button>
+                ) : (
+                  <button onClick={() => changeMainCard(card)}>
+                    <div className={styles.circle}>
+                      <div className={styles.icon}></div>
+                    </div>
+                  </button>
+                )}
+
               </div>
             )}
           )}

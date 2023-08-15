@@ -54,12 +54,14 @@
       linear-gradient(0deg, #f9f9f9, #f9f9f9);
     border: 1px solid #686b700d;
     padding: 8px 16px;
+    flex-grow: 1;
     padding-left: 8px;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+    
     .editCard {
       display: flex;
       align-items: center;
@@ -72,6 +74,23 @@
       background: none;
       font-weight: 600;
       font-size: 15px;
+    }
+  }
+
+  .mainCard{
+    border: 1px solid #12ADC1;
+  }
+
+  .circle {
+    height: 24px;
+    width: 24px;
+    padding: 2px;
+
+    .icon{
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #d5d5d5;
     }
   }
 }

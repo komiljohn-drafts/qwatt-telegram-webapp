@@ -25,6 +25,19 @@ export const deleteCard = async (guid, data) => {
   });
 };
 
+export const setMainCard = async (data) => {
+  return await axios.put(
+    "https://api.admin.u-code.io/v1/object/credit_card_list?project-id=4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data,
+    {
+      headers: {
+        Authorization: "API-KEY",
+        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
+      },
+    }
+  )
+}
+
 export const setCardOtp = async (data) => {
   return await axios.post(
     "https://api.admin.u-code.io/v1/invoke_function/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
