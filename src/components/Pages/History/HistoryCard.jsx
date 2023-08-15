@@ -86,17 +86,25 @@ const HistoryCard = ({ order }) => {
         <div className={styles.usedInfo}>
           <p>{t("rental_start")}</p>
           <div>{order?.started_merchant}</div>
-          <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-            moment(order?.created_time).format("HH:mm") || ""
-          }`}</div>
+          <div>
+            {`${
+              format(parseISO(order?.created_time), "dd MMMM yyyy")
+            } - ${
+              moment(order?.created_time).format("HH:mm") || ""
+            }`}
+          </div>
         </div>
 
         <div className={styles.usedInfo}>
           <p>{t("rental_end")}</p>
           <div>{order?.end_merchant}</div>
-          <div>{`${format(parseISO(order?.end_time), "dd MMMM yyyy")} - ${
-            moment(order?.end_time).format("HH:mm") || ""
-          }`}</div>
+          {order?.end_time && <div>
+            {`${
+              format(parseISO(order?.end_time), "dd MMMM yyyy")
+            } - ${
+              moment(order?.end_time).format("HH:mm") || ""
+            }`}
+          </div> }
         </div>
         <div className={styles.usedInfo}>
           <p>{t("payment_method")}</p>
