@@ -381,12 +381,13 @@ const MainMap = () => {
           />
           <Clusterer
             options={{
-              preset: "islands#lightBlueClusterIcons'",
+              // preset: "islands#lightBlueClusterIcons'",
               color: "black",
               groupByCoordinates: false,
               clusterDisableClickZoom: true,
               clusterHideIconOnBalloonOpen: true,
               geoObjectHideIconOnBalloonOpen: true,
+              clusterIconContentLayout: null,
             }}
           >
             {data?.map((branch, i) => (
