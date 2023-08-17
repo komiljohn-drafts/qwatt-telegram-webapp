@@ -27,6 +27,7 @@ const AddingCard = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const userData = useSelector((state) => state.userData?.data);
   const [myCards, setMyCards] = useState([]);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
@@ -93,6 +94,7 @@ const AddingCard = () => {
   };
 
   const handleCheckCardValid = () => {
+    if (isBtnDisabled) return;
     if (cardNumber.length < 16) {
       setIsCardNumError(true);
       return;
@@ -112,6 +114,7 @@ const AddingCard = () => {
       return;
     }
 
+    setIsBtnDisabled(true)
     setCardToken({
       data: {
         card: cardNumber.trim().replace(/\s/g, ""),
@@ -135,6 +138,7 @@ const AddingCard = () => {
               expire_date: expiryDate.replace("/", ""),
             })
           );
+          setIsBtnDisabled(false)
           if (params.get("from") == "order") {
             navigate("/otp?from=order", { replace: true });
           } else if (params.get("from") == "payment") {
@@ -148,7 +152,10 @@ const AddingCard = () => {
       })
       .catch(() => {
         setErrorAlertOpen(true);
-      });
+      })
+      .finally(()=>{
+        setIsBtnDisabled(false)
+      })
   };
 
   useEffect(() => {
@@ -234,7 +241,7 @@ const AddingCard = () => {
         action={errorAlertProps.action}
       />
 
-      <button className={styles.addBtn} onClick={handleCheckCardValid}>
+      <button className={`${isBtnDisabled ? styles.disabledBtn : ''} ${styles.addBtn}`} onClick={handleCheckCardValid}>
         {t("confirm")}
       </button>
     </div>
