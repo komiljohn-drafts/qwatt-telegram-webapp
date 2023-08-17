@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   AppStoreIcon,
   DocumentsIcon,
+  FaqIcon,
   FilterIcon,
   HistoryIcon,
   MenuIcon,
@@ -70,6 +71,39 @@ const MainMap = () => {
     initial: { x: "-100%", opacity: 0 },
     visible: { x: 0, opacity: 1 },
   };
+
+  const menuItems = [
+    {
+      text: 'profile',
+      route: '/profile',
+      icon: <ProfileIcon />
+    },
+    {
+      text: 'order_history',
+      route: '/history',
+      icon: <HistoryIcon />
+    },
+    {
+      text: 'my_cards',
+      route: '/my-cards',
+      icon: <MyCardIcon />
+    },
+    {
+      text: 'tariffs',
+      route: '/pricing_description',
+      icon: <MyTarifIcon />
+    },
+    {
+      text: 'documentation',
+      route: '/doc',
+      icon: <DocumentsIcon />
+    },
+    {
+      text: 'faq',
+      route: '/faq',
+      icon: <FaqIcon />
+    },
+  ]
 
   useEffect(() => {
     getMerchantList({
@@ -277,52 +311,18 @@ const MainMap = () => {
                 <XIcon />
               </button>
               <div className={styles.menuWrap}>
-                <div
-                  className={styles.menuItem}
-                  onClick={() => navigate("/profile")}
-                >
-                  <div className={styles.menuIcon}>
-                    <ProfileIcon />
+                {menuItems.map(item => (
+                  <div
+                    key={item.text}
+                    className={styles.menuItem}
+                    onClick={() => navigate(item.route)}
+                  >
+                    <div className={styles.menuIcon}>
+                      {item.icon}
+                    </div>
+                    <div>{t(item.text)}</div>
                   </div>
-                  <div>{t("profile")}</div>
-                </div>
-                <div
-                  className={styles.menuItem}
-                  onClick={() => navigate("/history")}
-                >
-                  <div className={styles.menuIcon}>
-                    <HistoryIcon />
-                  </div>
-                  <div>{t("order_history")}</div>
-                </div>
-                <div
-                  className={styles.menuItem}
-                  onClick={() => navigate("/my-cards")}
-                >
-                  <div className={styles.menuIcon}>
-                    <MyCardIcon />
-                  </div>
-                  <div>{t("my_cards")}</div>
-                </div>
-                <div
-                  className={styles.menuItem}
-                  onClick={() => navigate("/pricing_description")}
-                >
-                  <div className={styles.menuIcon}>
-                    <MyTarifIcon />
-                  </div>
-                  <div>{t("tariffs")}</div>
-                </div>
-                <div
-                  className={styles.menuItem}
-                  onClick={() => navigate("/doc")}
-                >
-                  <div className={styles.menuIcon}>
-                    <DocumentsIcon />
-                  </div>
-
-                  <div>{t("documentation")}</div>
-                </div>
+                ))}
 
                 <div className={styles.downloadApp}>
                   <p>{t("download_app")}</p>

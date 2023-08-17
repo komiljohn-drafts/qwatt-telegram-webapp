@@ -1,0 +1,51 @@
+.faqWrapper {
+  padding: 16px;
+
+  .questionCard {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+
+    .question {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .openCard {
+      max-height: 1000px; /* Set to a sufficiently large value */
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+
+      .answer {
+        font-size: 15px;
+        color: #686b70b2;
+      }
+    }
+    
+    .card {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .moreWrap {
+      display: flex;
+      justify-content: flex-end;
+      color: #12adc1;
+      font-size: 13px;
+      background: #f9f9f9;
+      font-weight: 500;
+      line-height: 18px;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+      .moreWrap:active,
+      .moreWrap:focus {
+        outline: none !important;
+        background-color: #f9f9f9 !important;background: #f9f9f9;
+      }
+  }
+}

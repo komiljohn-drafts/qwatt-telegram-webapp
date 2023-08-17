@@ -7,7 +7,7 @@ import { getPriceFaq } from "@/services/getPrice";
 import styles from "./style.module.scss";
 import { useTranslation } from "react-i18next";
 
-const Faq = () => {
+const Requisites = () => {
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
 
@@ -53,4 +53,4 @@ const Faq = () => {
   );
 };
 
-export default Faq;
+export default Requisites;

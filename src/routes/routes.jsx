@@ -3,7 +3,7 @@ import AddData from "@/pages/add-data";
 import App from "@/App";
 import CardOtp from "@/pages/otp";
 import Documentation from "@/pages/doc/Documentation";
-import Faq from "@/pages/doc/faq";
+import Faq from "@/pages/faq";
 import Filter from "@/pages/filter";
 import History from "@/pages/history";
 import MyCards from "@/pages/my-cards";
@@ -14,6 +14,7 @@ import Profile from "@/pages/profile";
 import Rent from "@/pages/rent";
 import Tarif from "@/pages/pricing_description";
 import Termconditions from "@/pages/doc/term&conditions";
+import Requisites from "@/pages/doc/faq";
 
 const routes = [
   {
@@ -85,6 +86,11 @@ const routes = [
         path: "pricing_description",
         id: "pricing_description",
         element: <Tarif />,
+      },
+      {
+        path: "requisites",
+        id: "requisites",
+        element: <Requisites />,
       },
       {
         path: "profile",

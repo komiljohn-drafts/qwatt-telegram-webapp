@@ -30,7 +30,7 @@ const DocPage = () => {
           <div>{t("data_processing")}</div>
           <ForwardIcon />
         </div>
-        <div className={styles.document} onClick={() => navigate("/faq")}>
+        <div className={styles.document} onClick={() => navigate("/requisites")}>
           <div>{t("requisites")}</div>
           <ForwardIcon />
         </div>
