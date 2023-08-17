@@ -3,7 +3,6 @@ import { deleteCard, getCards, setMainCard } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import cardicon from "@/assets/images/card.jpg";
 import { checkCardType } from "@/helpers/checkCardType";
@@ -144,19 +143,6 @@ const MyCardsPage = () => {
                       {t("delete")}
                     </button>
                 )}
-
-                { card?.guid == mainCardId ? (
-                  <button>
-                    <CheckCircleIcon sx={{ color: "#12ADC1" }} />
-                  </button>
-                ) : (
-                  <button>
-                    <div className={styles.circle}>
-                      <div className={styles.icon}></div>
-                    </div>
-                  </button>
-                )}
-
               </div>
             )}
           )}
