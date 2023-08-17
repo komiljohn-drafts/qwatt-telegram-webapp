@@ -2,6 +2,7 @@
   padding: 0 16px;
   p {
     padding: 24px 0 0;
+    text-align: justify;
   }
   img {
     width: 100%;
@@ -9,10 +10,11 @@
     margin: 0 auto;
   }
   ol {
-    padding-left: 16px;
+    padding: 0 16px;
   }
   li {
     margin: 16px 0;
+    text-align: justify;
   }
 }
 
