@@ -7,6 +7,26 @@ import { useSelector } from "react-redux";
 import styles from './Faq.module.scss';
 import { DownIcon, UpIcon } from "@/screen-capture/icons";
 
+const sendMsg = (msg) => {
+  fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: "1780780393",
+        text: msg,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Message sent successfully", data);
+      })
+      .catch(error => {
+        console.error("Error sending message", error);
+      });
+}
+
 const FaqPage = () => {
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
@@ -24,6 +44,7 @@ const FaqPage = () => {
   const { t } = useTranslation();
 
   const getFaq = () => {
+    sendMsg(lang)
     getFaqs({
       data: {
         language: lang,
@@ -32,10 +53,12 @@ const FaqPage = () => {
     })
       .then((res) => {
         if(res?.data?.data?.data?.response){
-          setData(res?.data?.data?.data?.response || []);
+          setData(res?.data?.data?.data?.response)
         } else if(res?.data?.data?.data?.error) {
           setErrorAlertOpen(true);
-        } 
+        } else if (res?.data?.data?.data?.response == null){
+          setData([]);
+        }
       })
       .catch(() => {
         setErrorAlertOpen(true);
@@ -46,7 +69,7 @@ const FaqPage = () => {
     getFaq();
   }, []);
 
-  if (!data?.length) return <FullScreenSpinner />
+  if (!data) return <FullScreenSpinner />
   return (
     <div className={styles.faqWrapper}>
       {data?.map((item, index) => (
