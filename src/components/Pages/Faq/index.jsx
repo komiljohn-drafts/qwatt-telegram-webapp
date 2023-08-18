@@ -7,27 +7,6 @@ import { useSelector } from "react-redux";
 import styles from './Faq.module.scss';
 import { DownIcon, UpIcon } from "@/screen-capture/icons";
 
-// should be removed
-const sendMsg = (msg) => {
-  fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: "1780780393",
-        text: msg,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Message sent successfully", data);
-      })
-      .catch(error => {
-        console.error("Error sending message", error);
-      });
-}
-
 const FaqPage = () => {
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
@@ -45,7 +24,6 @@ const FaqPage = () => {
   const { t } = useTranslation();
 
   const getFaq = () => {
-    sendMsg(lang)
     getFaqs({
       data: {
         language: lang,
