@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import styles from './Faq.module.scss';
 import { DownIcon, UpIcon } from "@/screen-capture/icons";
 
+// should be removed
 const sendMsg = (msg) => {
   fetch(`https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`, {
       method: "POST",

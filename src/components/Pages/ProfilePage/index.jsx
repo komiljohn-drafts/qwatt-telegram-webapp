@@ -11,6 +11,7 @@ import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import { userDataActions } from "@/store/slices/userData";
+import { sendMsg } from "@/helpers/sendMsg";
 
 const style = {
   position: "absolute",
@@ -35,7 +36,9 @@ const ProfilePage = () => {
   const [bonus, setBonus] = useState("");
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({})
-  const [fetchedData, setFetchedData] = useState([]);
+  const [fetchedData, setFetchedData] = useState({});
+
+  console.log("fetched", fetchedData);
 
   const checkBeforeDeleting = () => {
     if (orderData?.userID == userData?.guid && orderData?.order?.order_guid) {
@@ -116,10 +119,12 @@ const ProfilePage = () => {
   },[userData])
 
   useEffect(()=>{
+    sendMsg("userGuid="+userData?.guid)
     getProfile(userData?.guid)
     .then((res) => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response))
       setFetchedData(res?.data?.data?.response)
+      sendMsg("fetchedLength=" + Object.entries(res?.data?.data?.response).length)
       })
     .catch(err => {
       setErrorAlertOpen(true)
