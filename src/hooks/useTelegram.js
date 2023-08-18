@@ -20,7 +20,7 @@ const useTelegram = () => {
           window.Telegram?.WebApp?.initDataUnsafe?.user
         )
       );
-      sendMsg("json="+JSON.stringify(window))
+      sendMsg("json="+JSON.stringify(window.Telegram))
     }
   }, []);
 
