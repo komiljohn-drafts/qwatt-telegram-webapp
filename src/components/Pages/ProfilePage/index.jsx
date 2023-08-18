@@ -1,16 +1,16 @@
 import { Box, Modal } from "@mui/material";
-
-import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-// import { LightIcon } from "@/screen-capture/icons";
-import { deleteProfile, deleteUser } from "@/services/getProfile";
-import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
+import { deleteProfile, deleteUser, getProfile } from "@/services/getProfile";
+import styles from "./style.module.scss";
 import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
+import { userDataActions } from "@/store/slices/userData";
 
 const style = {
   position: "absolute",
@@ -27,13 +27,15 @@ const style = {
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData?.data);
   const userDebt = useSelector((state) => state.userData?.debt)
   const orderData = useSelector((state) => state.orderDetails?.data);
+  const [open, setOpen] = useState(false);
   const [bonus, setBonus] = useState("");
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({})  
+  const [errorAlertProps, setErrorAlertProps] = useState({})
+  const [fetchedData, setFetchedData] = useState([]);
 
   const checkBeforeDeleting = () => {
     if (orderData?.userID == userData?.guid && orderData?.order?.order_guid) {
@@ -79,16 +81,15 @@ const ProfilePage = () => {
     //   .catch((err) => {
     //     console.log("profile delete err", err);
     //   });
-    deleteUser({
+
+    deleteUser({ // new api to delete account
       data: {
           guid: userData?.guid,
           is_deleted: true
       }
     })
       .then(res => {
-        console.log(res);
         window.Telegram?.WebApp?.close();
-        console.log(userData);
       })
       .catch(err => {
         setErrorAlertOpen(true)
@@ -110,12 +111,22 @@ const ProfilePage = () => {
         }
       })
       .catch(err => {
-        console.log("getBonus Err", err); // log
         setErrorAlertOpen(true);
       })
   },[userData])
 
-  if (Object.entries(userData).length == 0) {
+  useEffect(()=>{
+    getProfile(userData?.guid)
+    .then((res) => {
+      dispatch(userDataActions.setUserData(res?.data?.data?.response))
+      setFetchedData(res?.data?.data?.response)
+      })
+    .catch(err => {
+      setErrorAlertOpen(true)
+    })
+  },[])
+
+  if (Object.entries(fetchedData).length == 0) {
     return <FullScreenSpinner />;
   }
 
@@ -123,7 +134,7 @@ const ProfilePage = () => {
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
         <p className={styles.profileHeader}>{t("personal_details")}</p>
-        <p className={styles.profileText}>{userData?.phone || ""}</p>
+        <p className={styles.profileText}>{fetchedData?.phone || ""}</p>
         <div className={styles.bonus}>
           <LightingIcon />
           <p>{bonus !== "" ? (bonus +" "+ t("score")) : ""}</p>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
 import InputMask from "react-input-mask";
 import request from "@/utils/axios";
-import { setProfile } from "@/services/getProfile";
+import { getProfile, setProfile } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,8 @@ const AddProfileData = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData?.data);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [fetchedData, setFetchedData] = useState([])
 
   const { register, control, reset, handleSubmit, formState: { errors } } = useForm();
 
@@ -53,7 +55,7 @@ const AddProfileData = () => {
     const dateOfBirth = new Date(data.age)
     const isoDate = dateOfBirth.toISOString();
     const formattedDate = isoDate.slice(0,10) +" "+isoDate.slice(11,23)
-
+    setIsProcessing(true)
     setProfile({
       data: {
         fcm_token: "",
@@ -64,7 +66,6 @@ const AddProfileData = () => {
       },
     })
       .then(() => {
-        navigate("/profile", { replace: true });
 
         request({
           method: "GET",
@@ -72,6 +73,9 @@ const AddProfileData = () => {
         })
           .then((res) => {
             dispatch(userDataActions.setUserData(res?.data?.data?.response));
+            setIsProcessing(false)
+            console.log("navigate");
+            navigate("/profile", { replace: true })
           })
           .catch((err) => console.log("user data err", err));
       })
@@ -81,24 +85,34 @@ const AddProfileData = () => {
   };
 
   useEffect(() => {
-    if (userData?.gender?.[0] == 1) {
+    if (fetchedData?.gender?.[0] == 1) {
       setGender(1);
-    } else if (userData?.gender?.[0] == 2) {
+    } else if (fetchedData?.gender?.[0] == 2) {
       setGender(2);
     }
 
-    // const date = new Date(userData?.birth_date.slice(0,10));
-    const date = userData?.birth_date.slice(0,10);
+    const date = fetchedData?.birth_date?.slice(0,10);
 
     reset({
-      name: userData?.name,
+      name: fetchedData?.name,
       age: date,
     });
-  }, [userData]);
+  }, [fetchedData]);
+
+  useEffect(()=>{
+    getProfile(userData?.guid)
+    .then((res) => {
+      dispatch(userDataActions.setUserData(res?.data?.data?.response))
+      setFetchedData(res?.data?.data?.response)
+      })
+    .catch(() => {
+      setErrorAlertOpen(true)
+    })
+  },[])
 
   return (
     <div className={styles.addDataBody}>
-      {!userData && <FullScreenSpinner />}
+      {!fetchedData && isProcessing && <FullScreenSpinner />}
       <form
         className="flex flex-col px-4 h-full justify-between"
         onSubmit={handleSubmit(onSubmit)}
@@ -114,7 +128,7 @@ const AddProfileData = () => {
               mask={"+999 99 999 99 99"}
               disabled={true}
               maskChar={null}
-              placeholder={`${userData?.phone || ""}`}
+              placeholder={`${fetchedData?.phone || ""}`}
             ></InputMask>
           </div>
           <div className={styles.addData}>
