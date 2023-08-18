@@ -92,6 +92,8 @@
     "expiry_date":"Expiry date",
     "confirm_delete":"Delete card?",
     "day":"d",
+    "hour":"h",
+    "minute":"m",
     "finished": "Finished",
     "date_of_birth": "Date of birth"
 }

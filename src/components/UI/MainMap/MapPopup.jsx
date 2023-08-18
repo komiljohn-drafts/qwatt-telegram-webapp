@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   DestinationIcon,
-  LightingIcon,
   QwattBlueIcon,
   QwattYellowIcon,
   XIcon,
@@ -148,7 +147,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
           </div>
         </div>
         <button onClick={handleClick} className={styles.getButton}>
-          <LightingIcon /> {t("get_powerbank")}
+          {t("get_powerbank")}
         </button>
       </motion.div>
     </AnimatePresence>

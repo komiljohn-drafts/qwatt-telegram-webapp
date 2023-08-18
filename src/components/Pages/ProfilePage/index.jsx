@@ -37,8 +37,6 @@ const ProfilePage = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({})
   const [fetchedData, setFetchedData] = useState({});
 
-  console.log("fetched", fetchedData);
-
   const checkBeforeDeleting = () => {
     if (orderData?.userID == userData?.guid && orderData?.order?.order_guid) {
       setErrorAlertOpen(true)
@@ -135,7 +133,7 @@ const ProfilePage = () => {
   return (
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
-        <p className={styles.profileHeader}>{t("personal_details")}</p>
+        <p className={styles.profileHeader}>{fetchedData?.name || t("personal_details")}</p>
         <p className={styles.profileText}>{fetchedData?.phone || ""}</p>
         <div className={styles.bonus}>
           <LightingIcon />

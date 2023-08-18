@@ -92,6 +92,8 @@
    "expiry_date":"Срок действия",
    "confirm_delete":"Удалить карту?",
    "day":"д",
+   "hour":"ч",
+   "minute":"м",
    "finished": "Завершено",
    "date_of_birth": "Дата рождения"
 }

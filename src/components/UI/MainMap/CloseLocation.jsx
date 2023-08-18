@@ -1,4 +1,4 @@
-import { LightingIcon, LocationIcon } from "@/screen-capture/icons";
+import { LocationIcon } from "@/screen-capture/icons";
 
 import PropTypes from "prop-types";
 import request from "@/utils/axios";
@@ -75,7 +75,7 @@ const CloseLocation = ({
         ))}
       </div>
       <button onClick={handleClick} className={styles.getButton}>
-        <LightingIcon /> {t("get_powerbank")}
+        {t("get_powerbank")}
       </button>
     </div>
   );

@@ -15,19 +15,11 @@ const ActiveCard = ({ order }) => {
       <div className={styles.historyInfo}>
         {order?.end_time == "" && (
           <div className="flex flex-row w-full justify-between items-center">
-            <div
-              className="flex items-center justify-center px-2 py-1 rounded-2xl"
-              style={{ background: "rgba(18, 173, 193, 0.15)" }}
-            >
-              <p className="font-medium text-sm text-[#12ADC1]">
-                {t("on_use")}
-              </p>
-            </div>
+            <div></div>
             <p className="font-medium text-[#12ADC1]">{`
-              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day") +".      " : ""}
-              ${orderStatusTime.hours < 10 ? "0" : ""}${orderStatusTime.hours}
-              :
-              ${orderStatusTime.minutes < 10 ? "0" : ""}${orderStatusTime.minutes}
+              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day")+"." : ""}
+              ${orderStatusTime.days == 0 && orderStatusTime.hours == 0 ? "" : orderStatusTime.hours+t("hour")+"."}
+              ${orderStatusTime.minutes+t("minute")+"."}
             `}</p>
           </div>
         )}

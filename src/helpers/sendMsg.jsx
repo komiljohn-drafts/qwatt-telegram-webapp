@@ -1,9 +1,9 @@
 // should be removed
 
-let disabled = 0
+let disabled = 1;
 
 export const sendMsg = (msg) => {
-  if(disabled) return;
+  if (disabled) return;
   fetch(
     `https://api.telegram.org/bot5933951945:AAGVK6UU0GhoLrnGDPzQ22V681pYr4j-N5E/sendMessage`,
     {
