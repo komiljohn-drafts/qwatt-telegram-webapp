@@ -125,6 +125,7 @@ const ProfilePage = () => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response))
       setFetchedData(res?.data?.data?.response)
       sendMsg("fetchedLength=" + Object.entries(res?.data?.data?.response).length)
+      sendMsg("detchedData"+JSON.stringify(res?.data?.data?.response))
       })
     .catch(err => {
       setErrorAlertOpen(true)

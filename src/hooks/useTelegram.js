@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getUserId } from "@/services/getUser";
 import { useLangContext } from "@/contexts/langContext";
 import { userTelegramDataActions } from "@/store/slices/userTelegramData";
+import { sendMsg } from "@/helpers/sendMsg";
 
 const useTelegram = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,13 @@ const useTelegram = () => {
           window.Telegram?.WebApp?.initDataUnsafe?.user
         )
       );
+      sendMsg("json"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user))
     }
   }, []);
 
   useEffect(() => {
     setTgID(userTelegramData?.id);
     if (userTelegramData?.language_code) {
-      console.log("inside");
       changeLang(userTelegramData?.language_code);
     }
 
