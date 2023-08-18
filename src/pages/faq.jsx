@@ -7,7 +7,7 @@ const Faq = () => {
   return (
     <div>
       {/* static data */}
-      <MobileHeader title={t("faqs")} path="/" /> 
+      <MobileHeader title={t("faq")} path="/" /> 
       <FaqPage />
     </div>
   );

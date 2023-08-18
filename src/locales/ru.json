@@ -95,5 +95,6 @@
    "hour":"ч",
    "minute":"м",
    "finished": "Завершено",
-   "date_of_birth": "Дата рождения"
+   "date_of_birth": "Дата рождения",
+   "faq": "Вопросы о qwatt"
 }
