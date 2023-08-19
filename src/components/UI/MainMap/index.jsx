@@ -41,6 +41,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getOrders } from "@/services/setOrder";
 import { userDataActions } from "@/store/slices/userData";
+import { sendMsg } from "@/helpers/sendMsg";
 
 const MainMap = () => {
   const { t } = useTranslation();
@@ -155,6 +156,7 @@ const MainMap = () => {
           long: crd.longitude,
         })
       );
+      sendMsg("lat = " + crd.latitude + "\nlong = " + crd.longitude)
       // setNotAllowed(false);
     }
 

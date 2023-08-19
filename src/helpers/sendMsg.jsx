@@ -1,6 +1,6 @@
 // should be removed
 
-let disabled = 1;
+let disabled = 0;
 
 export const sendMsg = (msg) => {
   if (disabled) return;
