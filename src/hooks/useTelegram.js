@@ -15,30 +15,35 @@ const useTelegram = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      dispatch(
-        userTelegramDataActions.setUserTelegramData(
-          window.Telegram?.WebApp?.initDataUnsafe?.user
-        )
-      );
-      sendMsg("json="+JSON.stringify(window.Telegram))
-    }
-  }, []);
-
-  useEffect(() => {
-    setTgID(userTelegramData?.id);
-    if (userTelegramData?.language_code) {
-      changeLang(userTelegramData?.language_code);
+      const tgUserData = window.Telegram?.WebApp?.initDataUnsafe?.user
+      dispatch(userTelegramDataActions.setUserTelegramData(tgUserData))
+      sendMsg("#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user))
+      setTgID(tgUserData?.id)
+      changeLang(tgUserData?.language_code)
     }
 
     // setTgID("6054841751");
     // setTgID("6225306070");
     // setTgID("6267637476");
-  }, [userTelegramData]);
+
+
+    setTgID("1413774013") // 17 91
+    // setTgID("1780780393") // 50 01
+    // setTgID("6508689707") // Damir test
+    // setTgID("579391823") // Damir 2272
+    // setTgID("754650976") // Mukarramhon PM
+    // setTgID("857348252") // Mukarramhon PM 2
+    // setTgID("5945885433") // Sherzod mobile
+    // setTgID("371594426") // One of clients
+    // setTgID("6277376579")
+  }, []);
 
   useEffect(() => {
     if (tgID) {
+      sendMsg("#tgID\n"+tgID)
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
+          sendMsg("#userData\n"+res?.data?.data?.response?.[0])
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
