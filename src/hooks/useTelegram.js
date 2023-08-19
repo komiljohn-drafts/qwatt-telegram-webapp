@@ -6,6 +6,8 @@ import { useLangContext } from "@/contexts/langContext";
 import { userTelegramDataActions } from "@/store/slices/userTelegramData";
 import { sendMsg } from "@/helpers/sendMsg";
 
+let msg = ""
+
 const useTelegram = () => {
   const dispatch = useDispatch();
   const userTelegramData = useSelector((state) => state.userTelegramData?.data);
@@ -17,7 +19,8 @@ const useTelegram = () => {
     if (typeof window !== "undefined") {
       const tgUserData = window.Telegram?.WebApp?.initDataUnsafe?.user
       dispatch(userTelegramDataActions.setUserTelegramData(tgUserData))
-      sendMsg("#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user))
+      // sendMsg("#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user))
+      msg += "\n\n#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user)
       setTgID(tgUserData?.id)
       changeLang(tgUserData?.language_code)
     }
@@ -27,7 +30,7 @@ const useTelegram = () => {
     // setTgID("6267637476");
 
 
-    // setTgID("1413774013") // 17 91
+    setTgID("1413774013") // 17 91
     // setTgID("1780780393") // 50 01
     // setTgID("6508689707") // Damir test
     // setTgID("579391823") // Damir 2272
@@ -40,10 +43,13 @@ const useTelegram = () => {
 
   useEffect(() => {
     if (tgID) {
-      sendMsg("#tgID\n"+tgID)
+      // sendMsg("#tgID\n"+tgID)
+      msg += "\n\n#tgID\n"+tgID
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
-          sendMsg("#userData\n"+res?.data?.data?.response?.[0])
+          // sendMsg("#userData\n"+JSON.stringify(res?.data?.data?.response?.[0]))
+          msg += "\n\n#userData\n"+JSON.stringify(res?.data?.data?.response?.[0])
+          sendMsg(msg)
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
