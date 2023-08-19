@@ -33,7 +33,7 @@ const PaymentInfo = () => {
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
   const [data, setData] = useState(null);
-  const [isBonus, setIsBonus] = useState(false);
+  // const [isBonus, setIsBonus] = useState(false); bonus is disabled for now, but will be enabled again
   const [bonus, setBonus] = useState(null);
 
   const selectorRes = useMemo(() => {
@@ -66,7 +66,8 @@ const PaymentInfo = () => {
         cabine_lists_id: selectorRes?.guid,
         merchant_list_id: selectorRes?.merchant_list_id,
         credit_card_list_id: selectedCardId,
-        is_bonus: isBonus,
+        // is_bonus: isBonus, bonus is disabled for now, but will be enabled again
+        is_bonus: false,
       },
     })
       .then((res) => {
@@ -101,17 +102,18 @@ const PaymentInfo = () => {
       });
   };
 
-  const handleBonusClick = () => {
-    if (bonus >= 5000) {
-      setIsBonus(!isBonus)
-    } else {
-      setErrorAlertOpen(true)
-      setErrorAlertProps({
-        text: t("notEnoughPointsToCreateLease"),
-        action: () => setErrorAlertOpen(false),
-      })
-    }
-  }
+  // =============== bonus is disabled for now, but will be enabled again
+  // const handleBonusClick = () => {
+  //   if (bonus >= 5000) {
+  //     setIsBonus(!isBonus)
+  //   } else {
+  //     setErrorAlertOpen(true)
+  //     setErrorAlertProps({
+  //       text: t("notEnoughPointsToCreateLease"),
+  //       action: () => setErrorAlertOpen(false),
+  //     })
+  //   }
+  // }
 
   const getOrderPrice = () => {
     if (!selectorRes?.merchant_list_id_data?.merchant_pricing_id) return;
@@ -154,25 +156,26 @@ const PaymentInfo = () => {
       });
   };
   
-  const fetchBonus = () => {
-    getBonus({
-      data: {
-        guid: userData?.guid
-      }
-    })
-      .then(res => {
-        setBonus(res.data.data.data.response[0].bonus)
-      })
-      .catch(err => {
-        console.log("getBonus Err", err); // log
-        setErrorAlertOpen(true);
-      })
-  }
+  // ========== bonus is disabled for now, but will be enabled again
+  // const fetchBonus = () => {
+  //   getBonus({
+  //     data: {
+  //       guid: userData?.guid
+  //     }
+  //   })
+  //     .then(res => {
+  //       setBonus(res.data.data.data.response[0].bonus)
+  //     })
+  //     .catch(err => {
+  //       console.log("getBonus Err", err); // log
+  //       setErrorAlertOpen(true);
+  //     })
+  // }
 
   useEffect(() => {
     getOrderPrice();
     getMyCards();
-    fetchBonus();
+    // fetchBonus(); bonus is disabled for now, but will be enabled again
   }, []);
 
   useEffect(() => {
@@ -233,13 +236,14 @@ const PaymentInfo = () => {
 
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
-          {isBonus ? (
+          {/* {isBonus ? ( ====== bonus is disabled for now, but will be enabled again*/}
+          { false ? (
               <div className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}>
                 {BonusIcon()}
                 <div>{t("scores")}</div>
                 <div className={styles.bonus}>
                   <div>{starIcon()}</div>
-                  <div>{bonus}</div>
+                  {/* <div>{bonus}</div> */}
                 </div>
               </div>
           ) : (
@@ -284,7 +288,8 @@ const PaymentInfo = () => {
                 {t("choose_payment_method")}
               </h2>
 
-              <div
+              {/* ========== bonus is disabled for now, but will be enabled again */}
+              {/* <div
                 onClick={handleBonusClick}
                 className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
                   isBonus ? "border-[#12ADC1]" : "border-[#F1F1F1]"
@@ -303,7 +308,7 @@ const PaymentInfo = () => {
                 >
                   <CheckCircleIcon sx={{ color: "#12ADC1" }} />
                 </button>
-              </div>
+              </div> */}
               {myCards?.map((card) => {
                 const { icon } = checkCardType(card?.credit_card);
                 return (

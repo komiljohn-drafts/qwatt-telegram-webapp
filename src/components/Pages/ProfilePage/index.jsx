@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const userDebt = useSelector((state) => state.userData?.debt)
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [open, setOpen] = useState(false);
-  const [bonus, setBonus] = useState("");
+  // const [bonus, setBonus] = useState(""); bonus is disabled for now, but will be enabled again
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const [errorAlertProps, setErrorAlertProps] = useState({})
   const [fetchedData, setFetchedData] = useState({});
@@ -96,24 +96,25 @@ const ProfilePage = () => {
       })
   };
 
-  useEffect(() => {
-    getBonus({
-      data: {
-        guid: userData?.guid
-      }
-    })
-      .then(res => {
-        const resData = res?.data?.data?.data?.response?.[0]?.bonus
-        if( resData || resData == 0){
-          setBonus(resData)
-        } else {
-          setErrorAlertOpen(true)
-        }
-      })
-      .catch(err => {
-        setErrorAlertOpen(true);
-      })
-  },[userData])
+  // ==========  bonus is disabled for now, but will be enabled again
+  // useEffect(() => { 
+  //   getBonus({
+  //     data: {
+  //       guid: userData?.guid
+  //     }
+  //   })
+  //     .then(res => {
+  //       const resData = res?.data?.data?.data?.response?.[0]?.bonus
+  //       if( resData || resData == 0){
+  //         setBonus(resData)
+  //       } else {
+  //         setErrorAlertOpen(true)
+  //       }
+  //     })
+  //     .catch(err => {
+  //       setErrorAlertOpen(true);
+  //     })
+  // },[userData])
 
   useEffect(()=>{
     getProfile(userData?.guid)
@@ -135,10 +136,11 @@ const ProfilePage = () => {
       <div className={styles.profileData}>
         <p className={styles.profileHeader}>{fetchedData?.name || t("personal_details")}</p>
         <p className={styles.profileText}>{fetchedData?.phone || ""}</p>
-        <div className={styles.bonus}>
+        {/* ========= bonus is disabled for now, but will be enabled again */}
+        {/* <div className={styles.bonus}>
           <LightingIcon />
           <p>{bonus !== "" ? (bonus +" "+ t("score")) : ""}</p>
-        </div>
+        </div> */}
         <div className={styles.editButton} onClick={() => navigate("add-data")}>
           {t("change")}
         </div>
