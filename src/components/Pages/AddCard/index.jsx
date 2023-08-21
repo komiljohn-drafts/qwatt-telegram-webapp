@@ -38,13 +38,12 @@ const AddingCard = () => {
 
   const getMyCards = () => {
     getCards({
-      data: {
-        with_relations: false,
-        user_id: userData?.guid,
-      },
+      data:{
+        user: userData?.guid,
+      }
     })
       .then((res) => {
-        const responseData = res?.data?.data?.response;
+        const responseData = res?.data?.data?.data?.response;
         if (Array.isArray(responseData)) {
           setMyCards(responseData);
         } else {

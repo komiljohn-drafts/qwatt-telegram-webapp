@@ -27,15 +27,15 @@ const MyCardsPage = () => {
     if (!userData?.guid) return;
 
     getCards({
-      data: {
-        with_relations: false,
-        user_id: userData?.guid,
-      },
+      data:{
+        user: userData?.guid
+      }
     })
       .then((res) => {
-        if (res?.data?.data?.response) {
-          setData(res?.data?.data?.response);
-          setMainCardId(res?.data?.data?.response.find((card) => card?.main_card)?.guid)
+        if (res?.data?.data?.data?.response) {
+          setData(res?.data?.data?.data?.response);
+          setMainCardId(res?.data?.data?.data?.response.find((card) => card?.main_card)?.guid)
+          console.log("my cards old", res?.data?.data?.data?.response);
         } else {
           setErrorAlertOpen(true);
         }
@@ -48,7 +48,11 @@ const MyCardsPage = () => {
 
   const deleteMyCard = (guid) => {
     setIsDeleting(guid)
-    deleteCard(guid, { data: {} })
+    deleteCard({
+      data:{
+        guid: guid,
+      }
+    })
       .then((res) => {
         console.log("delete-cards res", res);
         getMyCards();
@@ -67,8 +71,8 @@ const MyCardsPage = () => {
     setMainCard({
       data: {
           guid: card?.guid,
-          main_card: !card?.main_card,
-          user_id: userData?.guid
+          main_card: true,
+          user_id: userData?.guid,
       }
     })
       .then(res => {
@@ -116,7 +120,7 @@ const MyCardsPage = () => {
             return (
               <div 
                 className={`${styles.paymentMethod} ${card?.guid == mainCardId ? styles.mainCard : ''}`} 
-                key={card.guid}
+                key={card?.guid}
                 onClick={() => changeMainCard(card)}
               >
                 <div className={styles.editCard}>

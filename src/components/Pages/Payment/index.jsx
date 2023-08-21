@@ -136,13 +136,12 @@ const PaymentInfo = () => {
 
   const getMyCards = () => {
     getCards({
-      data: {
-        with_relations: false,
-        user_id: userData?.guid,
-      },
+      data:{
+        user: userData?.guid
+      }
     })
       .then((res) => {
-        const responseData = res?.data?.data?.response;
+        const responseData = res?.data?.data?.data?.response;
         if (Array.isArray(responseData) && responseData.length > 0) {
           setMyCards(responseData);
           setSelectedCardId(responseData?.find(item => item?.main_card)?.guid || "");
