@@ -15,6 +15,8 @@ function App() {
     getProfile(userInitialData?.guid).then((res) => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response));
     });
+  } else {
+    dispatch(userDataActions.setUserData({}))
   }
 
   if (match) {

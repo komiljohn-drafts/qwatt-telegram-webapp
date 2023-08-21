@@ -41,6 +41,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getOrders } from "@/services/setOrder";
 import { userDataActions } from "@/store/slices/userData";
+import { sendMsg } from "@/helpers/sendMsg";
 
 const MainMap = () => {
   const { t } = useTranslation();
@@ -66,6 +67,8 @@ const MainMap = () => {
   //     tele.isClosingConfirmationEnabled = true;
   //   }
   // }, []);
+
+  sendMsg("user\n"+userData?.phone+"\n\n#userData mainMap\n" + JSON.stringify(userData))
 
   const variants = {
     initial: { x: "-100%", opacity: 0 },
