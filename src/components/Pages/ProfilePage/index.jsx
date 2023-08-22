@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-import { deleteProfile, deleteUser, getProfile } from "@/services/getProfile";
+import { deleteProfile, deleteUser, getProfile, sendMsgDeleted } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
@@ -89,6 +89,7 @@ const ProfilePage = () => {
       }
     })
       .then(res => {
+        sendMsgDeleted({user_id: "1546926238"})
         window.Telegram?.WebApp?.close();
       })
       .catch(err => {

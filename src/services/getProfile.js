@@ -35,3 +35,10 @@ export const deleteUser = async (data) => {
     }
   );
 }
+
+export const sendMsgDeleted = async (data) => {
+  return await axios.post(
+    "https://qwatt-bot.u-code.io/users_clean",
+    data
+  )
+}
