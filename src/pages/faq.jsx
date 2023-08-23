@@ -6,7 +6,6 @@ const Faq = () => {
   const { t } = useTranslation();
   return (
     <div>
-      {/* static data */}
       <MobileHeader title={t("faq")} path="/" /> 
       <FaqPage />
     </div>

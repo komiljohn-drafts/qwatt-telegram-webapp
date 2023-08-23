@@ -105,7 +105,7 @@ const AddingCard = () => {
     } else if (checkIfExists()) {
       setErrorAlertOpen(true);
       setErrorAlertProps({
-        text: "You have already added the card", // static data
+        text: t("youHaveAlreadyAddedThisCard"),
         action: () => {
           setErrorAlertOpen(false);
         },

@@ -7,7 +7,7 @@
     "tariffs":"Tariffs",
     "documentation":"Documentation",
     "download_app":"Download app",
-    "get_powerbank":"Get powerbank",
+    "get_powerbank":"Take Powerbank",
     "on_use":"On use",
     "how_to_return_powerbank":"How to return powerbank ?",
     "rental_price":"Rental price",
@@ -68,7 +68,7 @@
     "station_is_disabled":"The vending machine is out of order and cannot issue a lease (disabled)",
     "station_is_not_found":"Station not found",
     "rental":"Rental",
-    "youHaveDebt":"You have debt (temporary)",
+    "youHaveDebt":"You have a debt",
     "youHaveChargerInUse":"You have powerbank in use (temporary)",
     "account_is_blocked":"Your account is blocked",
     "station_info":"Station information",
@@ -96,5 +96,6 @@
     "minute":"m",
     "finished": "Finished",
     "date_of_birth": "Date of birth",
-    "faq": "qwatt FAQ"
+    "faq": "qwatt FAQ",
+    "youHaveAlreadyAddedThisCard" : "You have already added this card"
 }

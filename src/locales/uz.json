@@ -5,7 +5,7 @@
     "tariffs":"Tariflar",
     "documentation":"Hujjatlar",
     "download_app":"Ilovani yuklab oling",
-    "get_powerbank":"Zaryadni olish",
+    "get_powerbank":"Poverbank olish",
     "on_use":"Ishlatilmoqda",
     "how_to_return_powerbank":"Zaryadni qanday qaytarish kerak ?",
     "rental_price":"Ijara narxi",
@@ -68,7 +68,7 @@
     "station_is_disabled":"The vending machine is out of order and cannot issue a lease (disabled)",
     "station_is_not_found":"Stansiya topilmadi",
     "rental":"Ijara",
-   "youHaveDebt":"Sizda qarz bor (vaqtincha)",
+   "youHaveDebt":"Sizda qarzdorlik mavjud",
    "youHaveChargerInUse":"Siz da ishlatilayotgan powerbank bor!",
     "account_is_blocked":"Account bloklangan",
     "station_info":"Stansiya haqida ma'lumot",
@@ -96,5 +96,6 @@
     "minute":"d",
     "finished": "Yakunlandi",
     "date_of_birth": "Tug'ilgan kun",
-    "faq": "qwatt haqida savollar"
+    "faq": "qwatt haqida savollar",
+    "youHaveAlreadyAddedThisCard" : "Siz bu kartani allaqachon qo’shgansiz"
     }

@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { getCards } from "@/services/getCards";
 
 const CloseLocation = ({
   nearestMerchants,
@@ -30,22 +31,21 @@ const CloseLocation = ({
     if (!userData?.guid) {
       return;
     }
-    request
-      .post("get-list/credit_card_list", {
-        data: {
-          with_relations: false,
-          user_id: userData?.guid,
-        },
-      })
+    
+    getCards({
+      data:{
+        user: userData?.guid
+      }
+    })
       .then((res) => {
-        if (res?.data?.data?.count == 0) {
+        if (res?.data?.data?.data?.response.length == 0) {
           navigate("/add-card?from=order");
         } else {
           navigate("/order");
         }
       })
       .catch((err) => {
-        console.log("my cards error", err);
+        setErrorAlertOpen(true);
       });
   };
 
