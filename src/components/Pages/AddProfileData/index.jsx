@@ -140,8 +140,7 @@ const AddProfileData = () => {
               {...register("age", { validate: validateAge })}
               type="date" 
             />
-            {/* static data */}
-             {errors.age && <p className={`text-red-500 ${styles.errorMsg}`}>Age must be at least 14 years.</p>}
+             {errors.age && <p className={`text-red-500 ${styles.errorMsg}`}>{t("youNeedToBe14YearsOld")}</p>}
           </div>
           <div className={styles.addData}>
             <p>{t("gender")}</p>

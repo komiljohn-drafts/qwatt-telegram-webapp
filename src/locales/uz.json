@@ -97,5 +97,7 @@
     "finished": "Yakunlandi",
     "date_of_birth": "Tug'ilgan kun",
     "faq": "qwatt haqida savollar",
-    "youHaveAlreadyAddedThisCard" : "Siz bu kartani allaqachon qo’shgansiz"
+    "youHaveAlreadyAddedThisCard" : "Siz bu kartani allaqachon qo’shgansiz",
+    "youNeedToBe14YearsOld": "Ushbu ilovadan foydalanish uchun siz kamida 14 yoshda bo'lishingiz kerak.",
+    "cannotDeleteAccountWithActiveOrders": "Faol buyurtmalar mavjud bo'lganda akkauntni o'chirib bo'lmaydi."
     }

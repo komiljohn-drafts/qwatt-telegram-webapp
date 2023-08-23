@@ -97,5 +97,7 @@
     "finished": "Finished",
     "date_of_birth": "Date of birth",
     "faq": "qwatt FAQ",
-    "youHaveAlreadyAddedThisCard" : "You have already added this card"
+    "youHaveAlreadyAddedThisCard" : "You have already added this card",
+    "youNeedToBe14YearsOld": "To use this app, you need to be at least 14 years old.",
+    "cannotDeleteAccountWithActiveOrders": "Cannot delete account with active orders."
 }

@@ -41,8 +41,7 @@ const ProfilePage = () => {
     if (orderData?.userID == userData?.guid && orderData?.orders?.length) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: "You cannot delete accout", // static data
-        text: t("youHaveChargerInUse"), // temporary data
+        text: t("cannotDeleteAccountWithActiveOrders"),
         action: () => {
           setErrorAlertOpen(false);
         }
@@ -50,7 +49,6 @@ const ProfilePage = () => {
     } else if (userDebt) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: "You cannot delete accout", // static data
         text: t("youHaveDebt"),
         action: () => {
           setErrorAlertOpen(false);
