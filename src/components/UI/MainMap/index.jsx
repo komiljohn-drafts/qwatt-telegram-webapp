@@ -31,7 +31,6 @@ import { getMerchantList } from "@/services/getMerchant";
 import img from "@/assets/images/qwatt_pin.png";
 import { locationActions } from "@/store/userLocation/location";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
-import request from "@/utils/axios";
 import styles from "./style.module.scss";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -67,8 +66,6 @@ const MainMap = () => {
   //     tele.isClosingConfirmationEnabled = true;
   //   }
   // }, []);
-
-  sendMsg("user\n"+userData?.phone+"\n\n#userData mainMap\n" + JSON.stringify(userData))
 
   const variants = {
     initial: { x: "-100%", opacity: 0 },
@@ -239,20 +236,18 @@ const MainMap = () => {
           dispatch(
             orderDetailsActions?.setOrderDetails({
               userID: userData?.guid,
-              order: {}
+              orders: []
             })
           )
         }
         let hasNoDebt = true
+
+        // this is used because we need to append not set
+        let existingOrders = orderData?.userID != userData?.guid ? orderData?.orders : []
         
         res.data?.data?.data?.response?.forEach((ord) => {
           if (ord?.status_name == "In The Lease") {
-            dispatch(
-              orderDetailsActions?.setOrderDetails({
-                userID: userData.guid,
-                order: ord
-              })
-            );
+            existingOrders.push(ord)
           }
           if (ord?.debt > 0 && hasNoDebt) {
             hasNoDebt = false
@@ -261,6 +256,12 @@ const MainMap = () => {
             )
           }
         });
+        dispatch(
+          orderDetailsActions?.setOrderDetails({
+            userID: userData.guid,
+            orders: existingOrders
+          })
+        );
         if (hasNoDebt) {
           dispatch(
             userDataActions?.setUserDebt(false)

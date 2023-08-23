@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 
 const ActiveCard = ({ order }) => {
-  const { orderStatusTime } = useOrderTimer();
+  const { orderStatusTime } = useOrderTimer(order);
   const { t } = useTranslation();
 
   return (

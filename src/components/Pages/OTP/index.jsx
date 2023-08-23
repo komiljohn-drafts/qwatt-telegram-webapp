@@ -67,17 +67,7 @@ const OTPcode = () => {
               credit_card_status: true
           }
         })
-          .catch((err) => { // setCard
-            setErrorAlertOpen(true);
-            setErrorAlertProps({
-              text: err?.data?.data,
-              action: () => {
-                setErrorAlertOpen(false);
-              },
-            });
-            setOtp("");
-          })
-          .finally(()=>{ // setCard
+          .then(()=>{ // setCard
             if (params.get("from") == "order") {
               navigate("/order", { replace: true });
             } else if (params.get("from") == "payment") {
@@ -85,6 +75,22 @@ const OTPcode = () => {
             } else {
               navigate("/my-cards", { replace: true });
             }
+          })
+          .catch((err) => { // setCard
+            setErrorAlertOpen(true);
+            setErrorAlertProps({
+              text: err?.data?.data,
+              action: () => {
+                if (params.get("from") == "order") {
+                  navigate("/order", { replace: true });
+                } else if (params.get("from") == "payment") {
+                  navigate("/payment", { replace: true });
+                } else {
+                  navigate("/my-cards", { replace: true });
+                }
+              },
+            });
+            setOtp("");
           })
       })
       .catch((err) => { // setCardOtp

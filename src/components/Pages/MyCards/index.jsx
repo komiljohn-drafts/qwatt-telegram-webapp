@@ -104,6 +104,17 @@ const MyCardsPage = () => {
     );
   }
 
+  // function used to display delete button if user do not have order (considered the case when user id vip)
+  const isDeleteDisplayed = (card) => {
+    let arr = orderData?.orders
+    for (let i=0; i<arr?.length; i++) {
+      if (card?.guid == arr[i]?.card_guid) {
+        return false
+      }
+    }
+    return true
+  }
+
   return (
     <div className={styles.myCards}>
       <ErrorAlert
@@ -134,8 +145,7 @@ const MyCardsPage = () => {
 
                 { isDeleting == card?.guid ? (
                     <CircularProgress size={20} />
-                  ) : !(orderData?.order?.card == card?.credit_card 
-                    && orderData?.userID == userData?.guid) 
+                  ) : isDeleteDisplayed(card) && orderData?.userID == userData?.guid
                     && (
                     <button
                       className={styles.editBtn}

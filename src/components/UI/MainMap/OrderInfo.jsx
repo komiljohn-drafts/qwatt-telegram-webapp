@@ -1,55 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import useOrderTimer from "@/hooks/useOrderTimer";
-import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import OrderTimer from "./OrderTimer";
 
 export default function OrderInfo() {
-  const { debt, price, orderStatusTime, orderStatus, place } = useOrderTimer();
-  const params = new URLSearchParams(document.location.search);
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const orderData = useSelector(state => state.orderDetails.data)
+  const isCentered = orderData?.orders?.length == 1
 
-  if (
-    orderStatus === "In The Lease"
-  ) {
+  if (orderData?.orders?.length) {
     return (
-      <div className="flex absolute z-20 top-20  my-0 mx-auto right-0 left-0 items-center justify-center px-5">
-        <div className="w-full text-xs text-white bg-white rounded-2xl">
-          <div className="flex flex-row w-full bg-[#12ADC1] p-4 rounded-t-2xl justify-between items-center">
-            <div></div>
-            <p
-              className="font-medium cursor-pointer"
-              onClick={() => navigate("/faq")}
-            >
-              {t("how_to_return_powerbank")}
-            </p>
-          </div>
-
-          <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
-            <p className="text-[#686B70]">{t("on_use")}:</p>
-            <p className="text-[#282727]">{`
-              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day")+"." : ""}
-              ${orderStatusTime.days == 0 && orderStatusTime.hours == 0 ? "" : orderStatusTime.hours+t("hour")+"."}
-              ${orderStatusTime.minutes+t("minute")+"."}
-            `}</p>
-          </div>
-          <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
-            <p className="text-[#686B70]">{t("rental_price")}:</p>
-            <p className="text-[#282727]">
-              {price} {t("сум")}
-            </p>
-          </div>
-          {debt && (
-            <div className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center">
-              <p className="text-[#686B70]">{t("debt")}</p>
-              <p className="text-[#ED4337]">
-                {debt} {t("сум")}
-              </p>
-            </div>
-          )}
-          <div className="flex flex-row w-full rounded-b-2xl bg-white py-1 px-4 justify-between items-center">
-            <p className="text-[#686B70]">{t("rental_place")}:</p>
-            <p className="text-[#282727]">{params.get("place") || place}</p>
-          </div>
+      <div className="flex overflow-x-scroll absolute z-20 top-20  my-0 mx-auto right-0 left-0 items-center px-5">
+        <div className={`flex gap-4 ${isCentered ? "justify-center w-full" : "w-max"}`}>
+          {orderData?.orders?.map(ord => (
+            <OrderTimer key={ord?.order_guid} order={ord} />
+          ))}
         </div>
       </div>
     );

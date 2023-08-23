@@ -6,7 +6,7 @@ import moment from "moment";
 import { orderDetailsActions } from "@/store/Order/orderDetails";
 import request from "@/utils/axios";
 
-export default function useOrderTimer() {
+export default function   useOrderTimer(order) {
   const dispatch = useDispatch();
   const [fetchedData, setFetchedData] = useState(null);
   const [orderStatus, setOrderStatus] = useState(null);
@@ -23,15 +23,18 @@ export default function useOrderTimer() {
   });
 
   const getOrderDetails = () => {
-    if (!orderData?.order?.order_guid) return;
+    if (!orderData?.orders?.length) return;
     if (orderData?.userID !== userData.guid) return;
 
-    getOrderById(orderData?.order?.order_guid, {
-      data: { with_relations: false, user_id: userData?.guid },
+    getOrderById(order?.order_guid, {
+      data: {
+        with_relations: false,
+        user_id: userData?.guid
+      },
     }).then((res) => {
       setPrice(res?.data?.data?.response?.amounbefore);
       setFetchedData(res?.data?.data?.response);
-      setPlace(orderData?.order?.started_merchant);
+      setPlace(order?.started_merchant);
 
       const timestamp = moment(res?.data?.data?.response?.created_time);
       const timenow = moment();
@@ -43,7 +46,6 @@ export default function useOrderTimer() {
       const seconds = duration.seconds();
 
       setOrderStatusTime({ days, hours, minutes, seconds });
-
       setOrderStatusGuid(res?.data?.data?.response?.order_status_id);
 
       if (
@@ -69,8 +71,8 @@ export default function useOrderTimer() {
       setOrderStatus(res?.data?.data?.response?.name);
       if (res?.data?.data?.response?.name === "Has been completed") {
         dispatch(orderDetailsActions.setOrderDetails({
-          userID: userData?.guid,
-          order: {}
+          userID: orderData?.userID,
+          orders: orderData?.orders?.filter(ord => ord.order_guid != order.order_guid)
         }));
       }
     });
@@ -100,7 +102,7 @@ export default function useOrderTimer() {
     };
   }, [orderStatusGuid]);
 
-  useEffect(() => {
+  useEffect(() => { // to count secons, 
     if (
       orderStatusTime.hours == 0 &&
       orderStatusTime.minutes == 0 &&
