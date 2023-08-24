@@ -87,7 +87,9 @@ const ProfilePage = () => {
       }
     })
       .then(res => {
-        sendMsgDeleted({user_id: "1546926238"})
+        sendMsgDeleted({
+          user_id: userData?.telegram_id
+        })
         window.Telegram?.WebApp?.close();
       })
       .catch(err => {
