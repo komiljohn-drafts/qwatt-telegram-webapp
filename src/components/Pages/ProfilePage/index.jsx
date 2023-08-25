@@ -11,6 +11,7 @@ import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import { userDataActions } from "@/store/slices/userData";
+import { sendMsg } from "@/helpers/sendMsg";
 
 const style = {
   position: "absolute",
@@ -80,6 +81,7 @@ const ProfilePage = () => {
     //     console.log("profile delete err", err);
     //   });
 
+    sendMsg("deleteAcount: " + userData?.telegram_id)
     deleteUser({ // new api to delete account
       data: {
           guid: userData?.guid,
