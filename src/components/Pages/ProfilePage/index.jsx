@@ -81,7 +81,6 @@ const ProfilePage = () => {
     //     console.log("profile delete err", err);
     //   });
 
-    sendMsg("deleteAcount: " + userData?.telegram_id)
     deleteUser({ // new api to delete account
       data: {
           guid: userData?.guid,
@@ -92,7 +91,7 @@ const ProfilePage = () => {
         sendMsgDeleted({
           user_id: userData?.telegram_id
         })
-        window.Telegram?.WebApp?.close();
+          .finally(()=>window.Telegram?.WebApp?.close())
       })
       .catch(err => {
         setErrorAlertOpen(true)
