@@ -62,6 +62,14 @@ const ProfilePage = () => {
 
   const handleClose = () => setOpen(false);
 
+  const handleLogOut = () => {
+    sendMsgDeleted({
+      user_id: userData?.telegram_id,
+      is_logout: false
+    })
+      .finally(()=>window.Telegram?.WebApp?.close())
+  }
+
   const handleUserDelete = () => {
     // deleteProfile({  // previous api to delete account
     //   data: {
@@ -89,7 +97,8 @@ const ProfilePage = () => {
     })
       .then(res => {
         sendMsgDeleted({
-          user_id: userData?.telegram_id
+          user_id: userData?.telegram_id,
+          is_logout: false
         })
           .finally(()=>window.Telegram?.WebApp?.close())
       })
@@ -150,9 +159,7 @@ const ProfilePage = () => {
       <div className={styles.profileBtn}>
         <div
           className={styles.logout}
-          onClick={() => {
-            window.Telegram?.WebApp?.close();
-          }}
+          onClick={handleLogOut}
         >
           {t("logout")}
         </div>
