@@ -1,4 +1,4 @@
-import { setCard, setCardOtp, setCardToken, setConfirmCardToken, setMainCard } from "@/services/getCards";
+import { setCard, setCardOtp, setCardToken, setConfirmCardToken } from "@/services/getCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 

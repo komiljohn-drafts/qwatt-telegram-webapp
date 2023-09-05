@@ -9,5 +9,9 @@ export const getMerchantList = async (data) => {
 };
 
 export const getVenueList = async (data) => {
-  return await request({ method: "post", url: "/get-list/venue_type", data });
+  return await request({ 
+    method: "post", 
+    url: "/get-list/venue_type", 
+    data 
+  });
 };

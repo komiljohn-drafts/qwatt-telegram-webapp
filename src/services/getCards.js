@@ -1,5 +1,6 @@
 import axios from "axios";
 import request from "@/utils/axios";
+import requestInvoke from "@/utils/axiosForInvoke";
 
 // export const getCards = async (data) => {
 //   return await request({
@@ -9,27 +10,6 @@ import request from "@/utils/axios";
 //   });
 // };
 
-export const getCards = async (data) => {
-  return await axios.post(
-    'https://api.admin.u-code.io/v1/invoke_function/qwatt-usercard-4dbfb907-8b4b-460b-906b-cc81c58e656c',
-    data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
-  )
-}
-
-export const setCard = async (data) => {
-  return await request({
-    method: "post",
-    url: "/credit_card_list",
-    data,
-  });
-};
-
 // export const deleteCard = async (guid, data) => {
 //   return await request({
 //     method: "delete",
@@ -38,67 +18,39 @@ export const setCard = async (data) => {
 //   });
 // };
 
-export const deleteCard = async (data) => {
-  return await axios.post(
-    'https://api.admin.u-code.io/v1/invoke_function/qwatt-carddelete-4dbfb907-8b4b-460b-906b-cc81c58e656c',
+export const setCard = async (data) =>
+  await request({
+    method: "post",
+    url: "/credit_card_list",
     data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
-  )
-}
+  });
 
-export const setMainCard = async (data) => {
-  return await axios.put(
-    "https://api.admin.u-code.io/v1/object/credit_card_list?project-id=4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
-  )
-}
-
-export const setCardOtp = async (data) => {
-  return await axios.post(
-    "https://api.admin.u-code.io/v1/invoke_function/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
+export const getCards = async (data) =>
+  await requestInvoke.post(
+    "/qwatt-usercard-4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data
   );
-};
 
-export const setConfirmCardToken = async (data) => {
-  return await axios.post(
-    "https://api.admin.u-code.io/v1/invoke_function/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
+export const deleteCard = async (data) =>
+  await axios.post(
+    "/qwatt-carddelete-4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data
   );
-};
 
-export const setCardToken = async (data) => {
-  return await axios.post(
-    "https://api.admin.u-code.io/v1/invoke_function/qwatt-createtokencard-4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data,
-    {
-      headers: {
-        Authorization: "API-KEY",
-        "X-API-KEY": "P-LjlsEVqKmkuiQNYQEi5iZuH3WXVwUU45",
-      },
-    }
+export const setCardOtp = async (data) =>
+  await axios.post(
+    "/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data
   );
-};
+
+export const setConfirmCardToken = async (data) =>
+  await axios.post(
+    "/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data
+  );
+
+export const setCardToken = async (data) =>
+  await axios.post(
+    "/qwatt-createtokencard-4dbfb907-8b4b-460b-906b-cc81c58e656c",
+    data
+  );

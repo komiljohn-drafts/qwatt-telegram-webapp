@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "https://api.admin.u-code.io/v1/object",
+  baseURL: "https://test.api.admin.qwatt.uz/v1/object",
 });
 
 request.defaults.headers["Authorization"] = "API-KEY";
