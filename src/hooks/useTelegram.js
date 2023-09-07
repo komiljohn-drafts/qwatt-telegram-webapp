@@ -33,10 +33,11 @@ const useTelegram = () => {
     // setTgID("1780780393") // 50 01
     // setTgID("6508689707") // Damir test
     // setTgID("579391823") // Damir 2272
-    setTgID("754650976") // Mukarramhon PM
+    // setTgID("754650976") // Mukarramhon PM
     // setTgID("857348252") // Mukarramhon PM 2
     // setTgID("5945885433") // Sherzod mobile
     // setTgID("371594426") // One of clients
+    // setTgID('1546926238') // Bekmurod
     // setTgID("6277376579")
   }, []);
 
