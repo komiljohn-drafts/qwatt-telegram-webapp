@@ -65,7 +65,7 @@ const ProfilePage = () => {
   const handleLogOut = () => {
     sendMsgDeleted({
       user_id: userData?.telegram_id,
-      is_logout: false
+      is_logout: true
     })
       .finally(()=>window.Telegram?.WebApp?.close())
   }
