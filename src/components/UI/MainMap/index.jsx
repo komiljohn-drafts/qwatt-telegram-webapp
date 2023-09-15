@@ -228,7 +228,10 @@ const MainMap = () => {
 
     getOrders({
       data: {
-        userId: userData?.guid
+        userId: userData?.guid,
+        lease_orders: true,
+        limit: 100,
+        page: 1,
       }
     })
       .then((res) => {
@@ -240,7 +243,10 @@ const MainMap = () => {
             })
           )
         }
-        let hasNoDebt = true
+
+        dispatch(
+          userDataActions?.setUserDebt(res.data?.data?.data?.in_debt)
+        )
 
         // this is used because we need to append not set
         let existingOrders = orderData?.userID != userData?.guid ? orderData?.orders : []
@@ -249,12 +255,6 @@ const MainMap = () => {
           if (ord?.status_name == "In The Lease") {
             existingOrders.push(ord)
           }
-          if (ord?.debt > 0 && hasNoDebt) {
-            hasNoDebt = false
-            dispatch(
-              userDataActions?.setUserDebt(true)
-            )
-          }
         });
         dispatch(
           orderDetailsActions?.setOrderDetails({
@@ -262,11 +262,6 @@ const MainMap = () => {
             orders: existingOrders
           })
         );
-        if (hasNoDebt) {
-          dispatch(
-            userDataActions?.setUserDebt(false)
-          )
-        }
       })
       .catch((err) => {
         console.log("order list err", err);

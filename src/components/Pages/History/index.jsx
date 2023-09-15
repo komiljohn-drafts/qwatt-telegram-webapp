@@ -9,38 +9,81 @@ import styles from "./style.module.scss";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { sortOrders } from "@/helpers/sortOrders";
+import { CircularProgress } from "@mui/material";
 
 const HistoryPage = () => {
   const userData = useSelector((state) => state.userData?.data);
-  const [historyData, setHistoryData] = useState(null);
+  const [historyData, setHistoryData] = useState([]);
   const [ErrorAlertOpen, setErrorAlertOpen] = useState(false);
   const { t } = useTranslation();
 
-  const getOrderHistory = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [total, setTotal] = useState(null);
+
+  const getOrderHistory = (isOnLease, fromEffect = false) => {
+    if (isLoading || !hasMore) return;
+
+    setIsLoading(true);
     getOrders({
       data: {
-        userId: userData?.guid
-      }
+        userId: userData?.guid,
+        lease_orders: isOnLease,
+        limit: isOnLease ? 100 : 10,
+        page: currentPage,
+      },
     })
       .then((res) => {
-        if(res?.data?.data?.data?.response?.length >= 0){
-          setHistoryData(sortOrders(res?.data?.data?.data?.response));
-        } else if(res?.data?.data?.data?.response == null){
-          setHistoryData([])
-        } else {
-          setErrorAlertOpen(true);
+        const response = res?.data?.data?.data?.response;
+
+        if (response?.length >= 0) {
+          setHistoryData((old) => [...old, ...sortOrders(response)]);
+          if (!isOnLease) {
+            setCurrentPage((old) => old + 1);
+          }
+        }
+        if (fromEffect) {
+          return res?.data?.data?.data?.count;
         }
       })
       .catch(() => {
         setErrorAlertOpen(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
-    getOrderHistory();
+    console.log("total", total); // log
+    console.log("historyData?.length", historyData?.length); // log
+    if (total === historyData?.length) {
+      setHasMore(false);
+    }
+  }, [total, historyData]);
+
+  // const handleScroll = () => {
+  //   if(isLoading) return;
+  //   if (
+  //     window.innerHeight + document.documentElement.scrollTop >=
+  //     document.documentElement.offsetHeight - 100
+  //   ) {
+  //     console.log("load more");
+  //     getOrderHistory(false)
+  //   }
+  // };
+
+  useEffect(() => {
+    // window.addEventListener('scroll', handleScroll);
+    setTotal(getOrderHistory(true, true));
+    setTotal((old) => old + getOrderHistory(false, true));
+    // return () => {
+    //   window.removeEventListener('scroll', handleScroll);
+    // };
   }, []);
 
-  if (!historyData) {
+  if (isLoading && !historyData.length) {
     return (
       <>
         <ErrorAlert
@@ -61,9 +104,19 @@ const HistoryPage = () => {
             ?.map((order) => {
               return <ActiveCard key={order?.order_guid} order={order} />;
             })}
-          {historyData.filter(order => order.status_name !== "In The Lease")?.map((order) => {
-            return <HistoryCard key={order?.order_guid} order={order} />;
-          })}
+          {historyData
+            .filter((order) => order.status_name !== "In The Lease")
+            ?.map((order) => {
+              return <HistoryCard key={order?.order_guid} order={order} />;
+            })}
+          <div className={styles.loadMoreContainer}>
+            <button
+              className={styles.loadMore}
+              onClick={() => getOrderHistory(false)}
+            >
+              {isLoading ? (<CircularProgress/>) : "Load more"}
+            </button>
+          </div>
         </>
       ) : (
         <div className={styles.NoHistory}>
