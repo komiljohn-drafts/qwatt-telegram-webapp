@@ -1,4 +1,3 @@
-import axios from "axios";
 import request from "@/utils/axios";
 import requestInvoke from "@/utils/axiosForInvoke";
 
@@ -32,25 +31,25 @@ export const getCards = async (data) =>
   );
 
 export const deleteCard = async (data) =>
-  await axios.post(
+  await requestInvoke.post(
     "/qwatt-carddelete-4dbfb907-8b4b-460b-906b-cc81c58e656c",
     data
   );
 
 export const setCardOtp = async (data) =>
-  await axios.post(
+  await requestInvoke.post(
     "/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
     data
   );
 
 export const setConfirmCardToken = async (data) =>
-  await axios.post(
+  await requestInvoke.post(
     "/qwatt-confirmcardtoken-4dbfb907-8b4b-460b-906b-cc81c58e656c",
     data
   );
 
 export const setCardToken = async (data) =>
-  await axios.post(
+  await requestInvoke.post(
     "/qwatt-createtokencard-4dbfb907-8b4b-460b-906b-cc81c58e656c",
     data
   );

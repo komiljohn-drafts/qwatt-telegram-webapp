@@ -11,7 +11,7 @@ import { LightingIcon } from "@/screen-capture/icons";
 import { getBonus } from "@/services/setOrder";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import { userDataActions } from "@/store/slices/userData";
-import { sendMsg } from "@/helpers/sendMsg";
+import { formatPhoneNumber } from "@/helpers/formatPhoneNumber";
 
 const style = {
   position: "absolute",
@@ -71,24 +71,6 @@ const ProfilePage = () => {
   }
 
   const handleUserDelete = () => {
-    // deleteProfile({  // previous api to delete account
-    //   data: {
-    //     phone_after_deletion: userData?.phone || "",
-    //     email: "",
-    //     email_after_deletion: "",
-    //     guid: userData?.guid || "",
-    //     is_deleted: true,
-    //     phone: "",
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log("profile delete res", res);
-    //     window.Telegram?.WebApp?.close();
-    //   })
-    //   .catch((err) => {
-    //     console.log("profile delete err", err);
-    //   });
-
     deleteUser({ // new api to delete account
       data: {
           guid: userData?.guid,
@@ -146,7 +128,7 @@ const ProfilePage = () => {
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
         <p className={styles.profileHeader}>{fetchedData?.name || t("personal_details")}</p>
-        <p className={styles.profileText}>{fetchedData?.phone || ""}</p>
+        <p className={styles.profileText}>{formatPhoneNumber(fetchedData?.phone) || ""}</p>
         {/* ========= bonus is disabled for now, but will be enabled again */}
         {/* <div className={styles.bonus}>
           <LightingIcon />
