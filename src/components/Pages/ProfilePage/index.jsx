@@ -56,11 +56,11 @@ const ProfilePage = () => {
         }
       })
     } else {
-      setOpen(true)
+      setOpen("delete")
     }
   }
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen("");
 
   const handleLogOut = () => {
     sendMsgDeleted({
@@ -70,8 +70,30 @@ const ProfilePage = () => {
       .finally(()=>window.Telegram?.WebApp?.close())
   }
 
+  const checkBeforeLogOut = () => {
+    if(orderData?.userID == userData?.guid && orderData?.orders?.length){
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        text: t("cannotDeleteAccountWithActiveOrders"),
+        action: () => {
+          setErrorAlertOpen(false);
+        }
+      })
+    } else if (userDebt) {
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        text: t("youHaveDebt"),
+        action: () => {
+          setErrorAlertOpen(false);
+        }
+      })
+    } else {
+      setOpen("logOut")
+    }
+  }
+
   const handleUserDelete = () => {
-    deleteUser({ // new api to delete account
+    deleteUser({
       data: {
           guid: userData?.guid,
           is_deleted: true
@@ -109,6 +131,21 @@ const ProfilePage = () => {
   //     })
   // },[userData])
 
+  const modalVersions = {
+    delete: {
+      title: "delete_account",
+      description: "delete_account_confirmation",
+      action: handleUserDelete,
+      btnText: "delete",
+    },
+    logOut: {
+      title: "logout",
+      description: "delete_account_confirmation",
+      action: handleLogOut,
+      btnText: "delete",
+    }
+  }
+
   useEffect(()=>{
     getProfile(userData?.guid)
     .then((res) => {
@@ -141,7 +178,7 @@ const ProfilePage = () => {
       <div className={styles.profileBtn}>
         <div
           className={styles.logout}
-          onClick={handleLogOut}
+          onClick={checkBeforeLogOut}
         >
           {t("logout")}
         </div>
@@ -150,33 +187,31 @@ const ProfilePage = () => {
         </div>
       </div>
       <Modal
-        open={open}
+        open={!!open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <p className={styles.modalHeader}> {t("delete_account")} ?</p>
+          <p className={styles.modalHeader}> {t(modalVersions[open]?.title)} ?</p>
           <p className={styles.modalSubtext}>
-            {t("delete_account_confirmation")}
+            {t(modalVersions[open]?.description)}
           </p>
           <div className={styles.modalBtns}>
             <button
               className={styles.cancelBtn}
-              onClick={() => {
-                setOpen(false);
-              }}
+              onClick={handleClose}
             >
               {t("cancel")}
             </button>
             <button
               className={styles.deleteBtn}
               onClick={() => {
-                handleUserDelete();
-                setOpen(false);
+                modalVersions[open]?.action;
+                handleClose()
               }}
             >
-              {t("delete")}
+              {t(modalVersions[open]?.btnText)}
             </button>
           </div>
         </Box>

@@ -74,36 +74,36 @@ const MainMap = () => {
 
   const menuItems = [
     {
-      text: 'profile',
-      route: '/profile',
-      icon: <ProfileIcon />
+      text: "profile",
+      route: "/profile",
+      icon: <ProfileIcon />,
     },
     {
-      text: 'order_history',
-      route: '/history',
-      icon: <HistoryIcon />
+      text: "order_history",
+      route: "/history",
+      icon: <HistoryIcon />,
     },
     {
-      text: 'my_cards',
-      route: '/my-cards',
-      icon: <MyCardIcon />
+      text: "my_cards",
+      route: "/my-cards",
+      icon: <MyCardIcon />,
     },
     {
-      text: 'tariffs',
-      route: '/pricing_description',
-      icon: <MyTarifIcon />
+      text: "tariffs",
+      route: "/pricing_description",
+      icon: <MyTarifIcon />,
     },
     {
-      text: 'documentation',
-      route: '/doc',
-      icon: <DocumentsIcon />
+      text: "documentation",
+      route: "/doc",
+      icon: <DocumentsIcon />,
     },
     {
-      text: 'faq',
-      route: '/faq',
-      icon: <FaqIcon />
+      text: "faq",
+      route: "/faq",
+      icon: <FaqIcon />,
     },
-  ]
+  ];
 
   useEffect(() => {
     getMerchantList({
@@ -232,34 +232,33 @@ const MainMap = () => {
         lease_orders: true,
         limit: 100,
         page: 1,
-      }
+      },
     })
       .then((res) => {
         if (res.data?.data?.data?.response == null) {
           dispatch(
             orderDetailsActions?.setOrderDetails({
               userID: userData?.guid,
-              orders: []
+              orders: [],
             })
-          )
+          );
         }
 
-        dispatch(
-          userDataActions?.setUserDebt(res.data?.data?.data?.in_debt)
-        )
+        dispatch(userDataActions?.setUserDebt(res.data?.data?.data?.in_debt));
 
         // this is used because we need to append not set
-        let existingOrders = orderData?.userID != userData?.guid ? orderData?.orders : []
-        
+        let existingOrders =
+          orderData?.userID != userData?.guid ? orderData?.orders : [];
+
         res.data?.data?.data?.response?.forEach((ord) => {
           if (ord?.status_name == "In The Lease") {
-            existingOrders.push(ord)
+            existingOrders.push(ord);
           }
         });
         dispatch(
           orderDetailsActions?.setOrderDetails({
             userID: userData.guid,
-            orders: existingOrders
+            orders: existingOrders,
           })
         );
       })
@@ -269,7 +268,7 @@ const MainMap = () => {
   }, [userData]);
 
   return (
-    <div style={{ position: "relative"}}>
+    <div style={{ position: "relative" }}>
       {!data && <FullScreenSpinner />}
       <div className={styles.headerNav}>
         <div
@@ -278,10 +277,10 @@ const MainMap = () => {
         >
           <MenuIcon />
         </div>
-        <div className={styles.openFilter} onClick={() => navigate("/filter")}>
+        {/* <div className={styles.openFilter} onClick={() => navigate("/filter")}>
           <FilterIcon />
           <div className={filterId ? styles.circle : styles.hidden}></div>
-        </div>
+        </div> */}
       </div>
       {isOpen && <MapPopup selectedBranch={selectedBranch} setOpen={setOpen} />}
       <AnimatePresence>
@@ -316,9 +315,7 @@ const MainMap = () => {
                     className={styles.menuItem}
                     onClick={() => navigate(item.route)}
                   >
-                    <div className={styles.menuIcon}>
-                      {item.icon}
-                    </div>
+                    <div className={styles.menuIcon}>{item.icon}</div>
                     <div>{t(item.text)}</div>
                   </div>
                 ))}
@@ -336,7 +333,7 @@ const MainMap = () => {
                     </div>
                     <div
                       onClick={() => {
-                        window.location =
+                        window.location.href =
                           "https://play.google.com/store/apps/details?id=com.q.watt";
                       }}
                     >

@@ -54,7 +54,7 @@ const HistoryCard = ({ order }) => {
         <div>
           <TimeIcon />
         </div>
-        <div>{format(parseISO(order?.created_time), "dd MMMM yyyy")}</div>
+        <div>{format(parseISO(order?.created_time), "dd MM yyyy")}</div>
       </div>
       <div className={styles.historyInfo}>
         <div>
