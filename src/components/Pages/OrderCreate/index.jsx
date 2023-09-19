@@ -77,8 +77,6 @@ const OrderCreate = () => {
     }
   }, [orderNumber]);
 
-  console.log("ref", inputRef);
-
   return (
     <div className={styles.addingCardWrap}>
       <p className={`text-center text-[#686B70] font-medium mb-8 ${styles.enterCode}`}>

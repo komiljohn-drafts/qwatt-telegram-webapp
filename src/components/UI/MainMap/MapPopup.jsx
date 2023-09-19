@@ -62,7 +62,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
         }
       })
       .catch((err) => {
-        console.log("my cards error", err);
+        console.log("my cards error", err); // log
       });
   };
 

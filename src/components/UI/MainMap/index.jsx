@@ -135,7 +135,7 @@ const MainMap = () => {
         );
       })
       .catch((err) => {
-        console.log("merchant err", err);
+        console.log("merchant err", err); // log
         setErrorAlertOpen(true);
       });
   }, [filterId]);
@@ -263,7 +263,7 @@ const MainMap = () => {
         );
       })
       .catch((err) => {
-        console.log("order list err", err);
+        console.log("order list err", err); // log
       });
   }, [userData]);
 

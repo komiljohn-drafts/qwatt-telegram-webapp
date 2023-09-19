@@ -49,7 +49,6 @@ const PaymentInfo = () => {
 
   const handleCreateOrder = () => {
     if (isUserBlocked == true) {
-      console.log("blocked");
       setErrorAlertOpen(true);
       setErrorAlertProps({
         text: t("account_is_blocked"),
@@ -89,7 +88,7 @@ const PaymentInfo = () => {
             text: "Something went wrong",
             action: () => setErrorAlertOpen(false),
           });
-          console.log("There is no slot in response");
+          console.log("There is no slot in response"); // log
         }
       })
       .catch((err) => {
@@ -98,7 +97,7 @@ const PaymentInfo = () => {
           text: err?.data?.data,
           action: () => setErrorAlertOpen(false),
         });
-        console.log("order create error", err?.data?.data);
+        console.log("order create error", err?.data?.data); // log
       });
   };
 

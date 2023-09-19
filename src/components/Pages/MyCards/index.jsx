@@ -35,14 +35,13 @@ const MyCardsPage = () => {
         if (res?.data?.data?.data?.response) {
           setData(res?.data?.data?.data?.response);
           setMainCardId(res?.data?.data?.data?.response.find((card) => card?.main_card)?.guid)
-          console.log("my cards old", res?.data?.data?.data?.response);
         } else {
           setErrorAlertOpen(true);
         }
       })
       .catch((err) => {
         setErrorAlertOpen(true);
-        console.log("my-cards err", err);
+        console.log("my-cards err", err); // log
       });
   };
 
@@ -54,12 +53,11 @@ const MyCardsPage = () => {
       }
     })
       .then((res) => {
-        console.log("delete-cards res", res);
         getMyCards();
       })
       .catch((err) => {
         setErrorAlertOpen(true);
-        console.log("delete-cards err", err);
+        console.log("delete-cards err", err); // log
       })
       .finally(() => {
         setIsDeleting(false)
@@ -82,7 +80,7 @@ const MyCardsPage = () => {
         }
       })
       .catch(err => {
-        console.log(err)
+        console.log(err) // log
         setErrorAlertOpen(true)
         getMyCards()
       })

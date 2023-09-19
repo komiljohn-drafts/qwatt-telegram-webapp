@@ -19,6 +19,7 @@ const HistoryPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true);
   const [total, setTotal] = useState(null);
 
@@ -36,6 +37,9 @@ const HistoryPage = () => {
     })
       .then((res) => {
         const response = res?.data?.data?.data?.response;
+        if (fromEffect) {
+          setTotal(res?.data?.data?.data?.count)
+        }
 
         if (response?.length >= 0) {
           setHistoryData((old) => [...old, ...sortOrders(response)]);
@@ -43,47 +47,25 @@ const HistoryPage = () => {
             setCurrentPage((old) => old + 1);
           }
         }
-        if (fromEffect) {
-          return res?.data?.data?.data?.count;
-        }
       })
       .catch(() => {
         setErrorAlertOpen(true);
       })
       .finally(() => {
         setIsLoading(false);
+        if(fromEffect && !isOnLease){
+          setInitialLoading(false)
+        }
       });
   };
 
   useEffect(() => {
-    console.log("total", total); // log
-    console.log("historyData?.length", historyData?.length); // log
-    if (total === historyData?.length) {
-      setHasMore(false);
-    }
-  }, [total, historyData]);
-
-  // const handleScroll = () => {
-  //   if(isLoading) return;
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop >=
-  //     document.documentElement.offsetHeight - 100
-  //   ) {
-  //     console.log("load more");
-  //     getOrderHistory(false)
-  //   }
-  // };
-
-  useEffect(() => {
-    // window.addEventListener('scroll', handleScroll);
-    setTotal(getOrderHistory(true, true));
-    setTotal((old) => old + getOrderHistory(false, true));
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
+    setInitialLoading(true)
+    getOrderHistory(true, true)
+    getOrderHistory(false, true)
   }, []);
 
-  if (isLoading && !historyData.length) {
+  if ((isLoading && !historyData.length) || initialLoading) {
     return (
       <>
         <ErrorAlert
@@ -97,7 +79,7 @@ const HistoryPage = () => {
 
   return (
     <div>
-      {historyData?.length ? (
+      {!(historyData?.length === 0 && total === 0) ? (
         <>
           {historyData
             ?.filter((el) => el?.status_name == "In The Lease")
@@ -109,14 +91,15 @@ const HistoryPage = () => {
             ?.map((order) => {
               return <HistoryCard key={order?.order_guid} order={order} />;
             })}
+          {!!historyData?.length && total !== historyData?.length &&
           <div className={styles.loadMoreContainer}>
             <button
               className={styles.loadMore}
               onClick={() => getOrderHistory(false)}
             >
-              {isLoading ? (<CircularProgress/>) : "Load more"}
+              {isLoading ? (<CircularProgress />) : "Load more"}
             </button>
-          </div>
+          </div>}
         </>
       ) : (
         <div className={styles.NoHistory}>

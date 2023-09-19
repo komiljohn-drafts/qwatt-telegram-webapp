@@ -166,7 +166,6 @@ const AddingCard = () => {
       cardNumber.trim().replace(/\s/g, "").length == 16 &&
       expiryDate.length == 5
     ) {
-      console.log("complete");
       handleCheckCardValid();
     }
   }, [cardNumber, expiryDate]);
@@ -176,7 +175,6 @@ const AddingCard = () => {
       expiryDateRef?.current &&
       cardNumber.trim().replace(/\s/g, "").length == 16
     ) {
-      console.log("expiryDateRef", expiryDateRef);
       expiryDateRef?.current?.focus();
     }
   }, [cardNumber]);

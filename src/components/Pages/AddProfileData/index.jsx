@@ -74,13 +74,12 @@ const AddProfileData = () => {
           .then((res) => {
             dispatch(userDataActions.setUserData(res?.data?.data?.response));
             setIsProcessing(false)
-            console.log("navigate");
             navigate("/profile", { replace: true })
           })
-          .catch((err) => console.log("user data err", err));
+          .catch((err) => console.log("user data err", err)); // log
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err); // log
       });
   };
 

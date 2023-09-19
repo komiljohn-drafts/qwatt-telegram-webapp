@@ -1,5 +1,4 @@
 export const CheckSlotPosition = (slots, slot) => {
-  console.log("slot", slot); // log
 
   let index = "";
 
