@@ -25,6 +25,17 @@ const style = {
   p: "16px",
 };
 
+const errorsOnCheck = {
+  delete: {
+    order: "cannotDeleteAccountWithActiveOrders",
+    debt: "youHaveDebt"
+  },
+  logOut: {
+    order: "cannotDeleteAccountWithActiveOrders",
+    debt: "youHaveDebt"
+  }
+}
+
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -35,28 +46,18 @@ const ProfilePage = () => {
   const [open, setOpen] = useState(false);
   // const [bonus, setBonus] = useState(""); bonus is disabled for now, but will be enabled again
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({})
+  const [errorAlertText, setErrorAlertText] = useState("")
   const [fetchedData, setFetchedData] = useState({});
 
-  const checkBeforeDeleting = () => {
+  const checkBefore = (operation) => {
     if (orderData?.userID == userData?.guid && orderData?.orders?.length) {
       setErrorAlertOpen(true)
-      setErrorAlertProps({
-        text: t("cannotDeleteAccountWithActiveOrders"),
-        action: () => {
-          setErrorAlertOpen(false);
-        }
-      })
+      setErrorAlertText(t(errorsOnCheck[operation].order))
     } else if (userDebt) {
       setErrorAlertOpen(true)
-      setErrorAlertProps({
-        text: t("youHaveDebt"),
-        action: () => {
-          setErrorAlertOpen(false);
-        }
-      })
+      setErrorAlertText(t(errorsOnCheck[operation].debt))
     } else {
-      setOpen("delete")
+      setOpen(operation)
     }
   }
 
@@ -68,28 +69,6 @@ const ProfilePage = () => {
       is_logout: true
     })
       .finally(()=>window.Telegram?.WebApp?.close())
-  }
-
-  const checkBeforeLogOut = () => {
-    if(orderData?.userID == userData?.guid && orderData?.orders?.length){
-      setErrorAlertOpen(true)
-      setErrorAlertProps({
-        text: t("cannotDeleteAccountWithActiveOrders"),
-        action: () => {
-          setErrorAlertOpen(false);
-        }
-      })
-    } else if (userDebt) {
-      setErrorAlertOpen(true)
-      setErrorAlertProps({
-        text: t("youHaveDebt"),
-        action: () => {
-          setErrorAlertOpen(false);
-        }
-      })
-    } else {
-      setOpen("logOut")
-    }
   }
 
   const handleUserDelete = () => {
@@ -178,11 +157,11 @@ const ProfilePage = () => {
       <div className={styles.profileBtn}>
         <div
           className={styles.logout}
-          onClick={checkBeforeLogOut}
+          onClick={checkBefore("logOut")}
         >
           {t("logout")}
         </div>
-        <div onClick={checkBeforeDeleting} className={styles.deleteAccount}>
+        <div onClick={checkBefore("delete")} className={styles.deleteAccount}>
           {t("delete_account")}
         </div>
       </div>
@@ -220,9 +199,7 @@ const ProfilePage = () => {
       <ErrorAlert
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
-        title={errorAlertProps.title}
-        errorMesage={errorAlertProps.text}
-        action={errorAlertProps.action}
+        errorMesage={errorAlertText}
       />
     </div>
   );

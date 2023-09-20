@@ -24,7 +24,7 @@ const AddingCard = () => {
   const [isCardNumError, setIsCardNumError] = useState(false);
   const [isExpiryDateError, setIsExpiryDateError] = useState(false);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({});
+  const [errorAlertText, setErrorAlertText] = useState("");
   const userData = useSelector((state) => state.userData?.data);
   const [myCards, setMyCards] = useState([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
@@ -104,12 +104,7 @@ const AddingCard = () => {
       return;
     } else if (checkIfExists()) {
       setErrorAlertOpen(true);
-      setErrorAlertProps({
-        text: t("youHaveAlreadyAddedThisCard"),
-        action: () => {
-          setErrorAlertOpen(false);
-        },
-      })
+      setErrorAlertText(t("youHaveAlreadyAddedThisCard"))
       return;
     }
 
@@ -123,12 +118,7 @@ const AddingCard = () => {
       .then((res) => {
         if(res?.data?.data?.data?.error_note){
           setErrorAlertOpen(true);
-          setErrorAlertProps({
-            text: res?.data?.data?.data?.error_note,
-            action: () => {
-              setErrorAlertOpen(false);
-            },
-          });
+          setErrorAlertText(res?.data?.data?.data?.error_note);
         } else if (res?.data?.data?.status == "done") {
           dispatch(
             cardDetailsActions.setCardDetails({
@@ -234,8 +224,7 @@ const AddingCard = () => {
       <ErrorAlert
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
-        errorMesage={errorAlertProps.text}
-        action={errorAlertProps.action}
+        errorMesage={errorAlertText}
       />
 
       <button className={`${isBtnDisabled ? styles.disabledBtn : ''} ${styles.addBtn}`} onClick={handleCheckCardValid}>

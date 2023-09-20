@@ -51,7 +51,7 @@ const useTelegram = () => {
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
-          console.log("err", err);
+          console.log("err", err); // log
         });
     }
   }, [tgID]);

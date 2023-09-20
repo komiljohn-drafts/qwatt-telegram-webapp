@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getCards } from "@/services/getCards";
+import ErrorAlert from "../ErrorAlert/ErrorAlert";
 
 const CloseLocation = ({
   nearestMerchants,
@@ -17,8 +18,9 @@ const CloseLocation = ({
 }) => {
   const userData = useSelector((state) => state.userData?.data);
   const navigate = useNavigate();
-
   const { t } = useTranslation();
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertText, setErrorAlertText] = useState("")
 
   function kilometerParseMeter(lat, long) {
     const distanceInMeters = Math.floor(
@@ -29,6 +31,8 @@ const CloseLocation = ({
 
   const handleClick = () => {
     if (!userData?.guid) {
+      setErrorAlertOpen(true)
+      setErrorAlertText(t("Couldn't load user's data (temporary)"))
       return;
     }
     
@@ -77,6 +81,11 @@ const CloseLocation = ({
       <button onClick={handleClick} className={styles.getButton}>
         {t("get_powerbank")}
       </button>
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        errorMesage={errorAlertText}
+      />
     </div>
   );
 };

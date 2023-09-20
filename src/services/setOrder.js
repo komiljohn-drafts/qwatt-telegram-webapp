@@ -18,16 +18,6 @@ export const getOrderById = async (guid, data) => {
   })
 }
 
-
-// export const getOrders = async (data) => {
-//   return await request({ 
-//     method: "post", 
-//     url: "/get-list/orders", 
-//     data 
-//   });
-// };
-
-
 export const getOrders = async (data) => {
   return await requestInvoke.post(
     "/qwatt-getuserorders-4dbfb907-8b4b-460b-906b-cc81c58e656c",

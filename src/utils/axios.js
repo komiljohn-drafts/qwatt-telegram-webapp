@@ -2,6 +2,7 @@ import axios from "axios";
 
 const request = axios.create({
   baseURL: "https://test.api.admin.qwatt.uz/v1/object",
+  timeout: 10000,
 });
 
 request.defaults.headers["Authorization"] = "API-KEY";
