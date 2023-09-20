@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getCards } from "@/services/getCards";
 import ErrorAlert from "../ErrorAlert/ErrorAlert";
+import { useState } from "react";
 
 const CloseLocation = ({
   nearestMerchants,
