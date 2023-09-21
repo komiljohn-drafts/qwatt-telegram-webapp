@@ -126,6 +126,11 @@ const ProfilePage = () => {
   }
 
   useEffect(()=>{
+    if (!userData?.guid) {
+      setErrorAlertOpen(true)
+      setErrorAlertText("Couldn't get user's data (temporary)") // should be changed
+    }
+
     getProfile(userData?.guid)
     .then((res) => {
       dispatch(userDataActions.setUserData(res?.data?.data?.response))
@@ -137,7 +142,16 @@ const ProfilePage = () => {
   },[])
 
   if (Object.entries(fetchedData).length == 0) {
-    return <FullScreenSpinner />;
+    return (
+    <>
+      <FullScreenSpinner />
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        errorMesage={errorAlertText}
+      />
+    </>
+    )
   }
 
   return (
@@ -157,11 +171,11 @@ const ProfilePage = () => {
       <div className={styles.profileBtn}>
         <div
           className={styles.logout}
-          onClick={checkBefore("logOut")}
+          onClick={() => checkBefore("logOut")}
         >
           {t("logout")}
         </div>
-        <div onClick={checkBefore("delete")} className={styles.deleteAccount}>
+        <div onClick={() => checkBefore("delete")} className={styles.deleteAccount}>
           {t("delete_account")}
         </div>
       </div>
