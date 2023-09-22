@@ -31,7 +31,7 @@ const errorsOnCheck = {
     debt: "youHaveDebt"
   },
   logOut: {
-    order: "cannotDeleteAccountWithActiveOrders",
+    order: "you_have_active_lease",
     debt: "youHaveDebt"
   }
 }
@@ -46,16 +46,22 @@ const ProfilePage = () => {
   const [open, setOpen] = useState(false);
   // const [bonus, setBonus] = useState(""); bonus is disabled for now, but will be enabled again
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertText, setErrorAlertText] = useState("")
+  const [errorAlertProps, setErrorAlertProps] = useState({})
   const [fetchedData, setFetchedData] = useState({});
 
   const checkBefore = (operation) => {
     if (orderData?.userID == userData?.guid && orderData?.orders?.length) {
       setErrorAlertOpen(true)
-      setErrorAlertText(t(errorsOnCheck[operation].order))
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t(errorsOnCheck[operation].order)
+      })
     } else if (userDebt) {
       setErrorAlertOpen(true)
-      setErrorAlertText(t(errorsOnCheck[operation].debt))
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t(errorsOnCheck[operation].debt)
+      })
     } else {
       setOpen(operation)
     }
@@ -128,8 +134,10 @@ const ProfilePage = () => {
   useEffect(()=>{
     if (!userData?.guid) {
       setErrorAlertOpen(true)
-      setErrorAlertText("Couldn't get user's data (temporary)") // should be changed
-    }
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t('try_restart')
+      })    }
 
     getProfile(userData?.guid)
     .then((res) => {
@@ -146,10 +154,11 @@ const ProfilePage = () => {
     <>
       <FullScreenSpinner />
       <ErrorAlert
-        openAlert={isErrorAlertOpen}
-        setOpenAlert={setErrorAlertOpen}
-        errorMesage={errorAlertText}
-      />
+          openAlert={isErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
+        />
     </>
     )
   }
@@ -213,7 +222,8 @@ const ProfilePage = () => {
       <ErrorAlert
         openAlert={isErrorAlertOpen}
         setOpenAlert={setErrorAlertOpen}
-        errorMesage={errorAlertText}
+        title={errorAlertProps.title}
+        errorMesage={errorAlertProps.errorMessage}
       />
     </div>
   );

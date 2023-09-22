@@ -14,11 +14,14 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import request from "@/utils/axios";
 import { useNavigate } from "react-router-dom";
+import ErrorAlert from "../ErrorAlert/ErrorAlert";
 
 const MapPopup = ({ selectedBranch, setOpen }) => {
   // const [touchStart, setTouchStart] = useState(null);
   // const [touchEnd, setTouchEnd] = useState(null);
   const userData = useSelector((state) => state.userData?.data);
+  const [errorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertProps, setErrorAlertProps] = useState({})
   const [data, setData] = useState(null);
   const { t } = useTranslation();
   const variants = {
@@ -44,7 +47,12 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
   // });
 
   const handleClick = () => {
-    if (!userData?.guid) {
+    if (!userData?.guid){
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t('try_restart')
+      })
       return;
     }
     request
@@ -94,6 +102,12 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
         transition={{ ease: [0.1, 0.25, 0.3, 1], duration: 0.6 }}
         exit={{ y: "50%", opacity: 0, transition: { duration: 0.1 } }}
       >
+        <ErrorAlert
+          openAlert={errorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
+        />
         <div className={styles.popUpDash}>
           <span></span>
         </div>

@@ -6,18 +6,31 @@ import MobileHeader from "@/components/UI/MobileHeader";
 import { getTariffs } from "@/services/getTariffs";
 import styles from "./style.module.scss";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { sendMsg } from "@/helpers/sendMsg";
+
+const langObj = {
+  en: "english",
+  ru: "russian",
+  uz: "uzbek"
+}
 
 const Tarif = () => {
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-
   const { t } = useTranslation();
+  const userData = useSelector((state) => state.userData?.data);
+  const userTelegramData = useSelector((state) => state.userTelegramData?.data);
+  const lang = langObj[userTelegramData?.language_code]
 
   useEffect(() => {
+    if (userTelegramData?.id == '1413774013'){ // should be removed
+      sendMsg("lang", lang)
+    }
     getTariffs({
       data: {
         documents_type: "pricing",
-        description_language: "russian",
+        description_language: lang,
       },
     })
       .then((res) => {

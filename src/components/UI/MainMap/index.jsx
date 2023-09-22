@@ -57,6 +57,8 @@ const MainMap = () => {
   const mapRef = useRef();
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+
+  console.log("userData", userData) // log
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
 

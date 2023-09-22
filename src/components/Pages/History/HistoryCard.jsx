@@ -6,12 +6,29 @@ import moment from "moment";
 import styles from "./style.module.scss";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+
+const langObj = {
+  uz: "uz-UZ",
+  ru: "ru-RU",
+  en: "en-US"
+}
 
 const HistoryCard = ({ order }) => {
   const [open, setOpen] = useState();
   const { t } = useTranslation();
+  const userTelegramData = useSelector(state => state.userTelegramData.data)
   const readMoreHandler = () => {
     setOpen(!open);
+  };
+
+  const formatDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: userTelegramData?.language_code === "uz" ? "numeric" : "long",
+      day: "numeric",
+    };
+    return date.toLocaleString(langObj[userTelegramData?.language_code], options);
   };
 
   const paymentMethod = () => {
@@ -54,7 +71,9 @@ const HistoryCard = ({ order }) => {
         <div>
           <TimeIcon />
         </div>
-        <div>{format(parseISO(order?.created_time), "dd MM yyyy")}</div>
+        {/* <div>{format(parseISO(order?.created_time), "dd MM yyyy")}</div> */}
+        {/* the line below should be checked, if it is ok for client then delete the line above */}
+        <div>{formatDate(new Date(order?.created_time))}</div>
       </div>
       <div className={styles.historyInfo}>
         <div>
@@ -88,7 +107,8 @@ const HistoryCard = ({ order }) => {
           <div>{order?.started_merchant}</div>
           <div>
             {`${
-              format(parseISO(order?.created_time), "dd MMMM yyyy")
+              // format(parseISO(order?.created_time), "dd MMMM yyyy")
+              formatDate(new Date(order?.created_time))
             } - ${
               moment(order?.created_time).format("HH:mm") || ""
             }`}
@@ -100,7 +120,9 @@ const HistoryCard = ({ order }) => {
           <div>{order?.end_merchant}</div>
           {order?.end_time && <div>
             {`${
-              format(parseISO(order?.end_time), "dd MMMM yyyy")
+              // format(parseISO(order?.end_time), "dd MMMM yyyy")
+              // the line below should be checked, if it is ok for client then delete the line above
+              formatDate(new Date(order?.end_time))
             } - ${
               moment(order?.end_time).format("HH:mm") || ""
             }`}

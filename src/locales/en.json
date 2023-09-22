@@ -99,5 +99,8 @@
     "faq": "qwatt FAQ",
     "youHaveAlreadyAddedThisCard" : "You have already added this card",
     "youNeedToBe14YearsOld": "To use this app, you need to be at least 14 years old.",
-    "cannotDeleteAccountWithActiveOrders": "Cannot delete account with active orders."
+    "cannotDeleteAccountWithActiveOrders": "Cannot delete account with active orders.",
+    "attention": "Attention",
+    "try_restart": "Please try restarting the bot using the /start command.",
+    "you_have_active_lease": "You have an active lease!"
 }

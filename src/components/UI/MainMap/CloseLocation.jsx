@@ -21,7 +21,7 @@ const CloseLocation = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertText, setErrorAlertText] = useState("")
+  const [errorAlertProps, setErrorAlertProps] = useState({})
 
   function kilometerParseMeter(lat, long) {
     const distanceInMeters = Math.floor(
@@ -33,7 +33,10 @@ const CloseLocation = ({
   const handleClick = () => {
     if (!userData?.guid) {
       setErrorAlertOpen(true)
-      setErrorAlertText(t("Couldn't load user's data (temporary)"))
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t('try_restart')
+      })
       return;
     }
     
@@ -83,10 +86,11 @@ const CloseLocation = ({
         {t("get_powerbank")}
       </button>
       <ErrorAlert
-        openAlert={isErrorAlertOpen}
-        setOpenAlert={setErrorAlertOpen}
-        errorMesage={errorAlertText}
-      />
+          openAlert={isErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
+        />
     </div>
   );
 };

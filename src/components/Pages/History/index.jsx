@@ -15,6 +15,7 @@ const HistoryPage = () => {
   const userData = useSelector((state) => state.userData?.data);
   const [historyData, setHistoryData] = useState([]);
   const [ErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertProps, setErrorAlertProps] = useState({})
   const { t } = useTranslation();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +61,13 @@ const HistoryPage = () => {
   };
 
   useEffect(() => {
+    if (!userData?.guid){
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t('try_restart')
+      })
+    }
     setInitialLoading(true)
     getOrderHistory(true, true)
     getOrderHistory(false, true)
@@ -71,6 +79,8 @@ const HistoryPage = () => {
         <ErrorAlert
           openAlert={ErrorAlertOpen}
           setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
         />
         <FullScreenSpinner />
       </>
@@ -79,6 +89,12 @@ const HistoryPage = () => {
 
   return (
     <div>
+      <ErrorAlert
+        openAlert={ErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        title={errorAlertProps.title}
+        errorMesage={errorAlertProps.errorMessage}
+      />
       {!(historyData?.length === 0 && total === 0) ? (
         <>
           {historyData

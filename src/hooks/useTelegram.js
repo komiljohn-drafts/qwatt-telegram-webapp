@@ -10,7 +10,7 @@ let msg = ""
 
 const useTelegram = () => {
   const dispatch = useDispatch();
-  const userTelegramData = useSelector((state) => state.userTelegramData?.data);
+  const userTelegramData = useSelector((state) => state.userTelegramData.data);
   const [tgID, setTgID] = useState();
   const [userData, setUserData] = useState();
   const { changeLang } = useLangContext();
@@ -39,6 +39,8 @@ const useTelegram = () => {
     // setTgID("371594426") // One of clients
     // setTgID('1546926238') // Bekmurod
     // setTgID("6277376579")
+    // setTgID("6267637476") // Temur
+    
   }, []);
 
   useEffect(() => {

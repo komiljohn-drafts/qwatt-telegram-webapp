@@ -19,6 +19,7 @@ const MyCardsPage = () => {
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [errorAlertProps, setErrorAlertProps] = useState({})
   const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false); // boolean or card guid that is being deleted. To open modal confirm delete 
   const [isDeleting, setIsDeleting] = useState(false); // boolean or card guid that is being deleted. To show circular progress
   const [mainCardId, setMainCardId] = useState("");
@@ -87,6 +88,13 @@ const MyCardsPage = () => {
   }
 
   useEffect(() => {
+    if (!userData?.guid){
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        title: t('attention'),
+        errorMessage: t('try_restart')
+      })
+    }
     getMyCards();
   }, []);
 
@@ -96,6 +104,8 @@ const MyCardsPage = () => {
         <ErrorAlert
           openAlert={isErrorAlertOpen}
           setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
         />
         <FullScreenSpinner />
       </>
@@ -115,10 +125,12 @@ const MyCardsPage = () => {
 
   return (
     <div className={styles.myCards}>
-      <ErrorAlert
-        openAlert={isErrorAlertOpen}
-        setOpenAlert={setErrorAlertOpen}
-      />
+        <ErrorAlert
+          openAlert={isErrorAlertOpen}
+          setOpenAlert={setErrorAlertOpen}
+          title={errorAlertProps.title}
+          errorMesage={errorAlertProps.errorMessage}
+        />
       {data?.length ? (
         <>
           <div className={styles.text}>

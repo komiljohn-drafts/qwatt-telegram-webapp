@@ -99,5 +99,8 @@
    "youHaveAlreadyAddedThisCard" : "Вы уже добавили эту карту",
    "youHaveDebt":"У вас есть долг",
    "youNeedToBe14YearsOld": "Для использования этого приложения вам должно быть не менее 14 лет.",
-   "cannotDeleteAccountWithActiveOrders": "Невозможно удалить аккаунт при наличии активных заказов."
+   "cannotDeleteAccountWithActiveOrders": "Невозможно удалить аккаунт при наличии активных заказов.",
+   "attention": "Внимание",
+   "try_restart": "Пожалуйста, попробуйте перезапустить бот с помощью команды /start",
+   "you_have_active_lease": "У вас есть активная аренда!"
 }

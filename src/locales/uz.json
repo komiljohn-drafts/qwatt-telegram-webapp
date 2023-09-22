@@ -99,5 +99,8 @@
     "faq": "qwatt haqida savollar",
     "youHaveAlreadyAddedThisCard" : "Siz bu kartani allaqachon qo’shgansiz",
     "youNeedToBe14YearsOld": "Ushbu ilovadan foydalanish uchun siz kamida 14 yoshda bo'lishingiz kerak.",
-    "cannotDeleteAccountWithActiveOrders": "Faol buyurtmalar mavjud bo'lganda akkauntni o'chirib bo'lmaydi."
+    "cannotDeleteAccountWithActiveOrders": "Faol buyurtmalar mavjud bo'lganda akkauntni o'chirib bo'lmaydi.",
+    "attention": "Diqqat",
+    "try_restart": "Iltimos, /start buyrug'i yordamida botni qayta ishga tushirib ko'ring.",
+    "you_have_active_lease": "Sizda faol ijara bor!"
     }
