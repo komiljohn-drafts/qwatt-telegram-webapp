@@ -18,19 +18,19 @@ const DocPage = () => {
       <div className={styles.docWrap}>
         <div
           className={styles.document}
-          onClick={() => navigate("/term&conditions")}
+          onClick={() => navigate("/uz/term&conditions")}
         >
           <div>{t("user_agreements")}</div>
           <ForwardIcon />
         </div>
         <div
           className={styles.document}
-          onClick={() => navigate("/privacypolicy")}
+          onClick={() => navigate("/uz/privacypolicy")}
         >
           <div>{t("data_processing")}</div>
           <ForwardIcon />
         </div>
-        <div className={styles.document} onClick={() => navigate("/requisites")}>
+        <div className={styles.document} onClick={() => navigate("/uz/requisites")}>
           <div>{t("requisites")}</div>
           <ForwardIcon />
         </div>

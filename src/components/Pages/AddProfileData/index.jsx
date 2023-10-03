@@ -74,7 +74,7 @@ const AddProfileData = () => {
           .then((res) => {
             dispatch(userDataActions.setUserData(res?.data?.data?.response));
             setIsProcessing(false)
-            navigate("/profile", { replace: true })
+            navigate("/uz/profile", { replace: true })
           })
           .catch((err) => console.log("user data err", err)); // log
       })

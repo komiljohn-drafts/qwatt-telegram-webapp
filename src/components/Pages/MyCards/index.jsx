@@ -227,7 +227,7 @@ const MyCardsPage = () => {
         </>
       )}
 
-      <div className={styles.addBtn} onClick={() => navigate("/add-card")}>
+      <div className={styles.addBtn} onClick={() => navigate("/uz/add-card")}>
         + {t("add_card")}
       </div>
     </div>

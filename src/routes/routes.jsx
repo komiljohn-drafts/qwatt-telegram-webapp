@@ -18,94 +18,98 @@ import Requisites from "@/pages/doc/faq";
 
 const routes = [
   {
-    path: "/",
+    path: "/:lang",
     element: <App />,
     id: "root",
     children: [
       {
-        path: "/add-card",
+        path: "/:lang/add-card",
         id: "add-card",
         element: <AddCard />,
       },
       {
-        path: "/rent",
+        path: "/:lang/rent",
         id: "rent",
         element: <Rent />,
       },
       {
-        path: "/doc",
+        path: "/:lang/doc",
         id: "doc",
         element: <Documentation />,
       },
       {
-        path: "/faq",
+        path: "/:lang/faq",
         id: "faq",
         element: <Faq />,
       },
       {
-        path: "/privacypolicy",
+        path: "/:lang/privacypolicy",
         id: "privacypolicy",
         element: <PrivacyPolicy />,
       },
       {
-        path: "/term&conditions",
+        path: "/:lang/term&conditions",
         id: "term&conditions",
         element: <Termconditions />,
       },
       {
-        path: "/filter",
+        path: "/:lang/filter",
         id: "filter",
         element: <Filter />,
       },
       {
-        path: "/history",
+        path: "/:lang/history",
         id: "history",
         element: <History />,
       },
       {
-        path: "my-cards",
+        path: "/:lang/my-cards",
         id: "my-cards",
         element: <MyCards />,
       },
       {
-        path: "order",
+        path: "/:lang/order",
         id: "order",
         element: <Order />,
       },
       {
-        path: "otp",
+        path: "/:lang/otp",
         id: "otp",
         element: <CardOtp />,
       },
       {
-        path: "payment",
+        path: "/:lang/payment",
         id: "payment",
         element: <Payment />,
       },
       {
-        path: "pricing_description",
+        path: "/:lang/pricing_description",
         id: "pricing_description",
         element: <Tarif />,
       },
       {
-        path: "requisites",
+        path: "/:lang/requisites",
         id: "requisites",
         element: <Requisites />,
       },
       {
-        path: "profile",
+        path: "/:lang/profile",
         id: "profile",
         element: <Profile />,
         children: [
           {
-            path: "add-data",
+            path: "/:lang/profile/add-data",
             id: "add-data",
             element: <AddData />,
           },
         ],
-      },
+      }
     ],
   },
+  {
+    path: '/',
+    element: <App/>
+  }
 ];
 
 export default routes;

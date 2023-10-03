@@ -77,32 +77,32 @@ const MainMap = () => {
   const menuItems = [
     {
       text: "profile",
-      route: "/profile",
+      route: "/uz/profile",
       icon: <ProfileIcon />,
     },
     {
       text: "order_history",
-      route: "/history",
+      route: "/uz/history",
       icon: <HistoryIcon />,
     },
     {
       text: "my_cards",
-      route: "/my-cards",
+      route: "/uz/my-cards",
       icon: <MyCardIcon />,
     },
     {
       text: "tariffs",
-      route: "/pricing_description",
+      route: "/uz/pricing_description",
       icon: <MyTarifIcon />,
     },
     {
       text: "documentation",
-      route: "/doc",
+      route: "/uz/doc",
       icon: <DocumentsIcon />,
     },
     {
       text: "faq",
-      route: "/faq",
+      route: "/uz/faq",
       icon: <FaqIcon />,
     },
   ];

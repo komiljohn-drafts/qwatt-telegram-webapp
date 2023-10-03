@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const Profile = () => {
   const { t } = useTranslation();
-  const match = useMatch("/profile");
+  const match = useMatch("/:lang/profile");
 
   if (match) {
     return (

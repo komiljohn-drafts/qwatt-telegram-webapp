@@ -47,9 +47,9 @@ const CloseLocation = ({
     })
       .then((res) => {
         if (res?.data?.data?.data?.response.length == 0) {
-          navigate("/add-card?from=order");
+          navigate("/uz/add-card?from=order");
         } else {
-          navigate("/order");
+          navigate("/uz/order");
         }
       })
       .catch((err) => {

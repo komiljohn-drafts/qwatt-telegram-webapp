@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { getUserId } from "@/services/getUser";
-import { useLangContext } from "@/contexts/langContext";
 import { userTelegramDataActions } from "@/store/slices/userTelegramData";
 import { sendMsg } from "@/helpers/sendMsg";
 
@@ -10,10 +9,8 @@ let msg = ""
 
 const useTelegram = () => {
   const dispatch = useDispatch();
-  const userTelegramData = useSelector((state) => state.userTelegramData.data);
   const [tgID, setTgID] = useState();
   const [userData, setUserData] = useState();
-  const { changeLang } = useLangContext();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -21,8 +18,6 @@ const useTelegram = () => {
       dispatch(userTelegramDataActions.setUserTelegramData(tgUserData))
       msg += "\n\n#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user)
       setTgID(tgUserData?.id)
-      changeLang(tgUserData?.language_code)
-      changeLang("ru")
     }
 
     // setTgID("6054841751");

@@ -10,8 +10,8 @@ import { DownIcon, UpIcon } from "@/screen-capture/icons";
 const FaqPage = () => {
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const userTelegramData = useSelector((state) => state.userTelegramData?.data);
   const [openCard, setOpenCard] = useState(null);
+  const { i18n } = useTranslation()
 
   const langObj = {
     en: "english",
@@ -19,7 +19,7 @@ const FaqPage = () => {
     uz: "uzbek"
   }
 
-  const lang = langObj[userTelegramData?.language_code]
+  const lang = langObj[i18n?.language]
   
   const { t } = useTranslation();
 

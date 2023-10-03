@@ -16,8 +16,7 @@ const langObj = {
 
 const HistoryCard = ({ order }) => {
   const [open, setOpen] = useState();
-  const { t } = useTranslation();
-  const userTelegramData = useSelector(state => state.userTelegramData.data)
+  const { t, i18n } = useTranslation();
   const readMoreHandler = () => {
     setOpen(!open);
   };
@@ -25,10 +24,10 @@ const HistoryCard = ({ order }) => {
   const formatDate = (date) => {
     const options = {
       year: "numeric",
-      month: userTelegramData?.language_code === "uz" ? "numeric" : "long",
+      month: i18n?.language === "uz" ? "numeric" : "long",
       day: "numeric",
     };
-    return date.toLocaleString(langObj[userTelegramData?.language_code], options);
+    return date.toLocaleString(langObj[i18n?.language], options);
   };
 
   const paymentMethod = () => {

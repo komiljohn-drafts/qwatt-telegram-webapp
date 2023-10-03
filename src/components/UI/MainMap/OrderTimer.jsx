@@ -15,7 +15,7 @@ const OrderTimer = ({order}) => {
         <div></div>
         <p
           className="font-medium cursor-pointer"
-          onClick={() => navigate("/faq")}
+          onClick={() => navigate("/uz/faq")}
         >
           {t("how_to_return_powerbank")}
         </p>

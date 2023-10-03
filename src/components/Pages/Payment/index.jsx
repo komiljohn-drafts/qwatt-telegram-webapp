@@ -57,7 +57,7 @@ const PaymentInfo = () => {
       return;
     }
 
-    navigate("/rent", { replace: true });
+    navigate("/uz/rent", { replace: true });
 
     setOrder({
       data: {
@@ -339,7 +339,7 @@ const PaymentInfo = () => {
                 style={{ background: "rgba(104, 107, 112, 0.05)" }}
                 className="p-3 rounded-2xl text-[#686B70] font-medium"
                 onClick={() => {
-                  navigate("/add-card/?from=payment");
+                  navigate("/uz/add-card/?from=payment");
                 }}
               >
                 + {t("add_card")}
@@ -357,7 +357,7 @@ const PaymentInfo = () => {
         </div>
       </div>
 
-      <div className={styles.question} onClick={() => navigate("/faq")}>
+      <div className={styles.question} onClick={() => navigate("/uz/faq")}>
         {t("powerbank_lost")}
       </div>
 

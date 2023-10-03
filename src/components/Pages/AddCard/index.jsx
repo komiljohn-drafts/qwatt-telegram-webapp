@@ -129,11 +129,11 @@ const AddingCard = () => {
           );
           setIsBtnDisabled(false)
           if (params.get("from") == "order") {
-            navigate("/otp?from=order", { replace: true });
+            navigate("/uz/otp?from=order", { replace: true });
           } else if (params.get("from") == "payment") {
-            navigate("/otp?from=payment", { replace: true });
+            navigate("/uz/otp?from=payment", { replace: true });
           } else {
-            navigate("/otp");
+            navigate("/uz/otp");
           }
         } else {
           setErrorAlertOpen(true);

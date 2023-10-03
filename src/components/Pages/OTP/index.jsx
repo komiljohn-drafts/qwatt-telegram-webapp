@@ -69,11 +69,11 @@ const OTPcode = () => {
         })
           .then(()=>{ // setCard
             if (params.get("from") == "order") {
-              navigate("/order", { replace: true });
+              navigate("/uz/order", { replace: true });
             } else if (params.get("from") == "payment") {
-              navigate("/payment", { replace: true });
+              navigate("/uz/payment", { replace: true });
             } else {
-              navigate("/my-cards", { replace: true });
+              navigate("/uz/my-cards", { replace: true });
             }
           })
           .catch((err) => { // setCard
@@ -82,11 +82,11 @@ const OTPcode = () => {
               text: err?.data?.data,
               action: () => {
                 if (params.get("from") == "order") {
-                  navigate("/order", { replace: true });
+                  navigate("/uz/order", { replace: true });
                 } else if (params.get("from") == "payment") {
-                  navigate("/payment", { replace: true });
+                  navigate("/uz/payment", { replace: true });
                 } else {
-                  navigate("/my-cards", { replace: true });
+                  navigate("/uz/my-cards", { replace: true });
                 }
               },
             });
@@ -128,7 +128,7 @@ const OTPcode = () => {
             },
           });
         }
-        navigate("/otp");
+        navigate("/uz/otp");
       })
       .catch(() => {
         setErrorAlertOpen(true);

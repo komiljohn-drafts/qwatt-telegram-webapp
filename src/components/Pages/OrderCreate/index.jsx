@@ -53,7 +53,7 @@ const OrderCreate = () => {
         });
       } else if (res?.data?.data?.response[0]?.status == true) {
         dispatch(orderActions.setOrderId(res.data?.data ?? {}));
-        res?.data?.data?.count > 0 && navigate("/payment");
+        res?.data?.data?.count > 0 && navigate("/uz/payment");
       }
     });
   };
