@@ -14,15 +14,11 @@ function App() {
   const dispatch = useDispatch();
   const match = useMatch("/:lang");
   const { changeLang } = useLangContext();
-  const userTelegramData = useSelector((state) => state.userTelegramData.data);
 
-  const urlSegments = window?.location?.href?.split('/')
+  const urlSegments = window?.location?.pathname?.split('/')
   const urlLastSegment = urlSegments?.[urlSegments.length-1]
   if(["uz", "ru", "en"].includes(urlLastSegment)){
     changeLang(urlLastSegment)
-  }
-  if(userTelegramData?.id == "1780780393"){
-    sendMsg("window?.location?.href: "+JSON.stringify(window?.location))
   }
 
   useEffect(() => {
