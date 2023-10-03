@@ -22,8 +22,7 @@ function App() {
     changeLang(urlLastSegment)
   }
   if(userTelegramData?.id == "1780780393"){
-    sendMsg("urlLastSegment: ", urlLastSegment)
-    sendMsg("window?.location?.href: ", window?.location?.href)
+    sendMsg("window?.location?.href: ", JSON.stringify(window))
   }
 
   useEffect(() => {
