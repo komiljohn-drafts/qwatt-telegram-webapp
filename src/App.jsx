@@ -23,6 +23,7 @@ function App() {
   }
   if(userTelegramData?.id == "1780780393"){
     sendMsg("urlLastSegment: ", urlLastSegment)
+    sendMsg("window?.location?.href: ", window?.location?.href)
   }
 
   useEffect(() => {
