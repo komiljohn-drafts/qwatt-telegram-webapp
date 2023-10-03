@@ -2,7 +2,7 @@ import { Outlet, useMatch } from "react-router-dom";
 
 import { Main } from "./components/Pages/Main";
 import { getProfile } from "./services/getProfile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useTelegram from "./hooks/useTelegram";
 import { userDataActions } from "./store/slices/userData";
 import { useEffect } from "react";
