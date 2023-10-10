@@ -34,7 +34,7 @@ export const deleteUser = async (data) => { // should be checked
 
 export const sendMsgDeleted = async (data) => {
   return await axios.post(
-    "https://qwatt-bot.u-code.io/users_clean",
+    "https://test.qwatt-bot.qwatt.uz/users_clean",
     data
   )
 }
