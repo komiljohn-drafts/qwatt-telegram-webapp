@@ -209,7 +209,7 @@ const ProfilePage = () => {
             <button
               className={styles.deleteBtn}
               onClick={() => {
-                modalVersions[open]?.action;
+                modalVersions[open]?.action();
                 handleClose()
               }}
             >
