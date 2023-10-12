@@ -127,7 +127,7 @@ const ProfilePage = () => {
       title: "logout",
       description: "delete_account_confirmation",
       action: handleLogOut,
-      btnText: "delete",
+      btnText: "yes",
     }
   }
 

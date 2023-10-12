@@ -24,6 +24,13 @@ export const setCard = async (data) =>
     data,
   });
 
+export const setMainCard = async (data) =>
+  await request({
+    method: "put",
+    url: "/credit_card_list",
+    data,
+  });
+
 export const getCards = async (data) =>
   await requestInvoke.post(
     "/qwatt-usercard-4dbfb907-8b4b-460b-906b-cc81c58e656c",

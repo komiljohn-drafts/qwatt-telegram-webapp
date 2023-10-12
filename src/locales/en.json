@@ -16,7 +16,7 @@
     "score":"Score",
     "scores":"Scores",
     "change":"Change",
-    "logout":"Logout",
+    "logout":"Log out",
     "delete_account":"Delete account",
     "cancel":"Cancel",
     "notEnoughPointsToCreateLease":"Not enough points to create a lease",
@@ -102,5 +102,6 @@
     "cannotDeleteAccountWithActiveOrders": "Cannot delete account with active orders.",
     "attention": "Attention",
     "try_restart": "Please try restarting the bot using the /start command.",
-    "you_have_active_lease": "You have an active lease!"
+    "you_have_active_lease": "You have an active lease!",
+    "yes": "Log out"
 }

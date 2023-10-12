@@ -102,5 +102,6 @@
    "cannotDeleteAccountWithActiveOrders": "Невозможно удалить аккаунт при наличии активных заказов.",
    "attention": "Внимание",
    "try_restart": "Пожалуйста, попробуйте перезапустить бот с помощью команды /start",
-   "you_have_active_lease": "У вас есть активная аренда!"
+   "you_have_active_lease": "У вас есть активная аренда!",
+   "yes": "Выйти"
 }

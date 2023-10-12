@@ -1,5 +1,5 @@
 import { CircularProgress, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { deleteCard, getCards, setCard } from "@/services/getCards";
+import { deleteCard, getCards, setMainCard } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
@@ -67,7 +67,7 @@ const MyCardsPage = () => {
 
   const changeMainCard = (card) => {
     setMainCardId(card?.guid)
-    setCard({
+    setMainCard({
       data: {
           guid: card?.guid,
           main_card: true,
@@ -75,7 +75,7 @@ const MyCardsPage = () => {
       }
     })
       .then(res => {
-        if (res?.data?.status != "OK") {
+        if (res?.status != "OK") {
           setErrorAlertOpen(true)
           getMyCards()
         }
