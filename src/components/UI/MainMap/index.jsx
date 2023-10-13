@@ -377,7 +377,7 @@ const MainMap = () => {
               size: "40px",
             }}
           />
-          <Clusterer
+          {/* <Clusterer
             options={{
               // preset: "islands#lightBlueClusterIcons'",
               color: "black",
@@ -387,7 +387,7 @@ const MainMap = () => {
               geoObjectHideIconOnBalloonOpen: true,
               clusterIconContentLayout: null,
             }}
-          >
+          > */}
             {data?.map((branch, i) => (
               <Placemark
                 key={i}
@@ -415,7 +415,7 @@ const MainMap = () => {
                 }}
               />
             ))}
-          </Clusterer>
+          {/* </Clusterer> */}
 
           <ZoomControl
             options={{
