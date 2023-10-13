@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styles from "./style.module.scss";
 import useOrderTimer from "@/hooks/useOrderTimer";
 import { useTranslation } from "react-i18next";
-import moment from "moment";
+import { formatDate } from "@/helpers/formatDate";
 
 const ActiveCard = ({ order }) => {
   const { orderStatusTime } = useOrderTimer(order);
@@ -29,9 +29,7 @@ const ActiveCard = ({ order }) => {
         <div className={styles.usedInfo}>
           <p>{t("rental_start")}</p>
           <div>{order?.started_merchant}</div>
-          <div>{`${format(parseISO(order?.created_time), "dd MMMM yyyy")} - ${
-              moment(order?.created_time).format("HH:mm") || ""
-            }`}</div>
+          <pre>{formatDate(order?.created_time)}</pre>
         </div>
       )}
       {order?.end_time == "" && (
