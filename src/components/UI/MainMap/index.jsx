@@ -58,7 +58,7 @@ const MainMap = () => {
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
 
-  console.log("userData", userData) // log
+  // console.log("userData", userData) // log
   // const [ymaps, setYmaps] = useState("");
   // const [notAllowed, setNotAllowed] = useState(false);
 
@@ -108,40 +108,39 @@ const MainMap = () => {
   ];
 
   useEffect(() => {
-    getMerchantList({
-      data: {
-        status: true,
-      },
-    })
+    getMerchantList()
       .then((res) => {
-        let filteredData = [];
+        // let filteredData = [];
 
         // filter is disabled for now. It might be activated again
-        if (filterId == 1) {
-          res?.data?.data?.response?.forEach((merchant) => {
-            if (merchant?.allavailableslots > 0) {
-              filteredData.push(merchant);
-            }
-          });
-        }
+        // if (filterId == 1) {
+        //   res?.data?.data?.response?.forEach((merchant) => {
+        //     if (merchant?.allavailableslots > 0) {
+        //       filteredData.push(merchant);
+        //     }
+        //   });
+        // }
 
-        if (filterId == 2) {
-          res?.data?.data?.response?.forEach((merchant) => {
-            if (merchant?.allreturnableslots > 0) {
-              filteredData.push(merchant);
-            }
-          });
-        }
+        // if (filterId == 2) {
+        //   res?.data?.data?.response?.forEach((merchant) => {
+        //     if (merchant?.allreturnableslots > 0) {
+        //       filteredData.push(merchant);
+        //     }
+        //   });
+        // }
 
-        setData(
-          filteredData?.length == 0 ? res?.data?.data?.response : filteredData
-        );
+        // setData(
+        //   filteredData?.length == 0 ? res?.data?.data?.response : filteredData
+        // );
+        setData(res?.data?.data?.data?.response)
+        // console.log("res?.data?.data?.response", res?.data?.data?.response) // log
       })
       .catch((err) => {
         console.log("merchant err", err); // log
         setErrorAlertOpen(true);
       });
-  }, [filterId]);
+  // }, [filterId]);
+    }, []);
 
   useEffect(() => {
     const options = {
@@ -199,7 +198,7 @@ const MainMap = () => {
 
   const sortMerchants = useCallback(
     (merchants) => {
-      const merchantSort = merchants?.slice();
+      const merchantSort = merchants?.slice(); // in order to make copy by values
       merchantSort?.sort((a, b) => {
         const distanceA = distance(
           parseFloat(a.latitude),
@@ -389,7 +388,7 @@ const MainMap = () => {
               clusterIconContentLayout: null,
             }}
           >
-            {data?.map((branch, i) => (
+            {data?.map((branch, i) => ( 
               <Placemark
                 key={i}
                 geometry={[branch.latitude, branch.longitude]}
