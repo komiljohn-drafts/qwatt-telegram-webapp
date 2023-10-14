@@ -6,7 +6,7 @@ import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
 import ReactCodeInput from "react-verification-code-input";
 import { cardVerifyActions } from "@/store/slices/cardVerify";
 import styles from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
 
@@ -28,6 +28,9 @@ const OTPcode = () => {
   const [errorAlertProps, setErrorAlertProps] = useState({});
   const [isClearInput, setIsClearInput] = useState(false);
   const inputRef = useRef();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const cardNumber = searchParams.get('card_number');
 
   const handleSendOtp = () => {
     if (otp.length < 5) {
@@ -61,6 +64,7 @@ const OTPcode = () => {
         setCard({ 
           data: {
               credit_card: res?.data?.data?.data?.response?.[0]?.card_number,
+              card_number: cardNumber,
               card_token: res?.data?.data?.data?.response?.[0]?.card_token,
               main_card: true,
               user_id: userData?.guid,

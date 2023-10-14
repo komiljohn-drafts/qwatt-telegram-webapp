@@ -133,7 +133,7 @@ const AddingCard = () => {
           } else if (params.get("from") == "payment") {
             navigate("/uz/otp?from=payment", { replace: true });
           } else {
-            navigate("/uz/otp");
+            navigate(`/uz/otp?card_number=${cardNumber}`);
           }
         } else {
           setErrorAlertOpen(true);
