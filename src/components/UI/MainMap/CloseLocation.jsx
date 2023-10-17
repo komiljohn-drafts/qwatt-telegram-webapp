@@ -58,9 +58,9 @@ const CloseLocation = ({
 
   return (
     <div className={styles.CloseLocationWrap}>
-      <a href="tel:+998954748080" className={styles.circle}>
+      <button className={styles.circle} onClick={() => window.open('tel:+998954748080', '_blank')}>
         <PhoneIcon />
-      </a>
+      </button>
       <div className={styles.closeLocations}>
         {nearestMerchants?.map((item, i) => (
           <div
