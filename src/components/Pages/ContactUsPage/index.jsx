@@ -7,10 +7,12 @@ const ContactUsPage = () => {
     <div className={styles.contactUsWrapper}>
       <div className={styles.container}>
         <p className={styles.label}>{ t("our_phone_number") }</p>
-        <a href="tel:+998954748080">+998 95 474 80 80</a>
+        <button className={styles.circle} onClick={() => window.open('tel:+998954748080', '_blank')}>
+          +998 95 474 80 80
+        </button>
         
         <p className={styles.label}>{ t("website") }</p>
-        <button onClick={() => window.open("https://qwatt.uz/", '_blank')}>mail@qwatt.uz</button>
+        <button onClick={() => window.open("https://qwatt.uz/", '_blank')}>qwatt.uz</button>
 
         <p className={styles.label}>{ t("email") }</p>
         <button onClick={() => window.open("mailto:mail@qwatt.uz", '_blank')}>mail@qwatt.uz</button>
