@@ -1,0 +1,24 @@
+.contactUsWrapper{
+  width: 100%;
+  padding: 24px 16px 16px;
+
+  .container{
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 12px;
+
+    .label{
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 24px;
+      color: #52555b;
+      margin-top: 6px;
+    }
+    a{
+      color: #12adc1;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 24px;
+    }
+  }
+}

@@ -200,6 +200,16 @@
   flex-direction: column;
   align-items: center;
   min-height: 135px;
+
+  .circle{
+    background: white;
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    right: 16px;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.15), 0 2px 5px -3px rgba(0,0,0,.15);
+  }
   .getButton {
     width: 90%;
     height: 48px;

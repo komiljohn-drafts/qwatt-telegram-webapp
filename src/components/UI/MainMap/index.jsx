@@ -8,6 +8,7 @@ import {
   MenuIcon,
   MyCardIcon,
   MyTarifIcon,
+  PhoneIconSquare,
   PlayMarketIcon,
   ProfileIcon,
   XIcon,
@@ -105,6 +106,11 @@ const MainMap = () => {
       route: "/uz/faq",
       icon: <FaqIcon />,
     },
+    {
+      text: "contact_us",
+      route: "/uz/contact_us",
+      icon: <PhoneIconSquare />
+    }
   ];
 
   useEffect(() => {

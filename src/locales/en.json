@@ -103,5 +103,10 @@
     "attention": "Attention",
     "try_restart": "Please try restarting the bot using the /start command.",
     "you_have_active_lease": "You have an active lease!",
-    "yes": "Log out"
+    "yes": "Log out",
+    "contact_us": "Contact us",
+    "our_phone_number": "Our phone number",
+    "website": "Website",
+    "email": "Email"
+
 }

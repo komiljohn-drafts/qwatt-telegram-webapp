@@ -1,7 +1,6 @@
-import { LocationIcon } from "@/screen-capture/icons";
+import { LocationIcon, PhoneIcon } from "@/screen-capture/icons";
 
 import PropTypes from "prop-types";
-import request from "@/utils/axios";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -59,6 +58,9 @@ const CloseLocation = ({
 
   return (
     <div className={styles.CloseLocationWrap}>
+      <a href="tel:+998954748080" className={styles.circle}>
+        <PhoneIcon />
+      </a>
       <div className={styles.closeLocations}>
         {nearestMerchants?.map((item, i) => (
           <div

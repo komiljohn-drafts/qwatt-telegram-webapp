@@ -15,6 +15,7 @@ import Rent from "@/pages/rent";
 import Tarif from "@/pages/pricing_description";
 import Termconditions from "@/pages/doc/term&conditions";
 import Requisites from "@/pages/doc/faq";
+import ContactUs from "@/pages/contact_us";
 
 const routes = [
   {
@@ -86,6 +87,11 @@ const routes = [
         path: "/:lang/pricing_description",
         id: "pricing_description",
         element: <Tarif />,
+      },
+      {
+        path: "/:lang/contact_us",
+        id: "contact_us",
+        element: <ContactUs />
       },
       {
         path: "/:lang/requisites",
