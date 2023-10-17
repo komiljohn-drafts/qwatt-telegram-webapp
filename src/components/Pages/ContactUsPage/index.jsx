@@ -10,10 +10,10 @@ const ContactUsPage = () => {
         <a href="tel:+998954748080">+998 95 474 80 80</a>
         
         <p className={styles.label}>{ t("website") }</p>
-        <a href="https://qwatt.uz/">qwatt.uz</a>
+        <button onClick={() => window.open("https://qwatt.uz/", '_blank')}>mail@qwatt.uz</button>
 
         <p className={styles.label}>{ t("email") }</p>
-        <a href="mailto:mail@qwatt.uz">mail@qwatt.uz</a>
+        <button onClick={() => window.open("mailto:mail@qwatt.uz", '_blank')}>mail@qwatt.uz</button>
       </div>
     </div>
   )
