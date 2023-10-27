@@ -332,19 +332,13 @@ const MainMap = () => {
                   <p>{t("download_app")}</p>
                   <div className={styles.apps}>
                     <div
-                      onClick={() => window.open('https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516', '_blank')
-                        // (window.location =
-                        //   "https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516")
-                     
-                        }
+                      onClick={() => window.open('https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516', '_blank')}
                     >
                       <AppStoreIcon />
                     </div>
                     <div
                       onClick={() => {
                         window.open('https://play.google.com/store/apps/details?id=com.q.watt', '_blank')
-                        // window.location.href =
-                        //   "https://play.google.com/store/apps/details?id=com.q.watt";
                       }}
                     >
                       <PlayMarketIcon />
