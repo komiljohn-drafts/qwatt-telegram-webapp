@@ -50,12 +50,25 @@ const HistoryCard = ({ order }) => {
 
   return (
     <div className={styles.usedHistory}>
-      <div
-        className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
-        style={{ background: "rgba(18, 173, 193, 0.15)" }}
-      >
-        <p className="font-medium text-sm text-[#12ADC1]">{t("finished")}</p>
-      </div>
+      {order?.status_name === "Order time out" 
+        ? <div
+            className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
+            style={{ background: "#c1121226" }}
+          >
+            <p className="font-medium text-sm text-[#C11212]">
+              {t( "lease_ended" )}
+            </p>
+          </div>
+        : <div
+            className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
+            style={{ background: "rgba(18, 173, 193, 0.15)" }}
+          >
+            <p className="font-medium text-sm text-[#12ADC1]">
+              {t( "finished" )}
+            </p>
+          </div>
+      }
+
       <div className={styles.historyInfo}>
         <div>
           <TimeIcon />
@@ -98,13 +111,16 @@ const HistoryCard = ({ order }) => {
           <pre>{formatDate(order?.created_time)}</pre>
         </div>
 
-        {order?.status_name !== "Order time out" && (
-          <div className={styles.usedInfo}>
-            <p>{t("rental_end")}</p>
+        <div className={styles.usedInfo}>
+          <p>{t("rental_end")}</p>
+          {order?.status_name !== "Order time out" ? (<>
             <div>{order?.end_merchant}</div>
-            {order?.end_time && <pre>{formatDate(order?.end_time)}</pre>}
-          </div>
-        )}
+            <pre>{formatDate(order?.end_time)}</pre>
+          </>) : (
+            <div className="text-[#C11212]">{t("powerbank_not_returned")}</div>
+          )}
+        </div>
+
         <div className={styles.usedInfo}>
           <p>{t("payment_method")}</p>
           <div>{paymentMethod()}</div>

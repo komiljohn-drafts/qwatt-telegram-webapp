@@ -107,6 +107,7 @@
     "contact_us": "Contact us",
     "our_phone_number": "Our phone number",
     "website": "Website",
-    "email": "Email"
-
+    "email": "Email",
+    "powerbank_not_returned": "Power bank not returned",
+    "lease_ended": "Lease ended"
 }
