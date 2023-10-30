@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatCardNumber } from "@/helpers/formatCardNumber";
 import { BonusIcon, starIcon } from "@/screen-capture/icons";
+import { getProfile } from "@/services/getProfile";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const PaymentInfo = () => {
   const [isCardSelectOpen, setCardSelectOpen] = useState(false);
   const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
   const [data, setData] = useState(null);
-  // const [isBonus, setIsBonus] = useState(false); bonus is disabled for now, but will be enabled again
+  const [isBonus, setIsBonus] = useState(false);
   const [bonus, setBonus] = useState(null);
 
   const selectorRes = useMemo(() => {
@@ -65,8 +66,7 @@ const PaymentInfo = () => {
         cabine_lists_id: selectorRes?.guid,
         merchant_list_id: selectorRes?.merchant_list_id,
         credit_card_list_id: selectedCardId,
-        // is_bonus: isBonus, bonus is disabled for now, but will be enabled again
-        is_bonus: false,
+        is_bonus: isBonus,
       },
     })
       .then((res) => {
@@ -101,18 +101,17 @@ const PaymentInfo = () => {
       });
   };
 
-  // =============== bonus is disabled for now, but will be enabled again
-  // const handleBonusClick = () => {
-  //   if (bonus >= 5000) {
-  //     setIsBonus(!isBonus)
-  //   } else {
-  //     setErrorAlertOpen(true)
-  //     setErrorAlertProps({
-  //       text: t("notEnoughPointsToCreateLease"),
-  //       action: () => setErrorAlertOpen(false),
-  //     })
-  //   }
-  // }
+  const handleBonusClick = () => {
+    if (bonus >= 7500) {
+      setIsBonus(!isBonus)
+    } else {
+      setErrorAlertOpen(true)
+      setErrorAlertProps({
+        text: t("notEnoughPointsToCreateLease"),
+        action: () => setErrorAlertOpen(false),
+      })
+    }
+  }
 
   const getOrderPrice = () => {
     if (!selectorRes?.merchant_list_id_data?.merchant_pricing_id) return;
@@ -154,26 +153,23 @@ const PaymentInfo = () => {
       });
   };
   
-  // ========== bonus is disabled for now, but will be enabled again
-  // const fetchBonus = () => {
-  //   getBonus({
-  //     data: {
-  //       guid: userData?.guid
-  //     }
-  //   })
-  //     .then(res => {
-  //       setBonus(res.data.data.data.response[0].bonus)
-  //     })
-  //     .catch(err => {
-  //       console.log("getBonus Err", err); // log
-  //       setErrorAlertOpen(true);
-  //     })
-  // }
+  const fetchBonus = () => {
+    if (!userData?.guid) {
+      setErrorAlertOpen(true)
+    }
+    getProfile(userData?.guid)
+    .then((res) => {
+      setBonus(res?.data?.data?.response?.bonus)
+      })
+    .catch(err => {
+      setErrorAlertOpen(true)
+    })
+  }
 
   useEffect(() => {
     getOrderPrice();
     getMyCards();
-    // fetchBonus(); bonus is disabled for now, but will be enabled again
+    fetchBonus();
   }, []);
 
   useEffect(() => {
@@ -234,16 +230,15 @@ const PaymentInfo = () => {
 
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
-          {/* {isBonus ? ( ====== bonus is disabled for now, but will be enabled again*/}
-          { false ? (
-              <div className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}>
-                {BonusIcon()}
-                <div>{t("scores")}</div>
-                <div className={styles.bonus}>
-                  <div>{starIcon()}</div>
-                  {/* <div>{bonus}</div> */}
-                </div>
+          {isBonus ? (
+            <div className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}>
+              {BonusIcon()}
+              <div>{t("scores")}</div>
+              <div className={styles.bonus}>
+                <div>{starIcon()}</div>
+                <div>{bonus}</div>
               </div>
+            </div>
           ) : (
             <div className={styles.editCard}>
               <img
@@ -286,8 +281,7 @@ const PaymentInfo = () => {
                 {t("choose_payment_method")}
               </h2>
 
-              {/* ========== bonus is disabled for now, but will be enabled again */}
-              {/* <div
+              <div
                 onClick={handleBonusClick}
                 className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
                   isBonus ? "border-[#12ADC1]" : "border-[#F1F1F1]"
@@ -306,7 +300,7 @@ const PaymentInfo = () => {
                 >
                   <CheckCircleIcon sx={{ color: "#12ADC1" }} />
                 </button>
-              </div> */}
+              </div>
               {myCards?.map((card) => {
                 const { icon } = checkCardType(card?.credit_card);
                 return (
