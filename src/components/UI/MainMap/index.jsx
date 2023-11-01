@@ -12,6 +12,7 @@ import {
   PlayMarketIcon,
   ProfileIcon,
   XIcon,
+  starIcon,
 } from "@/screen-capture/icons";
 import {
   Clusterer,
@@ -42,6 +43,7 @@ import { useTranslation } from "react-i18next";
 import { getOrders } from "@/services/setOrder";
 import { userDataActions } from "@/store/slices/userData";
 import { sendMsg } from "@/helpers/sendMsg";
+import { getBonus } from "@/services/getProfile";
 
 const MainMap = () => {
   const { t } = useTranslation();
@@ -58,6 +60,7 @@ const MainMap = () => {
   const mapRef = useRef();
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [bonus, setBonus] = useState('');
 
   // console.log("userData", userData) // log
   // const [ymaps, setYmaps] = useState("");
@@ -112,6 +115,30 @@ const MainMap = () => {
       icon: <PhoneIconSquare />
     }
   ];
+
+  const fetchBonus = () => {
+    if (!userData?.guid) {
+      setErrorAlertOpen(true)
+      return;
+    }
+    getBonus({
+      data: {
+        offset: 1,
+        limit: 10,
+        user_id: [userData?.guid],
+      },
+    })
+      .then((res) => {
+        if(res?.status === "OK" && res?.data?.data?.response?.length >= 0 ){
+          setBonus(res?.data?.data?.response?.[0]?.balance)
+        } else {
+          setErrorAlertOpen(true)
+        }
+      })
+      .catch((err) => {
+        setErrorAlertOpen(true);
+      });
+  }
 
   useEffect(() => {
     getMerchantList()
@@ -234,6 +261,7 @@ const MainMap = () => {
   useEffect(() => {
     if (!userData?.guid) return;
 
+    fetchBonus()
     getOrders({
       data: {
         userId: userData?.guid,
@@ -310,12 +338,17 @@ const MainMap = () => {
             onTransitionEnd={() => setMenuVisible(false)}
           >
             <div className={styles.menu}>
-              <button
-                className={styles.xIcon}
-                onClick={() => setMenuVisible(false)}
-              >
-                <XIcon />
-              </button>
+              <div className={styles.menuHeader}>
+                <button
+                  className={styles.xIcon}
+                  onClick={() => setMenuVisible(false)}
+                >
+                  <XIcon />
+                </button>
+                <div className={styles.bonus}>
+                  {starIcon()} {bonus}
+                </div>
+              </div>
               <div className={styles.menuWrap}>
                 {menuItems.map(item => (
                   <div

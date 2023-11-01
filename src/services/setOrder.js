@@ -32,11 +32,3 @@ export const setOrder = async (data) => {
     data
   )
 }
-
-
-export const getBonus = async (data) => {
-  return await requestInvoke.post(
-    "/qwatt-getbonusanddlink-4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data
-  )
-}

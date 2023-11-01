@@ -38,3 +38,11 @@ export const sendMsgDeleted = async (data) => {
     data
   )
 }
+
+export const getBonus = async (data) => {
+  return await request({
+    method: 'post',
+    url: "/get-list/user_balance",
+    data
+  })
+}

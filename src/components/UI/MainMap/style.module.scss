@@ -309,3 +309,26 @@
     }
   }
 }
+.menuHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bonus{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 16px;
+  padding: 10px;
+  border-radius: 100px;
+  background-color: #12adc1;
+  gap: 8px;
+  color: #FFF;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: SF Pro Display;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px; /* 123.077% */
+}

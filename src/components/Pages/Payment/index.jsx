@@ -10,7 +10,7 @@ import { checkCardType } from "@/helpers/checkCardType";
 import { getCards } from "@/services/getCards";
 import { getPrice } from "@/services/getPrice";
 import { orderErrorNoteActions } from "@/store/Order/orderErrorNote";
-import { getBonus, setOrder } from "@/services/setOrder";
+import { setOrder } from "@/services/setOrder";
 import { slotActions } from "@/store/Order/Slot";
 import styles from "./style.module.scss";
 import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatCardNumber } from "@/helpers/formatCardNumber";
 import { BonusIcon, starIcon } from "@/screen-capture/icons";
-import { getProfile } from "@/services/getProfile";
+import { getBonus, getProfile } from "@/services/getProfile";
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -156,14 +156,25 @@ const PaymentInfo = () => {
   const fetchBonus = () => {
     if (!userData?.guid) {
       setErrorAlertOpen(true)
+      return;
     }
-    getProfile(userData?.guid)
-    .then((res) => {
-      setBonus(res?.data?.data?.response?.bonus)
-      })
-    .catch(err => {
-      setErrorAlertOpen(true)
+    getBonus({
+      data: {
+        offset: 1,
+        limit: 10,
+        user_id: [userData?.guid],
+      },
     })
+      .then((res) => {
+        if(res?.status === "OK" && res?.data?.data?.response?.length >= 0 ){
+          setBonus(res?.data?.data?.response?.[0]?.balance)
+        } else {
+          setErrorAlertOpen(true)
+        }
+      })
+      .catch((err) => {
+        setErrorAlertOpen(true);
+      });
   }
 
   useEffect(() => {
