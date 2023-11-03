@@ -109,5 +109,11 @@
     "website": "Vebsayt",
     "email": "Elektron pochta",
     "powerbank_not_returned": "Powerbank qaytarilmadi",
-    "lease_ended": "Ijara yakunlanishi"
+    "lease_ended": "Ijara yakunlanishi",
+    "bonuses": "Bonuslar",
+    "already_used_promocode": "Bu promokod allaqachon ishlatilgan",
+    "promo_code_enabled": "Promokod aktivlashtirildi",
+    "activate": "Faollashtirish",
+    "promo_code": "Promokod",
+    "get_bonuses": "Promokodni kiriting va bonuslarga ega bo'ling"
     }

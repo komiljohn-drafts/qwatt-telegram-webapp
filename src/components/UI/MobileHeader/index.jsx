@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 
-const MobileHeader = ({ title, path }) => {
+const MobileHeader = ({ title, path, isBlueBg = false }) => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.header}>
+    <div className={`${styles.header} ${isBlueBg ? styles.blueBg : ""}`}>
       <button
         className={styles.BackIcon}
         onClick={() => {
@@ -19,9 +19,9 @@ const MobileHeader = ({ title, path }) => {
           navigate(-1);
         }}
       >
-        <BackIcon />
+        <BackIcon color={isBlueBg ? "white" : "#282727"} />
       </button>
-      <div>{title}</div>
+      <div className={isBlueBg ? "text-white" : ""}>{title}</div>
       <div></div>
     </div>
   );

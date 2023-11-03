@@ -1,4 +1,5 @@
 import request from "@/utils/axios";
+import requestInvoke from "@/utils/axiosForInvoke";
 import axios from "axios";
 
 export const setProfile = async (data) => {
@@ -24,25 +25,30 @@ export const deleteProfile = async (data) => {
   });
 };
 
-export const deleteUser = async (data) => { // should be checked
+export const deleteUser = async (data) => {
+  // should be checked
   return await request({
-    method: 'put',
+    method: "put",
     url: "/user",
-    data
-  })
-}
+    data,
+  });
+};
 
 export const sendMsgDeleted = async (data) => {
-  return await axios.post(
-    "https://test.qwatt-bot.qwatt.uz/users_clean",
-    data
-  )
-}
+  return await axios.post("https://test.qwatt-bot.qwatt.uz/users_clean", data);
+};
 
 export const getBonus = async (data) => {
   return await request({
-    method: 'post',
+    method: "post",
     url: "/get-list/user_balance",
+    data,
+  });
+};
+
+export const giveGifts = async (data) => {
+  return await requestInvoke.post(
+    "/qwatt-givegifts-4dbfb907-8b4b-460b-906b-cc81c58e656c",
     data
-  })
-}
+  );
+};

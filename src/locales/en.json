@@ -109,5 +109,11 @@
     "website": "Website",
     "email": "Email",
     "powerbank_not_returned": "Power bank not returned",
-    "lease_ended": "Lease ended"
+    "lease_ended": "Lease ended",
+    "bonuses": "Bonuses",
+    "already_used_promocode": "This promo code has already been used",
+    "promo_code_enabled": "Promo code activated",
+    "activate": "Activate",
+    "promo_code": "Promo Code",
+    "get_bonuses": "Enter promo code and get bonuses"
 }

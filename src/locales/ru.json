@@ -109,5 +109,11 @@
    "website": "Вебсайт",
    "email": "Электронная почта",
    "powerbank_not_returned": "Повербанк не возвращен",
-   "lease_ended": "Завершения аренды"
+   "lease_ended": "Завершения аренды",
+   "bonuses": "Бонусы",
+   "already_used_promocode": "этот промокод уже использован",
+   "promo_code_enabled": "Промокод активировано",
+   "activate": "Активировать",
+   "promo_code": "Промокод",
+   "get_bonuses": "Вводите промокод и получайте бонусы"
 }

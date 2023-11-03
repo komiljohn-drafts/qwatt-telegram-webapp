@@ -165,13 +165,17 @@ const PaymentInfo = () => {
         user_id: [userData?.guid],
       },
     })
-      .then((res) => {
-        if(res?.status === "OK" && res?.data?.data?.response?.length >= 0 ){
+    .then((res) => {
+      if(res?.status === "OK"){
+        if(res?.data?.data?.response?.length > 0){
           setBonus(res?.data?.data?.response?.[0]?.balance)
         } else {
-          setErrorAlertOpen(true)
+          setBonus(0)
         }
-      })
+      } else {
+        setErrorAlertOpen(true)
+      }
+    })
       .catch((err) => {
         setErrorAlertOpen(true);
       });

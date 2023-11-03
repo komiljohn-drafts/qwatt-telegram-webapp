@@ -16,6 +16,7 @@ import Tarif from "@/pages/pricing_description";
 import Termconditions from "@/pages/doc/term&conditions";
 import Requisites from "@/pages/doc/faq";
 import ContactUs from "@/pages/contact_us";
+import Bonuses from "@/pages/bonuses";
 
 const routes = [
   {
@@ -97,6 +98,11 @@ const routes = [
         path: "/:lang/requisites",
         id: "requisites",
         element: <Requisites />,
+      },
+      {
+        path: "/:lang/bonuses",
+        id: "bonuses",
+        element: <Bonuses />
       },
       {
         path: "/:lang/profile",

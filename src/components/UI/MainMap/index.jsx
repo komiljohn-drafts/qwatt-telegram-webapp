@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AppStoreIcon,
+  BonusMenuIcon,
   DocumentsIcon,
   FaqIcon,
   FilterIcon,
@@ -85,6 +86,11 @@ const MainMap = () => {
       icon: <ProfileIcon />,
     },
     {
+      text: "bonuses",
+      route: "/uz/bonuses",
+      icon: <BonusMenuIcon />,
+    },
+    {
       text: "order_history",
       route: "/uz/history",
       icon: <HistoryIcon />,
@@ -129,8 +135,12 @@ const MainMap = () => {
       },
     })
       .then((res) => {
-        if(res?.status === "OK" && res?.data?.data?.response?.length >= 0 ){
-          setBonus(res?.data?.data?.response?.[0]?.balance)
+        if(res?.status === "OK"){
+          if(res?.data?.data?.response?.length > 0){
+            setBonus(res?.data?.data?.response?.[0]?.balance)
+          } else {
+            setBonus(0)
+          }
         } else {
           setErrorAlertOpen(true)
         }
