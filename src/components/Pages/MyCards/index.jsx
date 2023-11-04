@@ -1,4 +1,9 @@
-import { CircularProgress, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+} from "@mui/material";
 import { deleteCard, getCards, setMainCard } from "@/services/getCards";
 import { useEffect, useState } from "react";
 
@@ -11,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { formatCardNumber } from "@/helpers/formatCardNumber";
+import { BonusIcon, starIcon } from "@/screen-capture/icons";
+import { getBonus } from "@/services/getProfile";
 
 const MyCardsPage = () => {
   const navigate = useNavigate();
@@ -19,23 +26,27 @@ const MyCardsPage = () => {
   const orderData = useSelector((state) => state.orderDetails?.data);
   const [data, setData] = useState(null);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({})
-  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false); // boolean or card guid that is being deleted. To open modal confirm delete 
+  const [errorAlertProps, setErrorAlertProps] = useState({});
+  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false); // boolean or card guid that is being deleted. To open modal confirm delete
   const [isDeleting, setIsDeleting] = useState(false); // boolean or card guid that is being deleted. To show circular progress
   const [mainCardId, setMainCardId] = useState("");
+  const [bonus, setBonus] = useState('')
 
   const getMyCards = () => {
     if (!userData?.guid) return;
 
     getCards({
-      data:{
-        user: userData?.guid
-      }
+      data: {
+        user: userData?.guid,
+      },
     })
       .then((res) => {
         if (res?.data?.data?.data?.response) {
           setData(res?.data?.data?.data?.response);
-          setMainCardId(res?.data?.data?.data?.response.find((card) => card?.main_card)?.guid)
+          setMainCardId(
+            res?.data?.data?.data?.response.find((card) => card?.main_card)
+              ?.guid
+          );
         } else {
           setErrorAlertOpen(true);
         }
@@ -47,11 +58,11 @@ const MyCardsPage = () => {
   };
 
   const deleteMyCard = (guid) => {
-    setIsDeleting(guid)
+    setIsDeleting(guid);
     deleteCard({
-      data:{
+      data: {
         guid: guid,
-      }
+      },
     })
       .then((res) => {
         getMyCards();
@@ -61,41 +72,70 @@ const MyCardsPage = () => {
         console.log("delete-cards err", err); // log
       })
       .finally(() => {
-        setIsDeleting(false)
-      })
+        setIsDeleting(false);
+      });
   };
 
   const changeMainCard = (card) => {
-    setMainCardId(card?.guid)
+    setMainCardId(card?.guid);
     setMainCard({
       data: {
-          guid: card?.guid,
-          main_card: true,
-          user_id: userData?.guid,
-      }
+        guid: card?.guid,
+        main_card: true,
+        user_id: userData?.guid,
+      },
     })
-      .then(res => {
+      .then((res) => {
         if (res?.status != "OK") {
-          setErrorAlertOpen(true)
-          getMyCards()
+          setErrorAlertOpen(true);
+          getMyCards();
         }
       })
-      .catch(err => {
-        console.log(err) // log
+      .catch((err) => {
+        console.log(err); // log
+        setErrorAlertOpen(true);
+        getMyCards();
+      });
+  };
+
+  const fetchBonus = () => {
+    if (!userData?.guid) {
+      setErrorAlertOpen(true)
+      return;
+    }
+    getBonus({
+      data: {
+        offset: 1,
+        limit: 10,
+        user_id: [userData?.guid],
+      },
+    })
+    .then((res) => {
+      if(res?.status === "OK"){
+        if(res?.data?.data?.response?.length > 0){
+          setBonus(res?.data?.data?.response?.[0]?.balance)
+        } else {
+          setBonus(0)
+        }
+      } else {
         setErrorAlertOpen(true)
-        getMyCards()
-      })
+      }
+    })
+      .catch((err) => {
+        setErrorAlertOpen(true);
+      });
   }
 
   useEffect(() => {
-    if (!userData?.guid){
-      setErrorAlertOpen(true)
+    if (!userData?.guid) {
+      setErrorAlertOpen(true);
       setErrorAlertProps({
-        title: t('attention'),
-        errorMessage: t('try_restart')
-      })
+        title: t("attention"),
+        errorMessage: t("try_restart"),
+      });
     }
     getMyCards();
+    fetchBonus();
   }, []);
 
   if (!data) {
@@ -114,33 +154,46 @@ const MyCardsPage = () => {
 
   // function used to display delete button if user do not have order (considered the case when user id vip)
   const isDeleteDisplayed = (card) => {
-    let arr = orderData?.orders
-    for (let i=0; i<arr?.length; i++) {
+    let arr = orderData?.orders;
+    for (let i = 0; i < arr?.length; i++) {
       if (card?.guid == arr[i]?.card_guid) {
-        return false
+        return false;
       }
     }
-    return true
-  }
+    return true;
+  };
+
 
   return (
     <div className={styles.myCards}>
-        <ErrorAlert
-          openAlert={isErrorAlertOpen}
-          setOpenAlert={setErrorAlertOpen}
-          title={errorAlertProps.title}
-          errorMesage={errorAlertProps.errorMessage}
-        />
+      <ErrorAlert
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        title={errorAlertProps.title}
+        errorMesage={errorAlertProps.errorMessage}
+      />
       {data?.length ? (
         <>
           <div className={styles.text}>
             <p>{t("this_is_cards")}</p>
           </div>
-          {data?.map(card => {
+          <div className="flex mb-3 flex-row justify-between bg-[#F9F9F9] border cursor-pointer border-[#F1F1F1] py-2 px-2 rounded-2xl items-center">
+            <div className="flex flex-row gap-6 items-center text-[#12ADC1]">
+              <BonusIcon />
+              <div>{t("scores")}</div>
+              <div className={styles.bonus}>
+                <div>{starIcon()}</div>
+                <div>{bonus}</div>
+              </div>
+            </div>
+          </div>
+          {data?.map((card) => {
             const { icon } = checkCardType(card?.credit_card);
             return (
-              <div 
-                className={`${styles.paymentMethod} ${card?.guid == mainCardId ? styles.mainCard : ''}`} 
+              <div
+                className={`${styles.paymentMethod} ${
+                  card?.guid == mainCardId ? styles.mainCard : ""
+                }`}
                 key={card?.guid}
                 onClick={() => changeMainCard(card)}
               >
@@ -153,10 +206,11 @@ const MyCardsPage = () => {
                   <div>{formatCardNumber(card?.credit_card)}</div>
                 </div>
 
-                { isDeleting == card?.guid ? (
-                    <CircularProgress size={20} />
-                  ) : isDeleteDisplayed(card) && orderData?.userID == userData?.guid
-                    && (
+                {isDeleting == card?.guid ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  isDeleteDisplayed(card) &&
+                  orderData?.userID == userData?.guid && (
                     <button
                       className={styles.editBtn}
                       onClick={(e) => {
@@ -166,10 +220,11 @@ const MyCardsPage = () => {
                     >
                       {t("delete")}
                     </button>
+                  )
                 )}
               </div>
-            )}
-          )}
+            );
+          })}
           <Dialog
             open={!!isDeleteConfirmOpen}
             onClose={() => setDeleteConfirmOpen(false)}

@@ -355,7 +355,7 @@ const MainMap = () => {
                 >
                   <XIcon />
                 </button>
-                <div className={styles.bonus}>
+                <div className={styles.bonus} onClick={() => navigate("/uz/bonuses")}>
                   {starIcon()} {bonus}
                 </div>
               </div>

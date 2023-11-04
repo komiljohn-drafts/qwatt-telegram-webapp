@@ -49,6 +49,19 @@
     font-size: 15px;
     color: #686B70;
   }
+  .bonus {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 100px;
+    background: rgba(249, 205, 47, 0.15);
+  
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px; 
+    color: #F9CD2F;
+  }
   .paymentMethod {
     background: linear-gradient(0deg, rgba(104, 107, 112, 0.05), rgba(104, 107, 112, 0.05)),
       linear-gradient(0deg, #f9f9f9, #f9f9f9);
