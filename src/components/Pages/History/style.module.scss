@@ -1,5 +1,11 @@
+@import "../../../styles/color";
+
+.container {
+  height: 100%;
+  background: $page-main-color;
+}
 .usedHistory {
-  background: #f9f9f9;
+  background: $page-header-color;
   margin: 24px 16px 16px;
   border-radius: 12px;
   padding: 12px;
@@ -9,13 +15,13 @@
   .usedTime {
     display: flex;
     justify-content: space-between;
-    color: #12adc1;
+    color: $primary-color;
     font-size: 13px;
     font-weight: 500;
     line-height: 18px;
     padding-bottom: 4px;
     .used {
-      background: #12adc126;
+      background: #0073ff26;
       border-radius: 100px;
       padding: 4px 10px;
     }
@@ -25,9 +31,9 @@
     font-size: 15px;
     font-weight: 400;
     line-height: 24px;
-    color: #686b70;
+    color: #fff;
     p {
-      color: #686b70b2;
+      color: $text-grey-color;
       padding-bottom: 2px;
     }
     .debtPayment {
@@ -57,19 +63,19 @@
     cursor: pointer;
     align-self: flex-end;
   }
-    .moreWrap:active,
-    .moreWrap:focus {
-      outline: none !important;
-      background-color: #f9f9f9 !important;background: #f9f9f9;
-    }
-  
-    
+  .moreWrap:active,
+  .moreWrap:focus {
+    outline: none !important;
+    background-color: #f9f9f9 !important;
+    background: #f9f9f9;
+  }
+
   .openCard {
     max-height: 1000px; /* Set to a sufficiently large value */
     overflow: hidden;
     transition: max-height 0.5s ease;
   }
-  
+
   .card {
     max-height: 0;
     overflow: hidden;
@@ -78,44 +84,53 @@
 }
 
 .NoHistory {
-  margin: 12px;
-}
-.NoHistoryBox {
-  height: 80vh;
-  width: 327px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .header {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 25px;
-    color: #282727;
-    text-align: center;
-  }
-  .text {
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 22px;
-    color: #686b70b2;
-    text-align: center;
+  height: 100vh;
+  background-color: $page-main-color;
+  .NoHistoryBox {
+    padding: 16px;
+    height: 80vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .header {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 25px;
+      color: #fff;
+      text-align: center;
+    }
+    .text {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 22px;
+      color: $text-grey-color;
+      text-align: center;
+    }
+    .btn {
+      width: 100%;
+      color: #fff;
+      padding: 12px;
+      background: $button-color;
+      border-radius: 10px;
+      margin-top: 16px;
+    }
   }
 }
 
-.loadMoreContainer{
+.loadMoreContainer {
   display: flex;
   justify-content: center;
   padding: 5px;
 
-  .loadMore{
+  .loadMore {
     background: #cfd3db;
     padding: 8px 16px;
     border-radius: 8px;
     color: #1b1c1db2;
 
-    span{
+    span {
       width: 20px !important;
       height: 20px !important;
     }

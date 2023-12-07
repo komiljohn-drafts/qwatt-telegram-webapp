@@ -1,16 +1,16 @@
-import ContactUsPage from "@/components/Pages/ContactUsPage";
-import MobileHeader from "@/components/UI/MobileHeader";
-import { useTranslation } from "react-i18next";
+import ContactUsPage from "@/components/Pages/ContactUsPage"
+import MobileHeader from "@/components/UI/MobileHeader"
+import { useTranslation } from "react-i18next"
 
 const ContactUs = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div>
-      <MobileHeader title={t("contact_us")} />
+      <MobileHeader title={t("contact_us")} isBlueBg={true} />
       <ContactUsPage />
     </div>
-  );
-};
+  )
+}
 
-export default ContactUs;
+export default ContactUs

@@ -1,35 +1,35 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion"
 import {
   DestinationIcon,
   QwattBlueIcon,
   QwattYellowIcon,
   XIcon,
-} from "@/screen-capture/icons";
-import { useEffect, useState } from "react";
+} from "@/screen-capture/icons"
+import { useEffect, useState } from "react"
 
-import PropTypes from "prop-types";
-import { getPrice } from "@/services/getPrice";
-import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import request from "@/utils/axios";
-import { useNavigate } from "react-router-dom";
-import ErrorAlert from "../ErrorAlert/ErrorAlert";
+import PropTypes from "prop-types"
+import { getPrice } from "@/services/getPrice"
+import styles from "./style.module.scss"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import request from "@/utils/axios"
+import { useNavigate } from "react-router-dom"
+import ErrorAlert from "../ErrorAlert/ErrorAlert"
 
 const MapPopup = ({ selectedBranch, setOpen }) => {
   // const [touchStart, setTouchStart] = useState(null);
   // const [touchEnd, setTouchEnd] = useState(null);
-  const userData = useSelector((state) => state.userData?.data);
-  const [errorAlertOpen, setErrorAlertOpen] = useState(false);
+  const userData = useSelector((state) => state.userData?.data)
+  const [errorAlertOpen, setErrorAlertOpen] = useState(false)
   const [errorAlertProps, setErrorAlertProps] = useState({})
-  const [data, setData] = useState(null);
-  const { t } = useTranslation();
+  const [data, setData] = useState(null)
+  const { t } = useTranslation()
   const variants = {
     initial: { y: "100%", opacity: 0 },
     visible: { y: 0, opacity: 1 },
     // transitionEnd: { display: "none" },
-  };
-  const navigate = useNavigate();
+  }
+  const navigate = useNavigate()
 
   // const { data } = useObjectList({
   //   tableSlug: "/pricing_descs",
@@ -47,13 +47,13 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
   // });
 
   const handleClick = () => {
-    if (!userData?.guid){
+    if (!userData?.guid) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: t('attention'),
-        errorMessage: t('try_restart')
+        title: t("attention"),
+        errorMessage: t("try_restart"),
       })
-      return;
+      return
     }
     request
       .post("get-list/credit_card_list", {
@@ -64,19 +64,21 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
       })
       .then((res) => {
         if (res?.data?.data?.count == 0) {
-          navigate("/uz/add-card?from=order");
+          navigate("/uz/add-card?from=order")
         } else {
-          navigate("/uz/order");
+          navigate("/uz/order")
         }
       })
       .catch((err) => {
-        console.log("my cards error", err); // log
-      });
-  };
+        console.log("my cards error", err) // log
+      })
+  }
 
   const handleRouteToDestination = () => {
     const destCoordinates = `${selectedBranch.latitude},${selectedBranch.longitude}`
-    window.Telegram.WebApp.openLink(`https://maps.google.com/maps?q=${destCoordinates}`);
+    window.Telegram.WebApp.openLink(
+      `https://maps.google.com/maps?q=${destCoordinates}`
+    )
   }
 
   useEffect(() => {
@@ -87,9 +89,9 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
         pricing_languages: "russian",
       },
     }).then((res) => {
-      setData(res?.data?.data?.response);
-    });
-  }, [selectedBranch]);
+      setData(res?.data?.data?.response)
+    })
+  }, [selectedBranch])
 
   return (
     <AnimatePresence mode="wait">
@@ -108,9 +110,9 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
           title={errorAlertProps.title}
           errorMesage={errorAlertProps.errorMessage}
         />
-        <div className={styles.popUpDash}>
+        {/* <div className={styles.popUpDash}>
           <span></span>
-        </div>
+        </div> */}
         <div className={styles.xIcon}>
           <span onClick={() => setOpen(() => false)}>
             <XIcon />
@@ -152,10 +154,10 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
           <div>
             {data?.map((item) => (
               <div className={styles.tarif} key={item?.guid}>
-                <div>{item?.title}</div>
+                <p>{item?.title}</p>
 
                 <div className={styles.tarifLine}></div>
-                <div className="font-medium">{item?.pricing}</div>
+                <span className="font-medium">{item?.pricing}</span>
               </div>
             ))}
           </div>
@@ -165,17 +167,17 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
         </button>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default MapPopup;
+export default MapPopup
 
 MapPopup.propTypes = {
   selectedBranch: PropTypes.object,
   setOpen: PropTypes.func,
-};
+}
 
 MapPopup.defaultProps = {
   selectedBranch: {},
   setOpen: () => {},
-};
+}

@@ -1,21 +1,27 @@
-.contactUsWrapper{
+@import "../../../styles/color";
+
+.contactUsWrapper {
+  height: 100vh;
+  background-color: $page-main-color;
   width: 100%;
   padding: 24px 16px 16px;
 
-  .container{
-    background-color: #f9f9f9;
+  .container {
+    border-radius: 21px;
+    background: #242429;
+    border: 1px solid #313136;
     border-radius: 12px;
     padding: 12px;
 
-    .label{
+    .label {
       font-size: 15px;
       font-weight: 400;
       line-height: 24px;
-      color: #52555b;
+      color: #fff;
       margin-top: 6px;
     }
-    button{
-      color: #12adc1;
+    button {
+      color: $primary-color;
       font-weight: 600;
       font-size: 15px;
       line-height: 24px;

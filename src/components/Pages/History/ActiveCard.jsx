@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
-import styles from "./style.module.scss";
-import useOrderTimer from "@/hooks/useOrderTimer";
-import { useTranslation } from "react-i18next";
-import { formatDate } from "@/helpers/formatDate";
+import PropTypes from "prop-types"
+import styles from "./style.module.scss"
+import useOrderTimer from "@/hooks/useOrderTimer"
+import { useTranslation } from "react-i18next"
+import { formatDate } from "@/helpers/formatDate"
 
 const ActiveCard = ({ order }) => {
-  const { orderStatusTime } = useOrderTimer(order);
-  const { t } = useTranslation();
+  const { orderStatusTime } = useOrderTimer(order)
+  const { t } = useTranslation()
 
   return (
     <div className={styles.usedHistory}>
@@ -15,16 +15,24 @@ const ActiveCard = ({ order }) => {
           <div className="flex flex-row w-full justify-between items-center">
             <div
               className="flex items-center justify-center px-2 py-1 rounded-2xl"
-              style={{ background: "rgba(18, 173, 193, 0.15)" }}
+              style={{ background: "#0073FF26" }}
             >
-              <p className="font-medium text-sm text-[#12ADC1]">
+              <p className="font-medium text-sm text-[#0073FF]">
                 {t("on_use")}
               </p>
             </div>
-            <p className="font-medium text-[#12ADC1]">{`
-              ${orderStatusTime.days > 0 ? orderStatusTime.days +t("day")+"." : ""}
-              ${orderStatusTime.days == 0 && orderStatusTime.hours == 0 ? "" : orderStatusTime.hours+t("hour")+"."}
-              ${orderStatusTime.minutes+t("minute")+"."}
+            <p className="font-medium text-[#0073FF]">{`
+              ${
+                orderStatusTime.days > 0
+                  ? orderStatusTime.days + t("day") + "."
+                  : ""
+              }
+              ${
+                orderStatusTime.days == 0 && orderStatusTime.hours == 0
+                  ? ""
+                  : orderStatusTime.hours + t("hour") + "."
+              }
+              ${orderStatusTime.minutes + t("minute") + "."}
             `}</p>
           </div>
         )}
@@ -53,15 +61,15 @@ const ActiveCard = ({ order }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ActiveCard;
+export default ActiveCard
 
 ActiveCard.propTypes = {
   order: PropTypes.object,
-};
+}
 
 ActiveCard.defaultProps = {
   order: {},
-};
+}

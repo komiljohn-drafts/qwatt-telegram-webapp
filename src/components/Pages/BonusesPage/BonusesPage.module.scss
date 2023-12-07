@@ -1,88 +1,93 @@
-.blueBg{
-  background-color: #12adc1;
-  height: 56px;
-  padding: 16px;
+@import "../../../styles/color";
 
-  .bonusesContainer{
-    background-color: white;
-    border-radius: 12px;
-    padding: 12px 16px;
+.container {
+  background-color: $page-main-color;
+  height: 100vh;
+  .blueBg {
+    background-color: $page-header-color;
+    height: 56px;
+    padding: 16px;
+
+    .bonusesContainer {
+      background-color: $primary-color;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.12);
+
+      color: $text-grey-color;
+      font-family: "SF Pro Display";
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px; /* 138.462% */
+
+      .bonuses {
+        color: $primary-color;
+        font-family: "SF Pro Display";
+        font-size: 34px;
+        font-weight: 700;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .promocodeContainer {
+    border-radius: 21px;
+    background: #242429;
+    border: 1px solid #313136;
+    margin: 64px 16px 0px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.12);    
 
-    color: #686B70;
-    font-family: "SF Pro Display";
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 18px; /* 138.462% */
-    
-    
-    .bonuses{
-      color: #12ADC1;
+    label {
+      margin: 0 auto;
+      color: #fff;
+      text-align: center;
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px; /* 129.412% */
+    }
+
+    input {
+      margin-top: 12px;
+      height: 48px;
+      padding: 0px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(104, 107, 112, 0.1);
+      background: #34353f;
+      outline: none;
+
+      &:focus {
+        border: 1px solid $primary-color;
+      }
+    }
+
+    button {
+      margin-top: 8px;
+      color: white;
       font-family: "SF Pro Display";
-      font-size: 34px;
-      font-weight: 700;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px; /* 133.333% */
+      height: 48px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: $primary-color;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      margin-top: 4px;
-    }
-  }
-}
-
-.promocodeContainer{
-  border-radius: 21px;
-  border: 1px solid #F3F3F3;
-  background: #F9F9F9;
-  margin: 64px 16px 0px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-
-  label{
-    margin: 0 auto;
-    color: #282727;
-    text-align: center;
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px; /* 129.412% */
-  }
-
-  input{
-    margin-top: 12px;
-    height: 48px;
-    padding: 0px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(104, 107, 112, 0.10);
-    background: white;
-    outline: none;
-    
-    &:focus{
-      border: 1px solid #12ADC1;
-    }
-  }
-
-  button{
-    margin-top: 8px;
-    color: white;
-    font-family: "SF Pro Display";
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 133.333% */
-    height: 48px;
-    padding: 8px 16px;
-    border-radius: 12px;
-    background: #12ADC1;
-    
-    &:hover,
-    &:active{
-      background: #0f98aa;
+      &:hover,
+      &:active {
+        background: #0f98aa;
+      }
     }
   }
 }

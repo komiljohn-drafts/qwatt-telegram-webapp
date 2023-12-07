@@ -1,13 +1,15 @@
+@import "../../../styles/color";
+
 .header {
   display: flex;
   justify-content: space-between;
   // padding: 16px;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #4b4b59;
   width: 100%;
   align-items: center;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 19px;
 }
 .BackIcon {
   border: none;
@@ -17,7 +19,8 @@
   margin-right: -40px;
   padding: 16px;
 }
-.blueBg{
-  background-color: #12adc1;
-  border-bottom: 1px solid #12adc1;
+.blueBg {
+  background-color: $page-header-color;
+  border-bottom: 1px solid $page-header-color;
+  border-bottom: 1px solid #4b4b59;
 }

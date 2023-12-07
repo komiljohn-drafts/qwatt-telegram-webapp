@@ -1,13 +1,13 @@
-import { LocationIcon, PhoneIcon } from "@/screen-capture/icons";
+import { LocationIcon, PhoneIcon } from "@/screen-capture/icons"
 
-import PropTypes from "prop-types";
-import styles from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { getCards } from "@/services/getCards";
-import ErrorAlert from "../ErrorAlert/ErrorAlert";
-import { useState } from "react";
+import PropTypes from "prop-types"
+import styles from "./style.module.scss"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
+import { getCards } from "@/services/getCards"
+import ErrorAlert from "../ErrorAlert/ErrorAlert"
+import { useState } from "react"
 
 const CloseLocation = ({
   nearestMerchants,
@@ -16,49 +16,52 @@ const CloseLocation = ({
   setOpen,
   setSelectedBranch,
 }) => {
-  const userData = useSelector((state) => state.userData?.data);
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const userData = useSelector((state) => state.userData?.data)
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
   const [errorAlertProps, setErrorAlertProps] = useState({})
 
   function kilometerParseMeter(lat, long) {
     const distanceInMeters = Math.floor(
       distance(parseFloat(lat), parseFloat(long)) * 1000
-    );
-    return distanceInMeters.toString();
+    )
+    return distanceInMeters.toString()
   }
 
   const handleClick = () => {
     if (!userData?.guid) {
       setErrorAlertOpen(true)
       setErrorAlertProps({
-        title: t('attention'),
-        errorMessage: t('try_restart')
+        title: t("attention"),
+        errorMessage: t("try_restart"),
       })
-      return;
+      return
     }
-    
+
     getCards({
-      data:{
-        user: userData?.guid
-      }
+      data: {
+        user: userData?.guid,
+      },
     })
       .then((res) => {
         if (res?.data?.data?.data?.response.length == 0) {
-          navigate("/uz/add-card?from=order");
+          navigate("/uz/add-card?from=order")
         } else {
-          navigate("/uz/order");
+          navigate("/uz/order")
         }
       })
       .catch((err) => {
-        setErrorAlertOpen(true);
-      });
-  };
+        setErrorAlertOpen(true)
+      })
+  }
 
   return (
     <div className={styles.CloseLocationWrap}>
-      <button className={styles.circle} onClick={() => window.open('tel:+998954748080', '_blank')}>
+      <button
+        className={styles.circle}
+        onClick={() => window.open("tel:+998954748080", "_blank")}
+      >
         <PhoneIcon />
       </button>
       <div className={styles.closeLocations}>
@@ -70,9 +73,9 @@ const CloseLocation = ({
               mapRef.current?.setCenter([item.latitude, item.longitude], 15, {
                 duration: 700,
                 checkZoomRange: true,
-              });
-              setOpen((p) => !p);
-              setSelectedBranch(item);
+              })
+              setOpen((p) => !p)
+              setSelectedBranch(item)
             }}
           >
             <LocationIcon />
@@ -84,20 +87,22 @@ const CloseLocation = ({
           </div>
         ))}
       </div>
-      <button onClick={handleClick} className={styles.getButton}>
-        {t("get_powerbank")}
-      </button>
+      <div className={styles.bgShadow}>
+        <button onClick={handleClick} className={styles.getButton}>
+          {t("get_powerbank")}
+        </button>
+      </div>
       <ErrorAlert
-          openAlert={isErrorAlertOpen}
-          setOpenAlert={setErrorAlertOpen}
-          title={errorAlertProps.title}
-          errorMesage={errorAlertProps.errorMessage}
-        />
+        openAlert={isErrorAlertOpen}
+        setOpenAlert={setErrorAlertOpen}
+        title={errorAlertProps.title}
+        errorMesage={errorAlertProps.errorMessage}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default CloseLocation;
+export default CloseLocation
 
 CloseLocation.propTypes = {
   nearestMerchants: PropTypes.array,
@@ -105,7 +110,7 @@ CloseLocation.propTypes = {
   mapRef: PropTypes.object,
   setOpen: PropTypes.func,
   setSelectedBranch: PropTypes.func,
-};
+}
 
 CloseLocation.defaultProps = {
   nearestMerchants: [],
@@ -113,4 +118,4 @@ CloseLocation.defaultProps = {
   mapRef: {},
   setOpen: () => {},
   setSelectedBranch: () => {},
-};
+}

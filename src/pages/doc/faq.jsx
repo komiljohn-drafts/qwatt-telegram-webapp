@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-import MobileHeader from "@/components/UI/MobileHeader";
-import { getPriceFaq } from "@/services/getPrice";
-import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner"
+import MobileHeader from "@/components/UI/MobileHeader"
+import { getPriceFaq } from "@/services/getPrice"
+import styles from "./style.module.scss"
+import { useTranslation } from "react-i18next"
 
 const Requisites = () => {
-  const [data, setData] = useState(null);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+  const [data, setData] = useState(null)
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const getFaq = () => {
     getPriceFaq({
@@ -21,24 +21,24 @@ const Requisites = () => {
       },
     })
       .then((res) => {
-        if(res?.data?.data?.response[0].description){
-          setData(res?.data?.data?.response[0].description);
+        if (res?.data?.data?.response[0].description) {
+          setData(res?.data?.data?.response[0].description)
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
         }
       })
       .catch(() => {
-        setErrorAlertOpen(true);
-      });
-  };
+        setErrorAlertOpen(true)
+      })
+  }
 
   useEffect(() => {
-    getFaq();
-  }, []);
+    getFaq()
+  }, [])
 
   return (
     <div>
-      <MobileHeader title={t("requisites")} />
+      <MobileHeader title={t("requisites")} isBlueBg={true} />
 
       {!data && <FullScreenSpinner />}
       <ErrorAlert
@@ -50,7 +50,7 @@ const Requisites = () => {
         dangerouslySetInnerHTML={{ __html: data }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Requisites;
+export default Requisites

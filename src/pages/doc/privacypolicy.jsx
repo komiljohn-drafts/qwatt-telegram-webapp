@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-import MobileHeader from "@/components/UI/MobileHeader";
-import { getPriceFaq } from "@/services/getPrice";
-import styles from "./style.module.scss";
-import { useTranslation } from "react-i18next";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner"
+import MobileHeader from "@/components/UI/MobileHeader"
+import { getPriceFaq } from "@/services/getPrice"
+import styles from "./style.module.scss"
+import { useTranslation } from "react-i18next"
 
 const PrivacyPolicy = () => {
-  const [data, setData] = useState(null);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const { t } = useTranslation();
+  const [data, setData] = useState(null)
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
+  const { t } = useTranslation()
 
   const getPrivacyPolicy = () => {
     getPriceFaq({
@@ -21,23 +21,23 @@ const PrivacyPolicy = () => {
     })
       .then((res) => {
         if (res?.data?.data?.response[0].description) {
-          setData(res?.data?.data?.response[0].description);
+          setData(res?.data?.data?.response[0].description)
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
         }
       })
       .catch(() => {
-        setErrorAlertOpen(true);
-      });
-  };
+        setErrorAlertOpen(true)
+      })
+  }
 
   useEffect(() => {
-    getPrivacyPolicy();
-  }, []);
+    getPrivacyPolicy()
+  }, [])
 
   return (
     <div>
-      <MobileHeader title={t("data_processing")} />
+      <MobileHeader title={t("data_processing")} isBlueBg={true} />
 
       {!data && <FullScreenSpinner />}
 
@@ -50,7 +50,7 @@ const PrivacyPolicy = () => {
         dangerouslySetInnerHTML={{ __html: data }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default PrivacyPolicy;
+export default PrivacyPolicy

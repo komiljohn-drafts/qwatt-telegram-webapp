@@ -1,23 +1,23 @@
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { BiggerStarIcon } from "@/screen-capture/icons";
-import { getBonus, giveGifts } from "@/services/getProfile";
-import styles from "./BonusesPage.module.scss";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import { BiggerStarIcon } from "@/screen-capture/icons"
+import { getBonus, giveGifts } from "@/services/getProfile"
+import styles from "./BonusesPage.module.scss"
 
 const BonusesPage = () => {
-  const userData = useSelector((state) => state.userData?.data);
-  const [promocode, setPromocode] = useState("");
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertOptions, setErrorAlertOptions] = useState('');
-  const [bonus, setBonus] = useState("");
-  const { t } = useTranslation();
+  const userData = useSelector((state) => state.userData?.data)
+  const [promocode, setPromocode] = useState("")
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
+  const [errorAlertOptions, setErrorAlertOptions] = useState("")
+  const [bonus, setBonus] = useState("")
+  const { t } = useTranslation()
 
   const fetchBonus = () => {
     if (!userData?.guid) {
-      setErrorAlertOpen(true);
-      return;
+      setErrorAlertOpen(true)
+      return
     }
     getBonus({
       data: {
@@ -29,18 +29,18 @@ const BonusesPage = () => {
       .then((res) => {
         if (res?.status === "OK") {
           if (res?.data?.data?.response?.length > 0) {
-            setBonus(res?.data?.data?.response?.[0]?.balance);
+            setBonus(res?.data?.data?.response?.[0]?.balance)
           } else {
-            setBonus(0);
+            setBonus(0)
           }
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
         }
       })
       .catch((err) => {
-        setErrorAlertOpen(true);
-      });
-  };
+        setErrorAlertOpen(true)
+      })
+  }
 
   const submit = () => {
     giveGifts({
@@ -49,35 +49,35 @@ const BonusesPage = () => {
         name_promocode: promocode,
       },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res", res) // log
         if (res?.data?.data?.data?.error_note === 500) {
           setErrorAlertOptions({
-            title: '',
-            message: t('already_used_promocode')
+            title: "",
+            message: t("already_used_promocode"),
           })
           setErrorAlertOpen(true)
-        } else if (res?.data?.data?.status === "done"){
+        } else if (res?.data?.data?.status === "done") {
           fetchBonus()
           setPromocode("")
           setErrorAlertOptions({
-            title: t('promo_code_enabled'),
-            message: " "
+            title: t("promo_code_enabled"),
+            message: " ",
           })
           setErrorAlertOpen(true)
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("err", err) // log
       })
-  };
+  }
 
   useEffect(() => {
-    fetchBonus();
-  }, []);
+    fetchBonus()
+  }, [])
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.blueBg}>
         <div className={styles.bonusesContainer}>
           <p>{t("scores")}</p>
@@ -105,7 +105,7 @@ const BonusesPage = () => {
         errorMesage={errorAlertOptions.message}
       />
     </div>
-  );
-};
+  )
+}
 
-export default BonusesPage;
+export default BonusesPage

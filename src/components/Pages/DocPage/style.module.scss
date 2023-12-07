@@ -1,3 +1,5 @@
+@import "../../../styles/color";
+
 .langBox {
   padding: 24px 16px 0px;
   display: flex;
@@ -9,14 +11,23 @@
   line-height: 18px;
   color: #686b7080;
 }
-.docWrap {
-  padding: 16px;
-  .document {
-    display: flex;
-    justify-content: space-between;
-    padding: 19px 0;
-    border-bottom: 1px solid #f3f3f3;
-    font-size: 15px;
-    font-weight: 500;
+
+.container {
+  height: 100vh;
+  background-color: $page-main-color;
+  .docWrap {
+    padding: 16px;
+    .document {
+      display: flex;
+      justify-content: space-between;
+      padding: 19px 0;
+      border-bottom: 1px solid #313136;
+
+      p {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
   }
 }
