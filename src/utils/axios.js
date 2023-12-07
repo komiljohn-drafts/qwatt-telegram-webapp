@@ -27,8 +27,9 @@ request.interceptors.response.use((response) => {
 
 export function errorHandler(error) {
   if (error.response.status === 401 || error.response.status === 403) {
-    window.Telegram?.WebApp.close();
-    return Promise.reject(error.response);
+    console.log("error => ", error);
+    // window.Telegram?.WebApp.close();
+    // return Promise.reject(error.response);
   }
   if (error.response) {
     return Promise.reject(error.response);
