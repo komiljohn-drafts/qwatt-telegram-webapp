@@ -15,14 +15,7 @@ import {
   XIcon,
   starIcon,
 } from "@/screen-capture/icons";
-import {
-  Clusterer,
-  GeolocationControl,
-  Map,
-  Placemark,
-  YMaps,
-  ZoomControl,
-} from "react-yandex-maps";
+import { Clusterer, GeolocationControl, Map, Placemark, YMaps, ZoomControl } from "react-yandex-maps";
 import { useRef, useState } from "react";
 
 import CloseLocation from "./CloseLocation";
@@ -47,21 +40,22 @@ import { sendMsg } from "@/helpers/sendMsg";
 import { getBonus } from "@/services/getProfile";
 
 const MainMap = () => {
+  const mapRef = useRef();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { locationIds } = useSelector((state) => state.locations);
-  const { filterId } = useSelector((state) => state.filter);
+  const userData = useSelector((state) => state.userData?.data);
+  const orderData = useSelector((state) => state.orderDetails?.data);
+
+  const [bonus, setBonus] = useState("");
   const [data, setData] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState({});
   const [nearestMerchants, setNearestMerchants] = useState([]);
-  const userData = useSelector((state) => state.userData?.data);
-  const mapRef = useRef();
-  const orderData = useSelector((state) => state.orderDetails?.data);
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [bonus, setBonus] = useState('');
 
   // console.log("userData", userData) // log
   // const [ymaps, setYmaps] = useState("");
@@ -118,13 +112,13 @@ const MainMap = () => {
     {
       text: "contact_us",
       route: "/uz/contact_us",
-      icon: <PhoneIconSquare />
-    }
+      icon: <PhoneIconSquare />,
+    },
   ];
 
   const fetchBonus = () => {
     if (!userData?.guid) {
-      setErrorAlertOpen(true)
+      setErrorAlertOpen(true);
       return;
     }
     getBonus({
@@ -135,20 +129,20 @@ const MainMap = () => {
       },
     })
       .then((res) => {
-        if(res?.status === "OK"){
-          if(res?.data?.data?.response?.length > 0){
-            setBonus(res?.data?.data?.response?.[0]?.balance)
+        if (res?.status === "OK") {
+          if (res?.data?.data?.response?.length > 0) {
+            setBonus(res?.data?.data?.response?.[0]?.balance);
           } else {
-            setBonus(0)
+            setBonus(0);
           }
         } else {
-          setErrorAlertOpen(true)
+          setErrorAlertOpen(true);
         }
       })
       .catch((err) => {
         setErrorAlertOpen(true);
       });
-  }
+  };
 
   useEffect(() => {
     getMerchantList()
@@ -175,15 +169,15 @@ const MainMap = () => {
         // setData(
         //   filteredData?.length == 0 ? res?.data?.data?.response : filteredData
         // );
-        setData(res?.data?.data?.data?.response)
+        setData(res?.data?.data?.data?.response);
         // console.log("res?.data?.data?.response", res?.data?.data?.response) // log
       })
       .catch((err) => {
         console.log("merchant err", err); // log
         setErrorAlertOpen(true);
       });
-  // }, [filterId]);
-    }, []);
+    // }, [filterId]);
+  }, []);
 
   useEffect(() => {
     const options = {
@@ -207,8 +201,7 @@ const MainMap = () => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
       // setNotAllowed(true);
     }
-    if (!locationIds?.lat && !locationIds?.long)
-      navigator.geolocation.getCurrentPosition(success, error, options);
+    if (!locationIds?.lat && !locationIds?.long) navigator.geolocation.getCurrentPosition(success, error, options);
   }, [locationIds?.lat, locationIds?.long]);
 
   ////
@@ -229,9 +222,7 @@ const MainMap = () => {
 
       let a =
         Math.pow(Math.sin(nearbyLat / 2), 2) +
-        Math.cos(userLocationLat) *
-          Math.cos(merchantLat) *
-          Math.pow(Math.sin(nearbyLong / 2), 2);
+        Math.cos(userLocationLat) * Math.cos(merchantLat) * Math.pow(Math.sin(nearbyLong / 2), 2);
       let c = 2 * Math.asin(Math.sqrt(a));
       return c * r;
     },
@@ -243,14 +234,8 @@ const MainMap = () => {
     (merchants) => {
       const merchantSort = merchants?.slice(); // in order to make copy by values
       merchantSort?.sort((a, b) => {
-        const distanceA = distance(
-          parseFloat(a.latitude),
-          parseFloat(a.longitude)
-        );
-        const distanceB = distance(
-          parseFloat(b.latitude),
-          parseFloat(b.longitude)
-        );
+        const distanceA = distance(parseFloat(a.latitude), parseFloat(a.longitude));
+        const distanceB = distance(parseFloat(b.latitude), parseFloat(b.longitude));
         return distanceA - distanceB;
       });
       if (merchantSort?.length > 0) {
@@ -271,7 +256,7 @@ const MainMap = () => {
   useEffect(() => {
     if (!userData?.guid) return;
 
-    fetchBonus()
+    fetchBonus();
     getOrders({
       data: {
         userId: userData?.guid,
@@ -293,8 +278,7 @@ const MainMap = () => {
         dispatch(userDataActions?.setUserDebt(res.data?.data?.data?.in_debt));
 
         // this is used because we need to append not set
-        let existingOrders =
-          orderData?.userID != userData?.guid ? orderData?.orders : [];
+        let existingOrders = orderData?.userID != userData?.guid ? orderData?.orders : [];
 
         res.data?.data?.data?.response?.forEach((ord) => {
           if (ord?.status_name == "In The Lease") {
@@ -317,10 +301,7 @@ const MainMap = () => {
     <div style={{ position: "relative" }}>
       {!data && <FullScreenSpinner />}
       <div className={styles.headerNav}>
-        <div
-          className={`${styles.openSidebar} cursor-pointer`}
-          onClick={() => setMenuVisible(true)}
-        >
+        <div className={`${styles.openSidebar} cursor-pointer`} onClick={() => setMenuVisible(true)}>
           <MenuIcon />
         </div>
         {/* <div className={styles.openFilter} onClick={() => navigate("/filter")}>
@@ -349,10 +330,7 @@ const MainMap = () => {
           >
             <div className={styles.menu}>
               <div className={styles.menuHeader}>
-                <button
-                  className={styles.xIcon}
-                  onClick={() => setMenuVisible(false)}
-                >
+                <button className={styles.xIcon} onClick={() => setMenuVisible(false)}>
                   <XIcon />
                 </button>
                 <div className={styles.bonus} onClick={() => navigate("/uz/bonuses")}>
@@ -360,28 +338,32 @@ const MainMap = () => {
                 </div>
               </div>
               <div className={styles.menuWrap}>
-                {menuItems.map(item => (
-                  <div
-                    key={item.text}
-                    className={styles.menuItem}
-                    onClick={() => navigate(item.route)}
-                  >
+                {menuItems.map((item) => (
+                  <div key={item.text} className={styles.menuItem} onClick={() => navigate(item.route)}>
                     <div className={styles.menuIcon}>{item.icon}</div>
                     <div>{t(item.text)}</div>
                   </div>
                 ))}
 
                 <div className={styles.downloadApp}>
-                  <p>{t("download_app")}</p>
+                  <p
+                    onClick={() => {
+                      dispatch(userDataActions.setUserData({ ...userData, token: "token-poken" }));
+                    }}
+                  >
+                    {t("download_app")}
+                  </p>
                   <div className={styles.apps}>
                     <div
-                      onClick={() => window.open('https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516', '_blank')}
+                      onClick={() =>
+                        window.open("https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516", "_blank")
+                      }
                     >
                       <AppStoreIcon />
                     </div>
                     <div
                       onClick={() => {
-                        window.open('https://play.google.com/store/apps/details?id=com.q.watt', '_blank')
+                        window.open("https://play.google.com/store/apps/details?id=com.q.watt", "_blank");
                       }}
                     >
                       <PlayMarketIcon />
@@ -433,20 +415,16 @@ const MainMap = () => {
               clusterIconContentLayout: null,
             }}
           >
-            {data?.map((branch, i) => ( 
+            {data?.map((branch, i) => (
               <Placemark
                 key={i}
                 geometry={[branch.latitude, branch.longitude]}
                 onClick={() => {
                   setSelectedBranch(branch);
-                  mapRef.current?.setCenter(
-                    [branch.latitude, branch.longitude],
-                    15,
-                    {
-                      duration: 700,
-                      checkZoomRange: true,
-                    }
-                  );
+                  mapRef.current?.setCenter([branch.latitude, branch.longitude], 15, {
+                    duration: 700,
+                    checkZoomRange: true,
+                  });
                   setOpen((p) => !p);
                 }}
                 options={{
@@ -479,10 +457,7 @@ const MainMap = () => {
       </YMaps>
 
       {orderData?.userID == userData?.guid && <OrderInfo />}
-      <ErrorAlert
-        openAlert={isErrorAlertOpen}
-        setOpenAlert={setErrorAlertOpen}
-      />
+      <ErrorAlert openAlert={isErrorAlertOpen} setOpenAlert={setErrorAlertOpen} />
 
       <CloseLocation
         nearestMerchants={nearestMerchants}

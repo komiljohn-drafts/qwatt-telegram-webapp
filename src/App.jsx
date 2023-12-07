@@ -1,13 +1,12 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet, useMatch } from "react-router-dom";
 
 import { Main } from "./components/Pages/Main";
 import { getProfile } from "./services/getProfile";
-import { useDispatch, useSelector } from "react-redux";
 import useTelegram from "./hooks/useTelegram";
 import { userDataActions } from "./store/slices/userData";
-import { useEffect } from "react";
 import { useLangContext } from "./contexts/langContext";
-import { sendMsg } from "./helpers/sendMsg";
 
 function App() {
   const userInitialData = useTelegram();
@@ -15,10 +14,10 @@ function App() {
   const match = useMatch("/:lang");
   const { changeLang } = useLangContext();
 
-  const urlSegments = window?.location?.pathname?.split('/')
-  const urlLastSegment = urlSegments?.[urlSegments.length-1]
-  if(["uz", "ru", "en"].includes(urlLastSegment)){
-    changeLang(urlLastSegment)
+  const urlSegments = window?.location?.pathname?.split("/");
+  const urlLastSegment = urlSegments?.[urlSegments.length - 1];
+  if (["uz", "ru", "en"].includes(urlLastSegment)) {
+    changeLang(urlLastSegment);
   }
 
   useEffect(() => {
@@ -27,19 +26,15 @@ function App() {
         dispatch(userDataActions.setUserData(res?.data?.data?.response));
       });
     } else {
-      dispatch(userDataActions.setUserData({}))
+      dispatch(userDataActions.setUserData({}));
     }
-  },[userInitialData])
+  }, [userInitialData]);
 
   if (match || urlLastSegment == "") {
     return <Main />;
   }
 
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }
 
 export default App;

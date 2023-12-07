@@ -5,7 +5,7 @@ import { getUserId } from "@/services/getUser";
 import { userTelegramDataActions } from "@/store/slices/userTelegramData";
 import { sendMsg } from "@/helpers/sendMsg";
 
-let msg = ""
+let msg = "";
 
 const useTelegram = () => {
   const dispatch = useDispatch();
@@ -14,10 +14,11 @@ const useTelegram = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const tgUserData = window.Telegram?.WebApp?.initDataUnsafe?.user
-      dispatch(userTelegramDataActions.setUserTelegramData(tgUserData))
-      msg += "\n\n#TgUser=\n"+JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user)
-      setTgID(tgUserData?.id)
+      const tgUserData = window.Telegram?.WebApp?.initDataUnsafe?.user;
+      dispatch(userTelegramDataActions.setUserTelegramData(tgUserData));
+      msg += "\n\n#TgUser=\n" + JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user);
+      // setTgID(tgUserData?.id)
+      setTgID("5709226930");
     }
 
     // setTgID("6054841751");
@@ -35,16 +36,15 @@ const useTelegram = () => {
     // setTgID('1546926238') // Bekmurod
     // setTgID("6277376579")
     // setTgID("6267637476") // Temur
-    
   }, []);
 
   useEffect(() => {
     if (tgID) {
-      msg += "\n\n#tgID\n"+tgID
+      msg += "\n\n#tgID\n" + tgID;
       getUserId({ data: { telegram_id: tgID } })
         .then((res) => {
-          msg += "\n\n#userData\n"+JSON.stringify(res?.data?.data?.response?.[0])
-          sendMsg(msg)
+          msg += "\n\n#userData\n" + JSON.stringify(res?.data?.data?.response?.[0]);
+          sendMsg(msg);
           setUserData(res?.data?.data?.response?.[0]);
         })
         .catch((err) => {

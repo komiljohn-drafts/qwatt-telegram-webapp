@@ -5,13 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-import {
-  deleteProfile,
-  deleteUser,
-  getBonus,
-  getProfile,
-  sendMsgDeleted,
-} from "@/services/getProfile";
+import { deleteUser, getBonus, getProfile, sendMsgDeleted } from "@/services/getProfile";
 import styles from "./style.module.scss";
 import { LightingIcon } from "@/screen-capture/icons";
 import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
@@ -115,6 +109,7 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    console.log("userdata => ", userData);
     if (!userData?.guid) {
       setErrorAlertOpen(true);
       setErrorAlertProps({
@@ -142,17 +137,17 @@ const ProfilePage = () => {
         user_id: [userData?.guid],
       },
     })
-    .then((res) => {
-      if(res?.status === "OK"){
-        if(res?.data?.data?.response?.length > 0){
-          setBonus(res?.data?.data?.response?.[0]?.balance)
+      .then((res) => {
+        if (res?.status === "OK") {
+          if (res?.data?.data?.response?.length > 0) {
+            setBonus(res?.data?.data?.response?.[0]?.balance);
+          } else {
+            setBonus(0);
+          }
         } else {
-          setBonus(0)
+          setErrorAlertOpen(true);
         }
-      } else {
-        setErrorAlertOpen(true)
-      }
-    })
+      })
       .catch((err) => {
         setErrorAlertOpen(true);
       });
@@ -177,12 +172,8 @@ const ProfilePage = () => {
   return (
     <div className={styles.profileBox}>
       <div className={styles.profileData}>
-        <p className={styles.profileHeader}>
-          {fetchedData?.name || t("personal_details")}
-        </p>
-        <p className={styles.profileText}>
-          {formatPhoneNumber(fetchedData?.phone) || ""}
-        </p>
+        <p className={styles.profileHeader}>{fetchedData?.name || t("personal_details")}</p>
+        <p className={styles.profileText}>{formatPhoneNumber(fetchedData?.phone) || ""}</p>
         <div className={styles.bonus}>
           <LightingIcon />
           <p>{bonus !== "" ? bonus + " " + t("score") : ""}</p>
@@ -195,10 +186,7 @@ const ProfilePage = () => {
         <div className={styles.logout} onClick={() => checkBefore("logOut")}>
           {t("logout")}
         </div>
-        <div
-          onClick={() => checkBefore("delete")}
-          className={styles.deleteAccount}
-        >
+        <div onClick={() => checkBefore("delete")} className={styles.deleteAccount}>
           {t("delete_account")}
         </div>
       </div>
@@ -209,13 +197,8 @@ const ProfilePage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <p className={styles.modalHeader}>
-            {" "}
-            {t(modalVersions[open]?.title)} ?
-          </p>
-          <p className={styles.modalSubtext}>
-            {t(modalVersions[open]?.description)}
-          </p>
+          <p className={styles.modalHeader}> {t(modalVersions[open]?.title)} ?</p>
+          <p className={styles.modalSubtext}>{t(modalVersions[open]?.description)}</p>
           <div className={styles.modalBtns}>
             <button className={styles.cancelBtn} onClick={handleClose}>
               {t("cancel")}

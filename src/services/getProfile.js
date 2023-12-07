@@ -35,7 +35,7 @@ export const deleteUser = async (data) => {
 };
 
 export const sendMsgDeleted = async (data) => {
-  return await axios.post("https://test.qwatt-bot.qwatt.uz/users_clean", data);
+  return await axios.post("https://qwatt-bot.qwatt.uz/users_clean", data);
 };
 
 export const getBonus = async (data) => {
@@ -47,8 +47,5 @@ export const getBonus = async (data) => {
 };
 
 export const giveGifts = async (data) => {
-  return await requestInvoke.post(
-    "/qwatt-givegifts-4dbfb907-8b4b-460b-906b-cc81c58e656c",
-    data
-  );
+  return await requestInvoke.post("/qwatt-givegifts-4dbfb907-8b4b-460b-906b-cc81c58e656c", data);
 };
