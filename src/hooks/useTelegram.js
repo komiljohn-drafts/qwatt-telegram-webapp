@@ -17,8 +17,8 @@ const useTelegram = () => {
       const tgUserData = window.Telegram?.WebApp?.initDataUnsafe?.user;
       dispatch(userTelegramDataActions.setUserTelegramData(tgUserData));
       msg += "\n\n#TgUser=\n" + JSON.stringify(window.Telegram?.WebApp?.initDataUnsafe?.user);
-      // setTgID(tgUserData?.id)
-      setTgID("5709226930");
+      setTgID(tgUserData?.id);
+      // setTgID("5709226930");
     }
 
     // setTgID("6054841751");
