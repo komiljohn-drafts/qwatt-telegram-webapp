@@ -46,6 +46,7 @@ const useTelegram = () => {
           msg += "\n\n#userData\n" + JSON.stringify(res?.data?.data?.response?.[0]);
           sendMsg(msg);
           setUserData(res?.data?.data?.response?.[0]);
+          console.log("res => ", res?.data?.data?.response?.[0]);
         })
         .catch((err) => {
           console.log("err", err); // log
