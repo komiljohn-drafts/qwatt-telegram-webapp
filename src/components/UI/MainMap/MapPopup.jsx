@@ -3,7 +3,8 @@ import {
   DestinationIcon,
   QwattBlueIcon,
   QwattYellowIcon,
-  XIcon,
+  XDarkIcon,
+  XWhiteIcon,
 } from "@/screen-capture/icons"
 import { useEffect, useState } from "react"
 
@@ -19,7 +20,9 @@ import ErrorAlert from "../ErrorAlert/ErrorAlert"
 const MapPopup = ({ selectedBranch, setOpen }) => {
   // const [touchStart, setTouchStart] = useState(null);
   // const [touchEnd, setTouchEnd] = useState(null);
+
   const userData = useSelector((state) => state.userData?.data)
+  const [getElement, setGetElement] = useState("")
   const [errorAlertOpen, setErrorAlertOpen] = useState(false)
   const [errorAlertProps, setErrorAlertProps] = useState({})
   const [data, setData] = useState(null)
@@ -93,6 +96,32 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
     })
   }, [selectedBranch])
 
+  useEffect(() => {
+    const theme = document?.documentElement?.getAttribute("data-theme")
+
+    if (theme) {
+      setGetElement(theme)
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      const themeMutation = mutations.find(
+        (mutation) =>
+          mutation.attributeName === "data-theme" &&
+          mutation.target === document.documentElement
+      )
+
+      if (themeMutation) {
+        setGetElement(themeMutation.target.getAttribute("data-theme"))
+      }
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <AnimatePresence mode="wait">
       <div />
@@ -115,7 +144,7 @@ const MapPopup = ({ selectedBranch, setOpen }) => {
         </div> */}
         <div className={styles.xIcon}>
           <span onClick={() => setOpen(() => false)}>
-            <XIcon />
+            {getElement === "dark" ? <XWhiteIcon /> : <XDarkIcon />}
           </span>
         </div>
         <div>

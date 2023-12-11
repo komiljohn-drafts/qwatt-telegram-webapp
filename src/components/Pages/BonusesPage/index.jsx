@@ -9,6 +9,7 @@ import styles from "./BonusesPage.module.scss"
 const BonusesPage = () => {
   const userData = useSelector((state) => state.userData?.data)
   const [promocode, setPromocode] = useState("")
+  const [getElement, setGetElement] = useState("")
   const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
   const [errorAlertOptions, setErrorAlertOptions] = useState("")
   const [bonus, setBonus] = useState("")
@@ -76,6 +77,32 @@ const BonusesPage = () => {
     fetchBonus()
   }, [])
 
+  useEffect(() => {
+    const theme = document?.documentElement?.getAttribute("data-theme")
+
+    if (theme) {
+      setGetElement(theme)
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      const themeMutation = mutations.find(
+        (mutation) =>
+          mutation.attributeName === "data-theme" &&
+          mutation.target === document.documentElement
+      )
+
+      if (themeMutation) {
+        setGetElement(themeMutation.target.getAttribute("data-theme"))
+      }
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.blueBg}>
@@ -88,7 +115,13 @@ const BonusesPage = () => {
         </div>
       </div>
 
-      <div className={styles.promocodeContainer}>
+      <div
+        className={
+          getElement === "dark"
+            ? styles.promocodeContainer
+            : styles.promocodeContainerWhite
+        }
+      >
         <label>{t("get_bonuses")}</label>
         <input
           type="text"

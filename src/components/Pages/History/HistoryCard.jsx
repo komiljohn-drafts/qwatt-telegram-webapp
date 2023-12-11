@@ -7,67 +7,66 @@ import {
   TimeIcon,
   UpIcon,
   starIcon,
-} from "@/screen-capture/icons";
+} from "@/screen-capture/icons"
 
-import PropTypes from "prop-types";
-import styles from "./style.module.scss";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { formatDate } from "@/helpers/formatDate";
+import PropTypes from "prop-types"
+import styles from "./style.module.scss"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { formatDate } from "@/helpers/formatDate"
 
 const HistoryCard = ({ order }) => {
-  const [open, setOpen] = useState();
-  const { t } = useTranslation();
+  const [open, setOpen] = useState()
+  const { t } = useTranslation()
   const readMoreHandler = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const paymentMethod = () => {
-    const { ball, total, rental_name, card } = order;
-    let result = "";
-    let icon = <></>;
+    const { ball, total, rental_name, card } = order
+    let result = ""
+    let icon = <></>
     if (ball > 0) {
-      result = t("scores");
-      icon = starIcon();
+      result = t("scores")
+      icon = starIcon()
       if (total > 0) {
-        result += " + " + card;
+        result += " + " + card
       }
     } else if (rental_name) {
-      result = rental_name;
-      icon = <LightingIcon color="#12ADC1" />;
+      result = rental_name
+      icon = <LightingIcon color="#0073ff" />
       if (total > 0) {
-        result += " + " + card;
+        result += " + " + card
       }
     } else {
-      result = card;
+      result = card
     }
     return (
       <span className="flex items-center gap-1">
         {icon} {result}
       </span>
-    );
-  };
+    )
+  }
 
   return (
     <div className={styles.usedHistory}>
-      {order?.status_name === "Order time out" 
-        ? <div
-            className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
-            style={{ background: "#c1121226" }}
-          >
-            <p className="font-medium text-sm text-[#C11212]">
-              {t( "lease_ended" )}
-            </p>
-          </div>
-        : <div
-            className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
-            style={{ background: "rgba(18, 173, 193, 0.15)" }}
-          >
-            <p className="font-medium text-sm text-[#12ADC1]">
-              {t( "finished" )}
-            </p>
-          </div>
-      }
+      {order?.status_name === "Order time out" ? (
+        <div
+          className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
+          style={{ background: "#c1121226" }}
+        >
+          <p className="font-medium text-sm text-[#C11212]">
+            {t("lease_ended")}
+          </p>
+        </div>
+      ) : (
+        <div
+          className="flex w-max items-center justify-center px-2 py-1 mb-2 rounded-2xl"
+          style={{ background: "#0073FF26" }}
+        >
+          <p className="font-medium text-sm text-[#0073ff]">{t("finished")}</p>
+        </div>
+      )}
 
       <div className={styles.historyInfo}>
         <div>
@@ -81,18 +80,18 @@ const HistoryCard = ({ order }) => {
         <div>
           <DollorIcon />
         </div>
-        <div>
+        <pre>
           {`${order?.total || 0}`} {t("sum")}
-        </div>
+        </pre>
       </div>
       {order?.ball > 0 && (
         <div className={styles.historyInfo}>
           <div>
             <BonusIcon />
           </div>
-          <div>
+          <pre>
             {`${order?.ball}`} {t("score")}
-          </div>
+          </pre>
         </div>
       )}
 
@@ -113,10 +112,12 @@ const HistoryCard = ({ order }) => {
 
         <div className={styles.usedInfo}>
           <p>{t("rental_end")}</p>
-          {order?.status_name !== "Order time out" ? (<>
-            <div>{order?.end_merchant}</div>
-            <pre>{formatDate(order?.end_time)}</pre>
-          </>) : (
+          {order?.status_name !== "Order time out" ? (
+            <>
+              <div>{order?.end_merchant}</div>
+              <pre>{formatDate(order?.end_time)}</pre>
+            </>
+          ) : (
             <div className="text-[#C11212]">{t("powerbank_not_returned")}</div>
           )}
         </div>
@@ -136,15 +137,15 @@ const HistoryCard = ({ order }) => {
         {!open ? <DownIcon /> : <UpIcon />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HistoryCard;
+export default HistoryCard
 
 HistoryCard.propTypes = {
   order: PropTypes.object,
-};
+}
 
 HistoryCard.defaultProps = {
   order: {},
-};
+}

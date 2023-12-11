@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import ReactCodeInput from "react-verification-code-input";
-import { orderActions } from "@/store/Order/order";
-import { setStation } from "@/services/setOrder";
-import styles from "./style.module.scss";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import ReactCodeInput from "react-verification-code-input"
+import { orderActions } from "@/store/Order/order"
+import { setStation } from "@/services/setOrder"
+import styles from "./style.module.scss"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 const OrderCreate = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [orderNumber, setOrderNumber] = useState();
-  const [isOrderNumError, setIsOrderNumError] = useState(false);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({});
-  const [isClearInput, setIsClearInput] = useState(false);
-  const inputRef = useRef();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const [orderNumber, setOrderNumber] = useState()
+  const [isOrderNumError, setIsOrderNumError] = useState(false)
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
+  const [errorAlertProps, setErrorAlertProps] = useState({})
+  const [isClearInput, setIsClearInput] = useState(false)
+  const inputRef = useRef()
 
   const handleSetStation = () => {
     setStation({
@@ -31,55 +31,55 @@ const OrderCreate = () => {
         res?.data?.data?.response[0]?.status == false &&
         res?.data?.data?.response[0]?.merchant_list_id != ""
       ) {
-        setErrorAlertOpen(true);
+        setErrorAlertOpen(true)
         setErrorAlertProps({
           text: t("station_is_offline"),
           action: () => setErrorAlertOpen(false),
-        });
+        })
       } else if (res?.data?.data?.count == 0) {
-        setErrorAlertOpen(true);
+        setErrorAlertOpen(true)
         setErrorAlertProps({
           text: t("station_is_not_found"),
           action: () => setErrorAlertOpen(false),
-        });
+        })
       } else if (
         res?.data?.data?.response[0]?.status == false &&
         res?.data?.data?.response[0]?.merchant_list_id == ""
       ) {
-        setErrorAlertOpen(true);
+        setErrorAlertOpen(true)
         setErrorAlertProps({
           text: t("station_is_disabled"),
           action: () => setErrorAlertOpen(false),
-        });
+        })
       } else if (res?.data?.data?.response[0]?.status == true) {
-        dispatch(orderActions.setOrderId(res.data?.data ?? {}));
-        res?.data?.data?.count > 0 && navigate("/uz/payment");
+        dispatch(orderActions.setOrderId(res.data?.data ?? {}))
+        res?.data?.data?.count > 0 && navigate("/uz/payment")
       }
-    });
-  };
+    })
+  }
 
   const handleOrderCode = (value) => {
-    setIsOrderNumError(false);
-    setOrderNumber(value);
-  };
+    setIsOrderNumError(false)
+    setOrderNumber(value)
+  }
 
   useEffect(() => {
     if (inputRef?.current && isClearInput) {
-      setOrderNumber("");
-      inputRef.current.__clearvalues__();
-      setIsClearInput(false);
+      setOrderNumber("")
+      inputRef.current.__clearvalues__()
+      setIsClearInput(false)
     }
-  }, [isClearInput]);
+  }, [isClearInput])
 
   useEffect(() => {
     if (orderNumber?.length == 6) {
-      handleSetStation();
+      handleSetStation()
     }
-  }, [orderNumber]);
+  }, [orderNumber])
 
   return (
     <div className={styles.addingCardWrap}>
-      <p className={`text-center text-[#686B70] font-medium mb-8 ${styles.enterCode}`}>
+      <p className={`text-center font-medium mb-8 ${styles.enterCode}`}>
         {t("enter_station_code")}
       </p>
       <div
@@ -104,7 +104,7 @@ const OrderCreate = () => {
         setOpenAlert={setErrorAlertOpen}
         errorMesage={errorAlertProps.text}
         dependency={() => {
-          setIsClearInput(true);
+          setIsClearInput(true)
         }}
       />
       <div className={styles.addBtn}>
@@ -112,9 +112,9 @@ const OrderCreate = () => {
           className={styles.Btn}
           onClick={() => {
             if (orderNumber?.length == 6) {
-              handleSetStation();
+              handleSetStation()
             } else {
-              setIsOrderNumError(true);
+              setIsOrderNumError(true)
             }
           }}
         >
@@ -122,7 +122,7 @@ const OrderCreate = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrderCreate;
+export default OrderCreate

@@ -1,41 +1,41 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useMemo, useState } from "react"
 
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import FullScreenSpinner from "@/components/atoms/FullScreenSpinner";
-import { SwipeableDrawer } from "@mui/material";
-import cardicon from "@/assets/images/card.jpg";
-import { checkCardType } from "@/helpers/checkCardType";
-import { getCards } from "@/services/getCards";
-import { getPrice } from "@/services/getPrice";
-import { orderErrorNoteActions } from "@/store/Order/orderErrorNote";
-import { setOrder } from "@/services/setOrder";
-import { slotActions } from "@/store/Order/Slot";
-import styles from "./style.module.scss";
-import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { formatCardNumber } from "@/helpers/formatCardNumber";
-import { BonusIcon, starIcon } from "@/screen-capture/icons";
-import { getBonus, getProfile } from "@/services/getProfile";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import FullScreenSpinner from "@/components/atoms/FullScreenSpinner"
+import { SwipeableDrawer } from "@mui/material"
+import cardicon from "@/assets/images/card.jpg"
+import { checkCardType } from "@/helpers/checkCardType"
+import { getCards } from "@/services/getCards"
+import { getPrice } from "@/services/getPrice"
+import { orderErrorNoteActions } from "@/store/Order/orderErrorNote"
+import { setOrder } from "@/services/setOrder"
+import { slotActions } from "@/store/Order/Slot"
+import styles from "./style.module.scss"
+import { useCheckUserBlocked } from "@/hooks/useCheckUserBlocked"
+import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import { formatCardNumber } from "@/helpers/formatCardNumber"
+import { BonusIcon, starIcon } from "@/screen-capture/icons"
+import { getBonus, getProfile } from "@/services/getProfile"
 
 const PaymentInfo = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isUserBlocked = useCheckUserBlocked();
-  const { t } = useTranslation();
-  const selector = useSelector((state) => state.orders);
-  const [myCards, setMyCards] = useState(null);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({});
-  const userData = useSelector((state) => state.userData?.data);
-  const [selectedCardId, setSelectedCardId] = useState();
-  const [isCardSelectOpen, setCardSelectOpen] = useState(false);
-  const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon);
-  const [data, setData] = useState(null);
-  const [isBonus, setIsBonus] = useState(false);
-  const [bonus, setBonus] = useState(null);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const isUserBlocked = useCheckUserBlocked()
+  const { t } = useTranslation()
+  const selector = useSelector((state) => state.orders)
+  const [myCards, setMyCards] = useState(null)
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
+  const [errorAlertProps, setErrorAlertProps] = useState({})
+  const userData = useSelector((state) => state.userData?.data)
+  const [selectedCardId, setSelectedCardId] = useState()
+  const [isCardSelectOpen, setCardSelectOpen] = useState(false)
+  const [selectedCardIcon, setSelectedCardIcon] = useState(cardicon)
+  const [data, setData] = useState(null)
+  const [isBonus, setIsBonus] = useState(false)
+  const [bonus, setBonus] = useState(null)
 
   const selectorRes = useMemo(() => {
     if (
@@ -44,21 +44,21 @@ const PaymentInfo = () => {
       selector?.orderIds?.response &&
       selector?.orderIds?.response?.length > 0
     ) {
-      return selector?.orderIds?.response[0];
+      return selector?.orderIds?.response[0]
     }
-  }, [selector]);
+  }, [selector])
 
   const handleCreateOrder = () => {
     if (isUserBlocked == true) {
-      setErrorAlertOpen(true);
+      setErrorAlertOpen(true)
       setErrorAlertProps({
         text: t("account_is_blocked"),
         action: () => setErrorAlertOpen(false),
-      });
-      return;
+      })
+      return
     }
 
-    navigate("/uz/rent", { replace: true });
+    navigate("/uz/rent", { replace: true })
 
     setOrder({
       data: {
@@ -75,31 +75,31 @@ const PaymentInfo = () => {
             orderErrorNoteActions.setOrderErrorNote(
               res?.data?.data?.data?.error_note
             )
-          );
-          return;
+          )
+          return
         }
         if (res?.data?.data?.data?.response?.[0]?.slot) {
           dispatch(
             slotActions.setSlot(res?.data?.data?.data?.response?.[0]?.slot)
-          );
+          )
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
           setErrorAlertProps({
             text: "Something went wrong",
             action: () => setErrorAlertOpen(false),
-          });
-          console.log("There is no slot in response"); // log
+          })
+          console.log("There is no slot in response") // log
         }
       })
       .catch((err) => {
-        setErrorAlertOpen(true);
+        setErrorAlertOpen(true)
         setErrorAlertProps({
           text: err?.data?.data,
           action: () => setErrorAlertOpen(false),
-        });
-        console.log("order create error", err?.data?.data); // log
-      });
-  };
+        })
+        console.log("order create error", err?.data?.data) // log
+      })
+  }
 
   const handleBonusClick = () => {
     if (bonus >= 7500) {
@@ -114,7 +114,7 @@ const PaymentInfo = () => {
   }
 
   const getOrderPrice = () => {
-    if (!selectorRes?.merchant_list_id_data?.merchant_pricing_id) return;
+    if (!selectorRes?.merchant_list_id_data?.merchant_pricing_id) return
 
     getPrice({
       data: {
@@ -125,38 +125,39 @@ const PaymentInfo = () => {
       },
     })
       .then((res) => {
-        setData(res?.data?.data?.response);
+        setData(res?.data?.data?.response)
       })
       .catch(() => {
-        setErrorAlertOpen(true);
-      });
-  };
+        setErrorAlertOpen(true)
+      })
+  }
 
   const getMyCards = () => {
     getCards({
-      data:{
-        user: userData?.guid
-      }
+      data: {
+        user: userData?.guid,
+      },
     })
       .then((res) => {
-        const responseData = res?.data?.data?.data?.response;
+        const responseData = res?.data?.data?.data?.response
         if (Array.isArray(responseData) && responseData.length > 0) {
-          setMyCards(responseData);
-          setSelectedCardId(responseData?.find(item => item?.main_card)?.guid || "");
+          setMyCards(responseData)
+          setSelectedCardId(
+            responseData?.find((item) => item?.main_card)?.guid || ""
+          )
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
         }
-
       })
       .catch(() => {
-        setErrorAlertOpen(true);
-      });
-  };
-  
+        setErrorAlertOpen(true)
+      })
+  }
+
   const fetchBonus = () => {
     if (!userData?.guid) {
       setErrorAlertOpen(true)
-      return;
+      return
     }
     getBonus({
       data: {
@@ -165,36 +166,36 @@ const PaymentInfo = () => {
         user_id: [userData?.guid],
       },
     })
-    .then((res) => {
-      if(res?.status === "OK"){
-        if(res?.data?.data?.response?.length > 0){
-          setBonus(res?.data?.data?.response?.[0]?.balance)
+      .then((res) => {
+        if (res?.status === "OK") {
+          if (res?.data?.data?.response?.length > 0) {
+            setBonus(res?.data?.data?.response?.[0]?.balance)
+          } else {
+            setBonus(0)
+          }
         } else {
-          setBonus(0)
+          setErrorAlertOpen(true)
         }
-      } else {
-        setErrorAlertOpen(true)
-      }
-    })
+      })
       .catch((err) => {
-        setErrorAlertOpen(true);
-      });
+        setErrorAlertOpen(true)
+      })
   }
 
   useEffect(() => {
-    getOrderPrice();
-    getMyCards();
-    fetchBonus();
-  }, []);
+    getOrderPrice()
+    getMyCards()
+    fetchBonus()
+  }, [])
 
   useEffect(() => {
-    if (selectedCardId === "") return;
+    if (selectedCardId === "") return
     const selectedCard = selectedCardId
       ? myCards.filter((card) => card?.guid == selectedCardId)?.[0]?.credit_card
-      : myCards?.[myCards?.length-1]?.credit_card;
-    const { icon } = checkCardType(selectedCard);
-    setSelectedCardIcon(icon);
-  }, [selectedCardId]);
+      : myCards?.[myCards?.length - 1]?.credit_card
+    const { icon } = checkCardType(selectedCard)
+    setSelectedCardIcon(icon)
+  }, [selectedCardId])
 
   if (!data || !myCards) {
     return (
@@ -205,7 +206,7 @@ const PaymentInfo = () => {
         />
         <FullScreenSpinner />
       </>
-    );
+    )
   }
 
   return (
@@ -246,7 +247,9 @@ const PaymentInfo = () => {
       <div className="flex flex-col gap-4">
         <div className={styles.paymentMethod}>
           {isBonus ? (
-            <div className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}>
+            <div
+              className={`flex flex-row gap-2 items-center ${styles.bonusTxt}`}
+            >
               {BonusIcon()}
               <div>{t("scores")}</div>
               <div className={styles.bonus}>
@@ -261,11 +264,16 @@ const PaymentInfo = () => {
                 src={selectedCardIcon}
                 alt="icon"
               ></img>
-              <div>
+              <p className={styles.cardNumbers}>
                 {selectedCardId
-                  ? formatCardNumber(myCards.find((card) => card?.guid == selectedCardId)?.credit_card)
-                  : formatCardNumber(myCards?.[myCards?.length-1]?.credit_card)}
-              </div>
+                  ? formatCardNumber(
+                      myCards.find((card) => card?.guid == selectedCardId)
+                        ?.credit_card
+                    )
+                  : formatCardNumber(
+                      myCards?.[myCards?.length - 1]?.credit_card
+                    )}
+              </p>
             </div>
           )}
           <button
@@ -287,45 +295,47 @@ const PaymentInfo = () => {
               },
             }}
           >
-            <div className="flex flex-col gap-4 p-6 pt-4">
+            <div className="flex flex-col gap-4 p-6 pt-4 bg-[var(--page-main-color)]">
               <div
                 className="rounded-2xl h-1 w-10 self-center"
                 style={{ background: "rgba(133, 127, 127, 0.15)" }}
               />
-              <h2 className="text-center text-lg font-semibold mb-2">
+              <h2 className="text-center text-lg font-semibold mb-2 text-[var(--close-icon-color)]">
                 {t("choose_payment_method")}
               </h2>
 
               <div
                 onClick={handleBonusClick}
-                className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
-                  isBonus ? "border-[#12ADC1]" : "border-[#F1F1F1]"
-                  } py-2 px-2 rounded-2xl items-center`}
+                className={`flex flex-row justify-between bg-[var(--main-color)] border cursor-pointer ${
+                  isBonus
+                    ? "border-[#0073ff]"
+                    : "border-[var(--page-header-border-color)]"
+                } py-2 px-2 rounded-2xl items-center`}
               >
-                <div className={`flex flex-row gap-6 items-center ${styles.bonusTxt}`}>
+                <div
+                  className={`flex flex-row gap-6 items-center ${styles.bonusTxt}`}
+                >
                   {BonusIcon()}
-                  <div>{t("scores")}</div>
+                  <p>{t("scores")}</p>
                   <div className={styles.bonus}>
-                    <div>{starIcon()}</div>
-                    <div>{bonus}</div>
+                    <span>{starIcon()}</span>
+                    <span>{bonus}</span>
                   </div>
                 </div>
-                <button
-                  className={isBonus ? "block" : "hidden"}
-                >
-                  <CheckCircleIcon sx={{ color: "#12ADC1" }} />
+                <button className={isBonus ? "block" : "hidden"}>
+                  <CheckCircleIcon sx={{ color: "#0073ff" }} />
                 </button>
               </div>
               {myCards?.map((card) => {
-                const { icon } = checkCardType(card?.credit_card);
+                const { icon } = checkCardType(card?.credit_card)
                 return (
                   <div
                     onClick={() => setSelectedCardId(card?.guid)}
                     key={card?.card_token}
-                    className={`flex flex-row justify-between bg-[#F9F9F9] border cursor-pointer ${
+                    className={`flex flex-row justify-between bg-[var(--main-color)]  border cursor-pointer ${
                       card?.guid == selectedCardId
-                        ? "border-[#12ADC1]"
-                        : "border-[#F1F1F1]"
+                        ? "border-[#0073ff]"
+                        : "border-[var(--page-header-border-color)]"
                     }  py-2 px-2 rounded-2xl items-center`}
                   >
                     <div className={"flex flex-row gap-6 items-center"}>
@@ -334,28 +344,31 @@ const PaymentInfo = () => {
                         src={icon || cardicon}
                         alt="icon"
                       ></img>
-                      <div>{card?.credit_card}</div>
+                      <p className="text-[var(--close-icon-color)]">
+                        {card?.credit_card}
+                      </p>
                     </div>
                     <button
-                      className={card?.guid == selectedCardId ? "block" : "hidden"}
+                      className={
+                        card?.guid == selectedCardId ? "block" : "hidden"
+                      }
                     >
-                      <CheckCircleIcon sx={{ color: "#12ADC1" }} />
+                      <CheckCircleIcon sx={{ color: "#0073ff" }} />
                     </button>
                   </div>
-                );
+                )
               })}
               <button
-                style={{ background: "rgba(104, 107, 112, 0.05)" }}
-                className="p-3 rounded-2xl text-[#686B70] font-medium"
+                className="p-3 rounded-2xl bg-[var(--bonus-input-color)] text-[var(--text-grey-color)] font-medium"
                 onClick={() => {
-                  navigate("/uz/add-card/?from=payment");
+                  navigate("/uz/add-card/?from=payment")
                 }}
               >
                 + {t("add_card")}
               </button>
               <button
                 onClick={() => {
-                  setCardSelectOpen(false);
+                  setCardSelectOpen(false)
                 }}
                 className={`p-3 rounded-2xl text-[#686B70] font-medium ${styles.rentBtn}`}
               >
@@ -382,16 +395,16 @@ const PaymentInfo = () => {
         className={styles.rentBtn}
         onClick={() => {
           if (selectorRes?.status == false) {
-            return;
+            return
           } else {
-            handleCreateOrder();
+            handleCreateOrder()
           }
         }}
       >
         {t("rent_now")}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default PaymentInfo;
+export default PaymentInfo

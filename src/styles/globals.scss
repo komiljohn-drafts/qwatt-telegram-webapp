@@ -5,9 +5,53 @@
 @import "../../public/fonts/font.css";
 
 :root {
-  --primary-color: #51267d;
-  --secondary-color: #fdc100;
-  --text-color: #696969;
+  --primary-color: #0073ff;
+  --main-color: #e2e4f1;
+  --main-light-color: #fff;
+  --button-color: linear-gradient(to top, #0073ff, #00c2ff);
+  --text-grey-color: #9093a2;
+  --page-main-color: #dfe1ee;
+  --page-header-color: #e2e4f1;
+  --page-header-border-color: #c9cbd9;
+  --title-text-color: #363845;
+  --close-icon-color: #242429;
+  --icon-card-number-color: #363845;
+  --icon-card-cost-color: #363845;
+  --icon-card-text-color: #9093a2;
+  --location-bg-color: #fff;
+  --bonus-card-color: #fff;
+  --bonus-border-color: #fff;
+  --bonus-input-color: #fff;
+  --add-btn-color: #fff;
+}
+
+html[data-theme="dark"] {
+  --primary-color: #0073ff;
+  --main-color: #242429;
+  --main-light-color: #2c2d35;
+  --button-color: linear-gradient(to top, #0073ff, #00c2ff);
+  --text-grey-color: #b3b7ce;
+  --page-main-color: #1c1c1e;
+  --page-header-color: #242429;
+  --page-header-border-color: #4b4b59;
+  --title-text-color: #fff;
+  --close-icon-color: #fff;
+  --icon-card-number-color: #fff;
+  --icon-card-cost-color: #fff;
+  --bg-shadow-color: rgba(0, 0, 0, 0.5);
+  --icon-card-text-color: #363845;
+  --location-bg-color: #242429;
+  --bonus-card-color: #242429;
+  --bonus-border-color: #313136;
+  --bonus-input-color: #34353f;
+  --add-btn-color: #fff;
+
+  //ymap color
+  --invert-filter: invert(100%);
+  --ms-invert-filter: invert(100%);
+  --webkit-invert-filter: invert(100%);
+  --moz-invert-filter: invert(100%);
+  --o-invert-filter: invert(100%);
 }
 
 html,
@@ -16,8 +60,9 @@ body {
   padding: 0;
   margin: 0;
   background: #fff;
-  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 }
 
 a {
@@ -29,6 +74,7 @@ a {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "SF Pro Display";
 }
 
 .crosshairs {
@@ -66,6 +112,18 @@ a {
     }
     .ymaps-2-1-79-float-button-icon_icon_geolocation {
       background-image: url(../assets/images/target.png);
+    }
+  }
+}
+
+.ymaps-2-1-79-map {
+  .ymaps-2-1-79-inner-panes {
+    .ymaps-2-1-79-ground-pane {
+      filter: var(--invert-filter);
+      -ms-filter: var(--ms-invert-filter);
+      -webkit-filter: var(--webkit-invert-filter);
+      -moz-filter: var(--moz-invert-filter);
+      -o-filter: var(--o-invert-filter);
     }
   }
 }

@@ -2,7 +2,7 @@
 
 .headerNav {
   position: absolute;
-  background-color: $main-color;
+  background-color: var(--main-color);
   top: 0;
   left: 0;
   display: flex;
@@ -23,7 +23,7 @@
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
-      background: #12adc1;
+      background: var(--primary-color);
       width: 14px;
       height: 14px;
       border-radius: 50%;
@@ -61,7 +61,7 @@
         font-size: 15px;
         font-weight: 400;
         line-height: 19px;
-        color: #fff;
+        color: var(--close-icon-color);
       }
     }
     .downloadApp {
@@ -88,7 +88,7 @@
   bottom: 0;
   left: 0;
   z-index: 1001;
-  background-color: $main-color;
+  background-color: var(--main-color);
   padding: 12px 16px 25px 16px;
   width: 100%;
   border-radius: 12px 12px 0;
@@ -96,17 +96,17 @@
   .street {
     text-align: center;
     font-size: 16px;
-    color: #fff;
+    color: var(--title-text-color);
     font-weight: 600;
     line-height: 19px;
     letter-spacing: 0.5px;
   }
   .adress {
     text-align: center;
-    margin: 2px 4px 20px 0;
+    margin: 8px 4px 20px 0;
     font-size: 13px;
     line-height: 18px;
-    color: $text-grey-color;
+    color: var(--text-grey-color);
   }
   .popUpDash {
     border-bottom: 3px solid #e6e6e6;
@@ -125,7 +125,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $main-light-color;
+    background-color: var(--main-light-color);
     border-radius: 12px;
     height: 56px;
     gap: 8px;
@@ -146,7 +146,7 @@
         justify-content: center;
       }
       span {
-        color: #fff;
+        color: var(--icon-card-number-color);
         font-size: 14px;
         font-weight: 500;
         line-height: 20px;
@@ -176,7 +176,7 @@
     font-weight: 600;
     line-height: 20px;
     margin-top: 15px;
-    color: #fff;
+    color: var(--icon-card-cost-color);
   }
   .tarif {
     display: flex;
@@ -191,18 +191,19 @@
       font-weight: 400;
       margin-top: 8px;
       line-height: 20px;
-      color: $text-grey-color;
+      color: var(--icon-card-text-color);
     }
     span {
       font-size: 14px;
       font-weight: 600;
       margin-top: 8px;
       line-height: 20px;
-      color: #ffff;
+      color: var(--icon-card-cost-color);
     }
   }
 }
 .CloseLocationWrap {
+  padding-top: 12px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -212,9 +213,9 @@
   flex-direction: column;
   align-items: center;
   min-height: 135px;
-
+  background: var(--bg-shadow-color);
   .circle {
-    background: $main-color;
+    background: var(--main-color);
     padding: 10px;
     border-radius: 50%;
     position: absolute;
@@ -230,13 +231,6 @@
     }
   }
   .bgShadow {
-    // position: fixed;
-    // width: 100%;
-    // height: 100%;
-    // background-color: $main-color;
-    // opacity: 0.6;
-    // z-index: 1000;
-
     .getButton {
       width: 90%;
       height: 48px;
@@ -252,7 +246,7 @@
       font-size: 15px;
       font-weight: 600;
       position: fixed;
-      bottom: 38px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 1001;
@@ -266,7 +260,7 @@
 
     .closestBox {
       display: flex;
-      background-color: $main-color;
+      background-color: var(--location-bg-color);
       box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
       padding: 10px;
       gap: 6px;
@@ -278,7 +272,7 @@
       font-size: 13px;
       font-weight: 500;
       p {
-        color: #fff;
+        color: var(--close-icon-color);
       }
 
       span {
@@ -362,4 +356,10 @@
   font-style: normal;
   font-weight: 600;
   line-height: 16px; /* 123.077% */
+}
+
+.defText {
+  background: #ffffff40;
+  padding: 4px 10px;
+  border-radius: 100px;
 }

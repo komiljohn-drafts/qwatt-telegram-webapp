@@ -1,41 +1,50 @@
-import { setCard, setCardOtp, setCardToken, setConfirmCardToken } from "@/services/getCards";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import {
+  setCard,
+  setCardOtp,
+  setCardToken,
+  setConfirmCardToken,
+} from "@/services/getCards"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useRef, useState } from "react"
 
-import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert";
-import ReactCodeInput from "react-verification-code-input";
-import { cardVerifyActions } from "@/store/slices/cardVerify";
-import styles from "./style.module.scss";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { cardDetailsActions } from "@/store/CardDetails/cardDetails";
+import ErrorAlert from "@/components/UI/ErrorAlert/ErrorAlert"
+import ReactCodeInput from "react-verification-code-input"
+import { cardVerifyActions } from "@/store/slices/cardVerify"
+import styles from "./style.module.scss"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import { cardDetailsActions } from "@/store/CardDetails/cardDetails"
 
 const OTPcode = () => {
-  const params = new URLSearchParams(document.location.search);
-  const { t } = useTranslation();
-  const [otp, setOtp] = useState("");
-  const navigate = useNavigate();
-  const [isOtpError, setIsOtpError] = useState(false);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const cardVerified = useSelector((state) => state.cardVerify?.verified);
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData?.data);
-  const clickCredentials = useSelector((state) => state.clickCredentials?.data);
-  const cardDetails = useSelector((state) => state.cardDetails?.data);
-  const [clickErrorNote, setClickErrorNote] = useState(false);
-  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-  const [errorAlertProps, setErrorAlertProps] = useState({});
-  const [isClearInput, setIsClearInput] = useState(false);
-  const inputRef = useRef();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const cardNumber = searchParams.get('card_number');
+  const params = new URLSearchParams(document.location.search)
+  const { t } = useTranslation()
+  const [otp, setOtp] = useState("")
+  const navigate = useNavigate()
+  const [isOtpError, setIsOtpError] = useState(false)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(0)
+  const cardVerified = useSelector((state) => state.cardVerify?.verified)
+  const card_number = useSelector(
+    (state) => state?.cardDetails?.data?.card_number
+  )
+  console.log("card_number", card_number)
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.userData?.data)
+  const clickCredentials = useSelector((state) => state.clickCredentials?.data)
+  const cardDetails = useSelector((state) => state.cardDetails?.data)
+  const [clickErrorNote, setClickErrorNote] = useState(false)
+  const [isErrorAlertOpen, setErrorAlertOpen] = useState(false)
+  const [errorAlertProps, setErrorAlertProps] = useState({})
+  const [isClearInput, setIsClearInput] = useState(false)
+  const inputRef = useRef()
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  // const cardNumber = searchParams.get("card_number")
 
   const handleSendOtp = () => {
     if (otp.length < 5) {
-      setIsOtpError(true);
-      return;
+      setIsOtpError(true)
+      return
     }
 
     setCardOtp({
@@ -44,65 +53,69 @@ const OTPcode = () => {
         sms_code: Number(otp),
       },
     })
-      .then((res) => { // setCardOtp
-        dispatch(cardVerifyActions.setCardVerify(true));
+      .then((res) => {
+        // setCardOtp
+        dispatch(cardVerifyActions.setCardVerify(true))
 
         if (res?.data?.data?.data?.error_code) {
-          setOtp("");
+          setOtp("")
 
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
 
           setErrorAlertProps({
             text: res?.data?.data?.data?.error_note,
             action: () => {
-              setErrorAlertOpen(false);
+              setErrorAlertOpen(false)
             },
-          });
-          return;
+          })
+          return
         } // end if
 
-        setCard({ 
+        setCard({
           data: {
-              credit_card: res?.data?.data?.data?.response?.[0]?.card_number,
-              card_number: cardNumber,
-              card_token: res?.data?.data?.data?.response?.[0]?.card_token,
-              main_card: true,
-              user_id: userData?.guid,
-              credit_card_status: true
-          }
+            credit_card: res?.data?.data?.data?.response?.[0]?.card_number,
+            card_number: card_number,
+            card_token: res?.data?.data?.data?.response?.[0]?.card_token,
+            main_card: true,
+            user_id: userData?.guid,
+            credit_card_status: true,
+          },
         })
-          .then(()=>{ // setCard
+          .then(() => {
+            // setCard
             if (params.get("from") == "order") {
-              navigate("/uz/order", { replace: true });
+              navigate("/uz/order", { replace: true })
             } else if (params.get("from") == "payment") {
-              navigate("/uz/payment", { replace: true });
+              navigate("/uz/payment", { replace: true })
             } else {
-              navigate("/uz/my-cards", { replace: true });
+              navigate("/uz/my-cards", { replace: true })
             }
           })
-          .catch((err) => { // setCard
-            setErrorAlertOpen(true);
+          .catch((err) => {
+            // setCard
+            setErrorAlertOpen(true)
             setErrorAlertProps({
               text: err?.data?.data,
               action: () => {
                 if (params.get("from") == "order") {
-                  navigate("/uz/order", { replace: true });
+                  navigate("/uz/order", { replace: true })
                 } else if (params.get("from") == "payment") {
-                  navigate("/uz/payment", { replace: true });
+                  navigate("/uz/payment", { replace: true })
                 } else {
-                  navigate("/uz/my-cards", { replace: true });
+                  navigate("/uz/my-cards", { replace: true })
                 }
               },
-            });
-            setOtp("");
+            })
+            setOtp("")
           })
       })
-      .catch((err) => { // setCardOtp
-        setErrorAlertOpen(true);
-        dispatch(cardVerifyActions.setCardVerify(false));
-        setOtp("");
-      });
-  };
+      .catch((err) => {
+        // setCardOtp
+        setErrorAlertOpen(true)
+        dispatch(cardVerifyActions.setCardVerify(false))
+        setOtp("")
+      })
+  }
 
   const sendAgain = () => {
     setCardToken({
@@ -119,69 +132,69 @@ const OTPcode = () => {
               card_number: cardDetails?.card_number,
               expire_date: cardDetails?.expire_date,
             })
-          );
-          dispatch(cardVerifyActions.setCardVerify(false));
+          )
+          dispatch(cardVerifyActions.setCardVerify(false))
           setSeconds(30)
           setMinutes(1)
         } else {
-          setErrorAlertOpen(true);
+          setErrorAlertOpen(true)
           setErrorAlertProps({
             text: res?.data?.data?.data?.error_note,
             action: () => {
-              setErrorAlertOpen(false);
+              setErrorAlertOpen(false)
             },
-          });
+          })
         }
-        navigate("/uz/otp");
+        navigate("/uz/otp")
       })
       .catch(() => {
-        setErrorAlertOpen(true);
-      });
+        setErrorAlertOpen(true)
+      })
   }
 
   useEffect(() => {
     if (cardVerified == true) {
-      return;
+      return
     }
     const interval = setInterval(() => {
       if (seconds > 0) {
-        setSeconds(seconds - 1);
+        setSeconds(seconds - 1)
       }
 
       if (seconds === 0) {
         if (minutes === 0) {
-          clearInterval(interval);
+          clearInterval(interval)
         } else {
-          setSeconds(59);
-          setMinutes(minutes - 1);
+          setSeconds(59)
+          setMinutes(minutes - 1)
         }
       }
-    }, 1000);
+    }, 1000)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, [seconds]);
+      clearInterval(interval)
+    }
+  }, [seconds])
 
   useEffect(() => {
     if (inputRef?.current && isClearInput) {
-      setOtp("");
-      inputRef.current.__clearvalues__();
-      setIsClearInput(false);
+      setOtp("")
+      inputRef.current.__clearvalues__()
+      setIsClearInput(false)
     }
-  }, [isClearInput]);
+  }, [isClearInput])
 
   useEffect(() => {
     if (otp.length == 5 && !isOtpError) {
-      handleSendOtp();
+      handleSendOtp()
     }
-  }, [otp]);
+  }, [otp])
 
   useEffect(() => {
     setMinutes(1)
     setSeconds(30)
     dispatch(cardVerifyActions.setCardVerify(false))
-  },[])
+  }, [])
 
   return (
     <div className={styles.addingCardWrap}>
@@ -199,8 +212,8 @@ const OTPcode = () => {
           fields={5}
           value={isErrorAlertOpen ? "" : otp}
           onChange={(val) => {
-            setIsOtpError(false);
-            setOtp(val);
+            setIsOtpError(false)
+            setOtp(val)
           }}
           style={{ width: "48px", height: "48px" }}
         ></ReactCodeInput>
@@ -244,7 +257,7 @@ const OTPcode = () => {
               //     });
               // }}
               onClick={sendAgain}
-              className="font-semibold cursor-pointer text-center mb-4 text-[#12ADC1]"
+              className="font-semibold cursor-pointer text-center mb-4 text-[#0073ff]"
             >
               {t("send_again")}
             </p>
@@ -257,21 +270,21 @@ const OTPcode = () => {
           setOpenAlert={setErrorAlertOpen}
           action={errorAlertProps.action}
           dependency={() => {
-            setIsClearInput(true);
+            setIsClearInput(true)
           }}
         />
 
         <button
           className={styles.Btn}
           onClick={() => {
-            handleSendOtp(otp);
+            handleSendOtp(otp)
           }}
         >
           {t("confirm")}
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OTPcode;
+export default OTPcode

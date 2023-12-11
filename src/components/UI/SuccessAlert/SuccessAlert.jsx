@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
-import { SwipeableDrawer } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types"
+import { SwipeableDrawer } from "@mui/material"
+import { useTranslation } from "react-i18next"
 
+import CheckIcon from "../../../assets/images/check.svg"
 export default function SuccessAlert({
   openAlert,
   setOpenAlert,
@@ -9,7 +10,7 @@ export default function SuccessAlert({
   text,
   action,
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <SwipeableDrawer
@@ -18,8 +19,8 @@ export default function SuccessAlert({
       className=""
       open={openAlert}
       onClose={() => {
-        action && action();
-        setOpenAlert(false);
+        action && action()
+        setOpenAlert(false)
       }}
       PaperProps={{
         sx: {
@@ -28,32 +29,35 @@ export default function SuccessAlert({
         },
       }}
     >
-      <div className="flex flex-col gap-3 p-6 pt-4 items-center">
+      <div className="flex flex-col gap-3 p-6 pt-4 items-center bg-[var(--main-color)] ">
         <div
           className="rounded-2xl h-1 w-10 self-center"
-          style={{ background: "rgba(133, 127, 127, 0.15)" }}
+          style={{ background: "#646778" }}
         />
 
-        <h2 className="text-center text-lg font-semibold">
+        <img src={CheckIcon} alt="icon" />
+
+        <h2 className="text-center text-lg font-semibold text-[var(--close-icon-color)]">
           {title || t("successfully_rented")}
         </h2>
 
-        <p className="text-center text-sm text-[#686B70] mb-4">
+        <p className="text-center text-sm text-[var(--text-grey-color)] mb-4">
           {text || t("charge_and_enjoy")}
         </p>
 
         <button
-          className="p-3 rounded-2xl bg-[#12ADC1] font-medium text-white w-full"
+          className="p-3 rounded-2xl font-medium text-white w-full"
+          style={{ background: "var(--button-color)" }}
           onClick={() => {
-            action && action();
-            setOpenAlert(false);
+            action && action()
+            setOpenAlert(false)
           }}
         >
           {t("to_menu")}
         </button>
       </div>
     </SwipeableDrawer>
-  );
+  )
 }
 
 SuccessAlert.propTypes = {
@@ -62,4 +66,4 @@ SuccessAlert.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
   action: PropTypes.func,
-};
+}

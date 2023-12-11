@@ -14,17 +14,17 @@
 
 .container {
   height: 100vh;
-  background-color: $page-main-color;
+  background-color: var(--page-main-color);
   .docWrap {
     padding: 16px;
     .document {
       display: flex;
       justify-content: space-between;
       padding: 19px 0;
-      border-bottom: 1px solid #313136;
+      border-bottom: 1px solid var(--bonus-border-color);
 
       p {
-        color: #fff;
+        color: var(--close-icon-color);
         font-size: 15px;
         font-weight: 500;
       }

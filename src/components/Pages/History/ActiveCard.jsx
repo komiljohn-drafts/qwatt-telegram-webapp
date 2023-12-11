@@ -41,16 +41,16 @@ const ActiveCard = ({ order }) => {
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
           <p>{t("rental_start")}</p>
-          <div>{order?.started_merchant}</div>
+          <p>{order?.started_merchant}</p>
           <pre>{formatDate(order?.created_time)}</pre>
         </div>
       )}
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
           <p>{t("rental_amount")}</p>
-          <div>
+          <p>
             {`${order?.total || 0}`} {t("sum")}
-          </div>
+          </p>
         </div>
       )}
 

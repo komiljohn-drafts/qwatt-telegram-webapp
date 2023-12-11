@@ -1,14 +1,14 @@
 @import "../styles/color";
 .priceHtml {
-  background-color: $page-main-color;
+  background-color: var(--page-main-color);
   padding: 0 16px;
   p {
     strong {
-      color: #fff;
+      color: var(--close-icon-color);
       font-weight: 600;
     }
     padding: 24px 0 0;
-    color: $text-grey-color;
+    color: var(--text-grey-color);
     text-align: justify;
   }
   img {

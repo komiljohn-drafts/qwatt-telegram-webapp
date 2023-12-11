@@ -1,10 +1,10 @@
 @import "../../../styles/color";
 
 .container {
-  background-color: $page-main-color;
+  background-color: var(--page-main-color);
   height: 100vh;
   .blueBg {
-    background-color: $page-header-color;
+    background-color: var(--page-header-color);
     height: 56px;
     padding: 16px;
 
@@ -24,7 +24,7 @@
       line-height: 18px; /* 138.462% */
 
       .bonuses {
-        color: $primary-color;
+        color: var(--close-icon-color);
         font-family: "SF Pro Display";
         font-size: 34px;
         font-weight: 700;
@@ -39,9 +39,9 @@
   }
 
   .promocodeContainer {
+    background-color: #313136;
+    border: 1px solid #34353f;
     border-radius: 21px;
-    background: #242429;
-    border: 1px solid #313136;
     margin: 64px 16px 0px;
     padding: 12px;
     display: flex;
@@ -49,7 +49,7 @@
 
     label {
       margin: 0 auto;
-      color: #fff;
+      color: var(--close-icon-color);
       text-align: center;
       font-size: 17px;
       font-style: normal;
@@ -63,7 +63,59 @@
       padding: 0px 16px;
       border-radius: 12px;
       border: 1px solid rgba(104, 107, 112, 0.1);
-      background: #34353f;
+      background: var(--bonus-input-color);
+      outline: none;
+
+      &:focus {
+        border: 1px solid $primary-color;
+      }
+    }
+
+    button {
+      margin-top: 8px;
+      color: white;
+      font-family: "SF Pro Display";
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px; /* 133.333% */
+      height: 48px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: $primary-color;
+
+      &:hover,
+      &:active {
+        background: #0f98aa;
+      }
+    }
+  }
+  .promocodeContainerWhite {
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 21px;
+    margin: 64px 16px 0px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin: 0 auto;
+      color: var(--close-icon-color);
+      text-align: center;
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px; /* 129.412% */
+    }
+
+    input {
+      margin-top: 12px;
+      height: 48px;
+      padding: 0px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(104, 107, 112, 0.1);
+      background: var(--bonus-input-color);
       outline: none;
 
       &:focus {

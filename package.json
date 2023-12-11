@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.14.4",
+    "@pbe/react-yandex-maps": "^1.2.5",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",

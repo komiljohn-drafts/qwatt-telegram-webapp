@@ -12,7 +12,8 @@ import {
   PhoneIconSquare,
   PlayMarketIcon,
   ProfileIcon,
-  XIcon,
+  XDarkIcon,
+  XWhiteIcon,
   starIcon,
 } from "@/screen-capture/icons"
 import {
@@ -22,7 +23,7 @@ import {
   Placemark,
   YMaps,
   ZoomControl,
-} from "react-yandex-maps"
+} from "@pbe/react-yandex-maps"
 import { useRef, useState } from "react"
 
 import CloseLocation from "./CloseLocation"
@@ -31,7 +32,7 @@ import FullScreenSpinner from "@/components/atoms/FullScreenSpinner"
 import MapPopup from "./MapPopup"
 import OrderInfo from "./OrderInfo"
 import { getMerchantList } from "@/services/getMerchant"
-import img from "@/assets/images/qwatt_pin.png"
+import img from "@/assets/images/loc.png"
 import { locationActions } from "@/store/userLocation/location"
 import { orderDetailsActions } from "@/store/Order/orderDetails"
 import styles from "./style.module.scss"
@@ -57,6 +58,7 @@ const MainMap = () => {
   const orderData = useSelector((state) => state.orderDetails?.data)
 
   const [bonus, setBonus] = useState("")
+  const [getElement, setGetElement] = useState("")
   const [data, setData] = useState(null)
   const [isOpen, setOpen] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
@@ -316,6 +318,32 @@ const MainMap = () => {
       })
   }, [userData])
 
+  useEffect(() => {
+    const theme = document?.documentElement?.getAttribute("data-theme")
+
+    if (theme) {
+      setGetElement(theme)
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      const themeMutation = mutations.find(
+        (mutation) =>
+          mutation.attributeName === "data-theme" &&
+          mutation.target === document.documentElement
+      )
+
+      if (themeMutation) {
+        setGetElement(themeMutation.target.getAttribute("data-theme"))
+      }
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <div style={{ position: "relative" }}>
       {!data && <FullScreenSpinner />}
@@ -344,7 +372,7 @@ const MainMap = () => {
               zIndex: 1001,
               position: "absolute",
               width: "100%",
-              backgroundColor: "#242429",
+              backgroundColor: getElement === "dark" ? "#242429" : "#fff",
               height: "100vh",
               overflow: "hidden",
             }}
@@ -356,7 +384,7 @@ const MainMap = () => {
                   className={styles.xIcon}
                   onClick={() => setMenuVisible(false)}
                 >
-                  <XIcon />
+                  {getElement === "dark" ? <XWhiteIcon /> : <XDarkIcon />}
                 </button>
                 <div
                   className={styles.bonus}
