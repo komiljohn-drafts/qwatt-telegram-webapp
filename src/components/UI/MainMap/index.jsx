@@ -4,7 +4,6 @@ import {
   BonusMenuIcon,
   DocumentsIcon,
   FaqIcon,
-  FilterIcon,
   HistoryIcon,
   MenuIcon,
   MyCardIcon,
@@ -44,7 +43,6 @@ import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 import { getOrders } from "@/services/setOrder"
 import { userDataActions } from "@/store/slices/userData"
-import { sendMsg } from "@/helpers/sendMsg"
 import { getBonus } from "@/services/getProfile"
 
 const MainMap = () => {

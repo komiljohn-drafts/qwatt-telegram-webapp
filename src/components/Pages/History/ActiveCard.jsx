@@ -18,7 +18,7 @@ const ActiveCard = ({ order }) => {
               style={{ background: "#0073FF26" }}
             >
               <p className="font-medium text-sm text-[#0073FF]">
-                {t("on_use")}
+                {t("on_use")}143123
               </p>
             </div>
             <p className="font-medium text-[#0073FF]">{`
@@ -57,7 +57,7 @@ const ActiveCard = ({ order }) => {
       {order?.end_time == "" && (
         <div className={styles.usedInfo}>
           <p>{t("powerbank_id")}</p>
-          <div>{order?.power_bank_id}</div>
+          <p>{order?.power_bank_id}</p>
         </div>
       )}
     </div>

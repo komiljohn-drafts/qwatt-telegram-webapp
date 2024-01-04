@@ -1,5 +1,4 @@
 import useOrderTimer from "@/hooks/useOrderTimer"
-import React from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
@@ -14,7 +13,7 @@ const OrderTimer = ({ order }) => {
   return (
     <div className="w-full min-w-[80vw] text-xs text-white rounded-2xl">
       <div
-        className="flex flex-row w-full p-4 rounded-t-2xl justify-between items-center"
+        className="flex flex-row w-full py-2 px-4 rounded-t-2xl justify-between items-center"
         style={{ background: "var(--button-color)" }}
       >
         <p className={styles.defText}>Используется</p>
@@ -27,7 +26,7 @@ const OrderTimer = ({ order }) => {
       </div>
 
       <div
-        className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center"
+        className="flex flex-row w-full bg-white py-2 pt-3 px-4 justify-between items-center"
         style={{ background: "var(--main-color)" }}
       >
         <p className="text-[var(--text-grey-color)]">{t("on_use")}:</p>
@@ -46,7 +45,7 @@ const OrderTimer = ({ order }) => {
         `}</p>
       </div>
       <div
-        className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center"
+        className="flex flex-row w-full bg-white py-2 px-4 justify-between items-center"
         style={{ background: "var(--main-color)" }}
       >
         <p className="text-[var(--text-grey-color)]">{t("rental_price")}:</p>
@@ -56,7 +55,7 @@ const OrderTimer = ({ order }) => {
       </div>
       {debt && (
         <div
-          className="flex flex-row w-full bg-white py-1 px-4 justify-between items-center"
+          className="flex flex-row w-full bg-white py-2 px-4 justify-between items-center"
           style={{ background: "var(--main-color)" }}
         >
           <p className="text-[var(--text-grey-color)]">{t("debt")}</p>
@@ -66,7 +65,7 @@ const OrderTimer = ({ order }) => {
         </div>
       )}
       <div
-        className="flex flex-row w-full rounded-b-2xl bg-white py-1 px-4 justify-between items-center"
+        className="flex flex-row w-full rounded-b-2xl bg-white py-2 pb-3 px-4 justify-between items-center"
         style={{ background: "var(--main-color)" }}
       >
         <p className="text-[var(--text-grey-color)]">{t("rental_place")}:</p>

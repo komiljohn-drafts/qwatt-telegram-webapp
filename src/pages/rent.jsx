@@ -86,7 +86,9 @@ export default function Rent() {
               ).map((_, index) => (
                 <div
                   key={index}
-                  className={`w-12 h-4 border rounded-2xl ${
+                  className={`${
+                    styles.powerbank_slot_box
+                  } w-12 h-4 border rounded-2xl ${
                     index + 1 == slotPosition
                       ? "bg-[#0073ff]  border-[#0073ff]"
                       : "bg-[#EFEFEF]  border-[#E0E0E0]"

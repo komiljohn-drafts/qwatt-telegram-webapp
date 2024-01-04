@@ -52,6 +52,9 @@ html[data-theme="dark"] {
   --webkit-invert-filter: invert(100%);
   --moz-invert-filter: invert(100%);
   --o-invert-filter: invert(100%);
+  body {
+    background: #242429;
+  }
 }
 
 html,
@@ -59,10 +62,8 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
-  background: #fff;
-  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
-    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {

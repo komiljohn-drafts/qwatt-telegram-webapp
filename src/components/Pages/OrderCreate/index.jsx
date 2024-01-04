@@ -93,7 +93,8 @@ const OrderCreate = () => {
           ref={inputRef}
           value={orderNumber}
           onChange={handleOrderCode}
-        ></ReactCodeInput>
+          className={styles.code_input}
+        />
       </div>{" "}
       {isOrderNumError == true && (
         <p className="text-red-600 text-center">{t("incorrect_otp_leng")}</p>

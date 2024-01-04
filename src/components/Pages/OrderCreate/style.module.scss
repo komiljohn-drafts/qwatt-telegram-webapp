@@ -5,6 +5,12 @@
   display: flex;
   background: var(--page-main-color);
   flex-direction: column;
+  .code_input {
+    input {
+      background-color: var(--main-color);
+      color: var(--text-grey-color);
+    }
+  }
 
   .enterCode {
     color: var(--text-grey-color);
