@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion"
 import {
   AppStoreIcon,
-  BonusMenuIcon,
   DocumentsIcon,
   FaqIcon,
   HistoryIcon,
@@ -44,6 +43,7 @@ import { useTranslation } from "react-i18next"
 import { getOrders } from "@/services/setOrder"
 import { userDataActions } from "@/store/slices/userData"
 import { getBonus } from "@/services/getProfile"
+import PercentPng from "@/assets/images/percent.png"
 
 const MainMap = () => {
   const mapRef = useRef()
@@ -90,7 +90,7 @@ const MainMap = () => {
     {
       text: "bonuses",
       route: "/uz/bonuses",
-      icon: <BonusMenuIcon />,
+      icon: <img src={PercentPng} />,
     },
     {
       text: "order_history",
@@ -187,6 +187,8 @@ const MainMap = () => {
       })
     // }, [filterId]);
   }, [])
+
+  console.log("data => ", data)
 
   useEffect(() => {
     const options = {
@@ -342,6 +344,14 @@ const MainMap = () => {
     }
   }, [])
 
+  const changeTheme = () => {
+    const current = document.documentElement.getAttribute("data-theme")
+    document.documentElement.setAttribute(
+      "data-theme",
+      current === "dark" ? "light" : "dark"
+    )
+  }
+
   return (
     <div style={{ position: "relative" }}>
       {!data && <FullScreenSpinner />}
@@ -352,6 +362,7 @@ const MainMap = () => {
         >
           <MenuIcon />
         </div>
+        <div className={styles.theme_change} onClick={changeTheme}></div>
         {/* <div className={styles.openFilter} onClick={() => navigate("/filter")}>
           <FilterIcon />
           <div className={filterId ? styles.circle : styles.hidden}></div>
@@ -480,7 +491,7 @@ const MainMap = () => {
             options={{
               // preset: "islands#lightBlueClusterIcons'",
               color: "black",
-              groupByCoordinates: false,
+              groupByCoordinates: true,
               clusterDisableClickZoom: true,
               clusterHideIconOnBalloonOpen: true,
               geoObjectHideIconOnBalloonOpen: true,
@@ -498,7 +509,7 @@ const MainMap = () => {
                     15,
                     {
                       duration: 700,
-                      checkZoomRange: true,
+                      // checkZoomRange: true,
                     }
                   )
                   setOpen((p) => !p)

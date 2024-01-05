@@ -18,7 +18,7 @@ const ActiveCard = ({ order }) => {
               style={{ background: "#0073FF26" }}
             >
               <p className="font-medium text-sm text-[#0073FF]">
-                {t("on_use")}143123
+                {t("on_use")}
               </p>
             </div>
             <p className="font-medium text-[#0073FF]">{`

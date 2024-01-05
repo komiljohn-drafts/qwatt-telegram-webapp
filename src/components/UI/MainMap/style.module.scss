@@ -14,6 +14,12 @@
   padding: 0 16px;
   z-index: 1000;
   width: 100%;
+  .theme_change {
+    width: 20px;
+    height: 20px;
+    background-color: var(--text-grey-color);
+    border-radius: 10px;
+  }
 
   .openFilter {
     position: relative;
