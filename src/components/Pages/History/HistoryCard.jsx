@@ -3,7 +3,6 @@ import {
   DollorIcon,
   DownIcon,
   LightingIcon,
-  QwattBlueIcon,
   TimeIcon,
   UpIcon,
   starIcon,

@@ -29,7 +29,7 @@ export default function SuccessAlert({
         },
       }}
     >
-      <div className="flex flex-col gap-3 p-6 pt-4 items-center bg-[var(--main-color)] ">
+      <div className="flex flex-col gap-3 p-6 pt-4 items-center bg-[var(--location-bg-color)] ">
         <div
           className="rounded-2xl h-1 w-10 self-center"
           style={{ background: "#646778" }}

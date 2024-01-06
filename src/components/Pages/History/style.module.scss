@@ -54,20 +54,19 @@
       color: #ed4337;
     }
   }
+  pre {
+    color: var(--close-icon-color) !important;
+    padding-bottom: 2px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+  }
   .historyInfo {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     padding: 2px;
     gap: 10px;
-
-    pre {
-      color: var(--close-icon-color);
-      padding-bottom: 2px;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 24px;
-    }
   }
 
   .moreWrap {

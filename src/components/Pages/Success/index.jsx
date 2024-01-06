@@ -1,5 +1,5 @@
-import { SuccessIcon } from "@/screen-capture/icons";
-import styles from "./style.module.scss";
+import { SuccessIcon } from "@/screen-capture/icons"
+import styles from "./style.module.scss"
 
 const SuccessPage = () => {
   return (
@@ -14,7 +14,7 @@ const SuccessPage = () => {
         <button className={styles.goMainBtn}>В главное меню</button>
       </a>
     </div>
-  );
-};
+  )
+}
 
-export default SuccessPage;
+export default SuccessPage
